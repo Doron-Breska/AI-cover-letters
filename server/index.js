@@ -1,20 +1,19 @@
-const express = require("express");
+import cors from "cors";
+import express from "express";
+import * as dotenv from "dotenv";
+import router from "./routes/testroute.js";
+
+dotenv.config();
+
 const app = express();
+const port = process.env.PORT || 5001;
+
 app.use(express.json());
-const db = require("./models");
-require("dotenv").config();
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-// routers
-// const usersRouter = require("./routes/Users");
-// app.use("/users", usersRouter);
+app.use("/api", router);
 
-db.sequelize
-  .sync()
-  .then(() => {
-    app.listen(3001, () => {
-      console.log("Server running on port 3001");
-    });
-  })
-  .catch((err) => {
-    console.error("Failed to start the server: ", err);
-  });
+app.listen(port, () => {
+  console.log("server running on port:", port);
+});
