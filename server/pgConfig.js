@@ -1,15 +1,12 @@
 import PG from "pg";
 const Pool = PG.Pool;
 
-import * as dotenv from "dotenv";
-dotenv.config();
-
 const pool = new Pool({
-  user: "postgres",
-  host: "ai-job-boards.c85edmmwq2e9.eu-north-1.rds.amazonaws.com",
-  database: "ai_jobs",
-  password: "Dbrd-11223344",
-  port: 5432,
+  user: "postgres", // Change this to the appropriate user if needed
+  host: "localhost", // Use "localhost" because it's running locally
+  database: "postgres", // Change this to the appropriate database name
+  password: "", // You may need to specify a password if one is set
+  port: 5433, // Use the correct port (5433 in your case)
 });
 
 export default pool;
