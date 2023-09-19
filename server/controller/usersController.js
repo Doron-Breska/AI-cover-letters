@@ -1,5 +1,6 @@
 import pool from "../pgConfig.js";
 import { verifyPassword, encryptPassword } from "../utils/bcrypt.js";
+import { generateToken } from "../utils/jwt.js";
 
 const getAllUsers = async (req, res) => {
   try {
@@ -13,14 +14,13 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const userId = req.params.id; // Get the user_id from the request parameters
+  const userId = req.params.id;
 
   try {
     const query = "SELECT * FROM users WHERE user_id = $1";
     const { rows } = await pool.query(query, [userId]);
 
     if (rows.length === 0) {
-      // If no user is found with the given user_id, return a 404 Not Found response
       return res
         .status(404)
         .json({ status: "Error", message: "User not found" });
@@ -85,4 +85,34 @@ const createUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, createUser, getUserById };
+const logIn = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const query = "SELECT * FROM users WHERE username = $1";
+    const { rows } = await pool.query(query, [username]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const user = rows[0];
+    const verified = await verifyPassword(password, user.password);
+
+    if (verified) {
+      const token = generateToken(user);
+      console.log("this is the token", token);
+      return res.status(200).json({ msg: "Login successful", token: token });
+    } else {
+      return res.status(401).json({ msg: "Invalid password" });
+    }
+  } catch (error) {
+    console.error("Error details:", error);
+
+    return res
+      .status(500)
+      .json({ msg: "Something went wrong with the login process", error });
+  }
+};
+
+export { getAllUsers, createUser, getUserById, logIn };
