@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import * as dotenv from "dotenv";
-import router from "./routes/testroute.js";
+import usersRouter from "../server/routes/usersRoute.js";
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/api", router);
+app.use("/api/users", usersRouter);
 
 app.listen(port, () => {
   console.log("server running on port:", port);
