@@ -12,6 +12,28 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  const userId = req.params.id; // Get the user_id from the request parameters
+
+  try {
+    const query = "SELECT * FROM users WHERE user_id = $1";
+    const { rows } = await pool.query(query, [userId]);
+
+    if (rows.length === 0) {
+      // If no user is found with the given user_id, return a 404 Not Found response
+      return res
+        .status(404)
+        .json({ status: "Error", message: "User not found" });
+    }
+
+    const user = rows[0];
+    res.status(200).json({ status: "Success", data: user });
+  } catch (error) {
+    console.error("error:", error);
+    res.status(500).json({ status: "Error", message: "Server error" });
+  }
+};
+
 const createUser = async (req, res) => {
   const {
     username,
@@ -63,4 +85,4 @@ const createUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, createUser };
+export { getAllUsers, createUser, getUserById };
