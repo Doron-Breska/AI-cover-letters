@@ -114,5 +114,73 @@ const logIn = async (req, res) => {
       .json({ msg: "Something went wrong with the login process", error });
   }
 };
+const updateUser = async (req, res) => {
+  const userId = req.params.id; // Get the user ID from the URL parameter
+  const {
+    username,
+    email,
+    first_name,
+    last_name,
+    tech_info,
+    personal_info,
+    personal_text,
+  } = req.body; // Get the updated user data from the request body
 
-export { getAllUsers, createUser, getUserById, logIn };
+  try {
+    // Check if the user with the given ID exists
+    const checkUserQuery = "SELECT * FROM users WHERE user_id = $1";
+    const { rows: checkUserRows } = await pool.query(checkUserQuery, [userId]);
+
+    if (checkUserRows.length === 0) {
+      return res
+        .status(404)
+        .json({ status: "Error", message: "User not found" });
+    }
+
+    // Update the user's information in the database
+    const updateUserQuery = `
+      UPDATE users
+      SET
+        username = $2,
+        email = $3,
+        first_name = $4,
+        last_name = $5,
+        tech_info = $6,
+        personal_info = $7,
+        personal_text = $8
+      WHERE user_id = $1
+      RETURNING *`;
+
+    const updateValues = [
+      userId,
+      username,
+      email,
+      first_name,
+      last_name,
+      tech_info,
+      personal_info,
+      personal_text,
+    ];
+
+    const { rows: updatedUserRows } = await pool.query(
+      updateUserQuery,
+      updateValues
+    );
+
+    if (updatedUserRows.length === 0) {
+      return res
+        .status(500)
+        .json({ status: "Error", message: "Failed to update user" });
+    }
+
+    const updatedUser = updatedUserRows[0];
+    res
+      .status(200)
+      .json({ status: "Success", message: "User updated", user: updatedUser });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ status: "Error", message: "Internal server error" });
+  }
+};
+
+export { getAllUsers, createUser, getUserById, logIn, updateUser };

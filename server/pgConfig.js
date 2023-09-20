@@ -2,6 +2,7 @@ import PG from "pg";
 const Pool = PG.Pool;
 
 const pool = new Pool({
+
   user: "postgres", // Change this to the appropriate user if needed
   host: "localhost", // Use "localhost" because it's running locally
   database: "postgres", // Change this to the appropriate database name
