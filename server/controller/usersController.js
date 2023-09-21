@@ -64,7 +64,6 @@ const createUser = async (req, res) => {
       personal_text,
     ];
     const { rows } = await pool.query(query, values);
-
     res
       .status(200)
       .json({ status: "success", message: "User created", user: rows[0] });
@@ -183,4 +182,5 @@ const updateUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, createUser, getUserById, logIn, updateUser };
+
+export { getAllUsers, createUser, getUserById, logIn,  };
