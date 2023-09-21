@@ -183,4 +183,22 @@ const updateUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, createUser, getUserById, logIn, updateUser };
+const getActiveUser = async (req, res) => {
+  try {
+    const user = req.user; // Access the user object from req.user
+
+    res.status(200).json({ status: "Success", activeUser: user });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ status: "Error", message: "Internal server error" });
+  }
+};
+
+export {
+  getAllUsers,
+  createUser,
+  getUserById,
+  logIn,
+  updateUser,
+  getActiveUser,
+};
