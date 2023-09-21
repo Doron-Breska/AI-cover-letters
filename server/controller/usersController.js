@@ -1,5 +1,6 @@
 import pool from "../pgConfig.js";
 import { verifyPassword, encryptPassword } from "../utils/bcrypt.js";
+import { imageUpload } from "../utils/imageManagement.js";
 import { generateToken } from "../utils/jwt.js";
 
 const getAllUsers = async (req, res) => {
@@ -46,11 +47,13 @@ const createUser = async (req, res) => {
     personal_text,
   } = req.body;
 
+  const pfofilePic = await imageUpload(req.file, "imgs");
+
   try {
     const hashedPassword = await encryptPassword(password);
     const query = `
-      INSERT INTO users (username, email, first_name, last_name, password, tech_info, personal_info, personal_text)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      INSERT INTO users (username, email, first_name, last_name, password, tech_info, personal_info, personal_text,img)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *`;
 
     const values = [
@@ -62,6 +65,7 @@ const createUser = async (req, res) => {
       tech_info,
       personal_info,
       personal_text,
+      pfofilePic,
     ];
     const { rows } = await pool.query(query, values);
 
