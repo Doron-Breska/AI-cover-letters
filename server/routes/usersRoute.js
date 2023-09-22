@@ -16,7 +16,7 @@ router.get("/all", getAllUsers);
 router.get("/id/:id", getUserById);
 router.post("/new", multerUpload.single("img"), createUser);
 router.post("/login", logIn);
-router.put("/update/:id", updateUser);
+router.put("/update/:id",jwtAuth, updateUser);
 router.get("/active", jwtAuth, getActiveUser);
 
 export default router;
