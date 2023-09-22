@@ -118,7 +118,6 @@ const logIn = async (req, res) => {
   }
 };
 
-
 const getActiveUser = async (req, res) => {
   try {
     const user = req.user; // Access the user object from req.user
@@ -130,41 +129,57 @@ const getActiveUser = async (req, res) => {
   }
 };
 const updateUser = async (req, res) => {
-  const userIdUpdate = req.params.id;
-  const { username, email, password } = req.body;
+  const userIdUpdate = req.params.id; // User ID from request params
+  const {
+    username,
+    email,
+    password,
+    first_name,
+    last_name,
+    tech_info,
+    personal_info,
+    personal_text,
+    img,
+  } = req.body; // Parameters to update
 
   try {
     // Check if the requesting user is authorized to update the user
-    const queryCheck = "SELECT * FROM users WHERE user_id = $1";
-    const { rows } = await pool.query(queryCheck, [userIdUpdate]);
-
-    if (rows.length === 0) {
-      return res
-        .status(404)
-        .json({ status: "Error", message: "User not found" });
-    }
-
-    const currentUser = rows[0];
-
-    if (currentUser.username !== req.user.username) {
+    if (req.user.user_id.toString() !== userIdUpdate.toString()) {
       return res.status(403).json({
         error: "You are not authorized to update this user",
       });
     }
 
-    // Build the UPDATE query to update only the specified fields
+    // Build the UPDATE query to update specified fields
     const queryUpdate = `
       UPDATE users
       SET
         username = $1,
         email = $2,
-        password = $3
-      WHERE user_id = $4
+        password = $3,
+        first_name = $4,
+        last_name = $5,
+        tech_info = $6,
+        personal_info = $7,
+        personal_text = $8,
+        img = $9
+      WHERE user_id = $10
       RETURNING *`;
 
-    const hashedPassword = await encryptPassword(password);
+    const hashedPassword = await encryptPassword(password); // Hash the new password if provided
 
-    const values = [username, email, hashedPassword, userIdUpdate];
+    const values = [
+      username,
+      email,
+      hashedPassword,
+      first_name,
+      last_name,
+      tech_info,
+      personal_info,
+      personal_text,
+      img,
+      userIdUpdate,
+    ];
 
     // Execute the UPDATE query
     const { rows: updatedUser } = await pool.query(queryUpdate, values);
@@ -190,7 +205,6 @@ const updateUser = async (req, res) => {
   }
 };
 
-
 export {
   getAllUsers,
   createUser,
@@ -199,4 +213,3 @@ export {
   updateUser,
   getActiveUser,
 };
-
