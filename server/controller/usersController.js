@@ -105,7 +105,21 @@ const logIn = async (req, res) => {
     if (verified) {
       const token = generateToken(user);
       console.log("this is the token", token);
-      return res.status(200).json({ msg: "Login successful", token: token });
+      return res.status(200).json({
+        msg: "Login successful",
+        token: token,
+        user: {
+          user_id: user.user_id,
+          username: user.username,
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          tech_info: user.tech_info,
+          personal_info: user.personal_info,
+          personal_text: user.personal_text,
+          img: user.img,
+        },
+      });
     } else {
       return res.status(401).json({ msg: "Invalid password" });
     }
@@ -117,7 +131,6 @@ const logIn = async (req, res) => {
       .json({ msg: "Something went wrong with the login process", error });
   }
 };
-
 
 const getActiveUser = async (req, res) => {
   try {
@@ -190,7 +203,6 @@ const updateUser = async (req, res) => {
   }
 };
 
-
 export {
   getAllUsers,
   createUser,
@@ -199,4 +211,3 @@ export {
   updateUser,
   getActiveUser,
 };
-
