@@ -1,5 +1,6 @@
 import pool from "../pgConfig.js";
 import { verifyPassword, encryptPassword } from "../utils/bcrypt.js";
+import { imageUpload } from "../utils/imageManagement.js";
 import { generateToken } from "../utils/jwt.js";
 
 const getAllUsers = async (req, res) => {
@@ -46,11 +47,13 @@ const createUser = async (req, res) => {
     personal_text,
   } = req.body;
 
+  const pfofilePic = await imageUpload(req.file, "imgs");
+
   try {
     const hashedPassword = await encryptPassword(password);
     const query = `
-      INSERT INTO users (username, email, first_name, last_name, password, tech_info, personal_info, personal_text)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      INSERT INTO users (username, email, first_name, last_name, password, tech_info, personal_info, personal_text,img)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *`;
 
     const values = [
@@ -62,6 +65,7 @@ const createUser = async (req, res) => {
       tech_info,
       personal_info,
       personal_text,
+      pfofilePic,
     ];
     const { rows } = await pool.query(query, values);
     res
@@ -128,7 +132,6 @@ const logIn = async (req, res) => {
   }
 };
 
-
 const getActiveUser = async (req, res) => {
   try {
     const user = req.user; // Access the user object from req.user
@@ -140,41 +143,57 @@ const getActiveUser = async (req, res) => {
   }
 };
 const updateUser = async (req, res) => {
-  const userIdUpdate = req.params.id;
-  const { username, email, password } = req.body;
+  const userIdUpdate = req.params.id; // User ID from request params
+  const {
+    username,
+    email,
+    password,
+    first_name,
+    last_name,
+    tech_info,
+    personal_info,
+    personal_text,
+    img,
+  } = req.body; // Parameters to update
 
   try {
     // Check if the requesting user is authorized to update the user
-    const queryCheck = "SELECT * FROM users WHERE user_id = $1";
-    const { rows } = await pool.query(queryCheck, [userIdUpdate]);
-
-    if (rows.length === 0) {
-      return res
-        .status(404)
-        .json({ status: "Error", message: "User not found" });
-    }
-
-    const currentUser = rows[0];
-
-    if (currentUser.username !== req.user.username) {
+    if (req.user.user_id.toString() !== userIdUpdate.toString()) {
       return res.status(403).json({
         error: "You are not authorized to update this user",
       });
     }
 
-    // Build the UPDATE query to update only the specified fields
+    // Build the UPDATE query to update specified fields
     const queryUpdate = `
       UPDATE users
       SET
         username = $1,
         email = $2,
-        password = $3
-      WHERE user_id = $4
+        password = $3,
+        first_name = $4,
+        last_name = $5,
+        tech_info = $6,
+        personal_info = $7,
+        personal_text = $8,
+        img = $9
+      WHERE user_id = $10
       RETURNING *`;
 
-    const hashedPassword = await encryptPassword(password);
+    const hashedPassword = await encryptPassword(password); // Hash the new password if provided
 
-    const values = [username, email, hashedPassword, userIdUpdate];
+    const values = [
+      username,
+      email,
+      hashedPassword,
+      first_name,
+      last_name,
+      tech_info,
+      personal_info,
+      personal_text,
+      img,
+      userIdUpdate,
+    ];
 
     // Execute the UPDATE query
     const { rows: updatedUser } = await pool.query(queryUpdate, values);
@@ -200,7 +219,6 @@ const updateUser = async (req, res) => {
   }
 };
 
-
 export {
   getAllUsers,
   createUser,
@@ -209,4 +227,3 @@ export {
   updateUser,
   getActiveUser,
 };
-

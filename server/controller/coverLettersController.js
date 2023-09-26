@@ -10,6 +10,19 @@ const getAllLetters = async (req, res) => {
   }
 };
 
+const getUsersAllLetter = async (req, res) => {
+  const userId = req.user.user_id;
+  try {
+    const query = "SELECT * FROM cover_letters WHERE user_id = $1";
+    const results = await pool.query(query, [userId]);
+    const letters = results.rows;
+    res.status(200).json({ status: "Success", data: letters });
+  } catch (error) {
+    console.error("error:", error);
+    res.status(500).json({ status: "Error", message: "Server error" });
+  }
+};
+
 const saveNewLetter = async (req, res) => {
   const userId = req.user.user_id;
   const { content, company_name, job_title } = req.body; // Extract data from the request body
@@ -63,4 +76,4 @@ const deleteCoverLetter = async (req, res) => {
   }
 };
 
-export { getAllLetters, saveNewLetter, deleteCoverLetter };
+export { getAllLetters, saveNewLetter, deleteCoverLetter, getUsersAllLetter };
