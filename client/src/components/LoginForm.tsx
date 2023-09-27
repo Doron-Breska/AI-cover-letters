@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login, logout } from "../features/user";
+import { login, logout } from "../slices/userSlice";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();

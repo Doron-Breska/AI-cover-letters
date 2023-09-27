@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "./features/user";
+import { login } from "./slices/userSlice";
 
 import LongForms from "./components/LoginForm";
 import SomeComponent from "./components/SomeComponent";
