@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../slices/userSlice";
+import { getLetters, removeLetters } from "../slices/coverLetterSlice";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,23 @@ const LoginForm: React.FC = () => {
 
       dispatch(login(data.user));
       console.log(data.user);
+      const coverLetterResponse = await fetch(
+        "http://localhost:5001/api/c-l/user/",
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+
+      if (!coverLetterResponse.ok) {
+        const errorData = await coverLetterResponse.json();
+        console.error("Failed to fetch cover letters:", errorData.message);
+        // Optionally, handle the error, for example, by showing a notification to the user.
+      } else {
+        const coverLetterData = await coverLetterResponse.json();
+        dispatch(getLetters(coverLetterData.data)); // dispatch the fetched cover letters to the Redux store
+      }
     } catch (error) {
       console.error("Login Error:", error);
     }
@@ -58,6 +76,7 @@ const LoginForm: React.FC = () => {
       <button
         onClick={() => {
           dispatch(logout());
+          dispatch(removeLetters());
           localStorage.removeItem("token");
         }}
       >

@@ -3,38 +3,52 @@ import { useDispatch } from "react-redux";
 import { login } from "./slices/userSlice";
 
 import LongForms from "./components/LoginForm";
-import SomeComponent from "./components/SomeComponent";
+import SomeComponent from "./components/UserProfile";
+import { getLetters } from "./slices/coverLetterSlice";
+import UserProfile from "./components/UserProfile";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (token) {
       fetch("http://localhost:5001/api/users/active", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch active user");
-          }
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
-          dispatch(login(data.activeUser));
+          if (data.status === "Success") {
+            dispatch(login(data.activeUser)); // Here you are logging in the user and updating the user state.
+
+            // Now, perform another fetch to get the cover letters related to this user.
+            fetch("http://localhost:5001/api/c-l/user/", {
+              headers: {
+                Authorization: `Bearer ${token}`, // Assuming that your server expects the token for authentication.
+              },
+            })
+              .then((response) => response.json())
+              .then((letterData) => {
+                if (letterData.status === "Success") {
+                  dispatch(getLetters(letterData.data)); // Update the state with the fetched letters.
+                }
+              })
+              .catch((error) =>
+                console.error("Error fetching cover letters:", error)
+              );
+          }
         })
-        .catch((error) => {
-          console.error("Failed to fetch active user:", error);
-          localStorage.removeItem("token"); // Remove invalid token
-        });
+        .catch((error) => console.error("Error fetching active user:", error));
     }
   }, [dispatch]);
+
   return (
     <div className="App">
       <LongForms />
-      <SomeComponent />
+      <UserProfile />
     </div>
   );
 };
