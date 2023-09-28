@@ -6,6 +6,7 @@ import LongForms from "./components/LoginForm";
 import SomeComponent from "./components/UserProfile";
 import { getLetters } from "./slices/coverLetterSlice";
 import UserProfile from "./components/UserProfile";
+import Token from "./components/Token";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const App = () => {
     <div className="App">
       <LongForms />
       <UserProfile />
+      <Token />
     </div>
   );
 };
