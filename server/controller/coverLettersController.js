@@ -1,4 +1,6 @@
 import pool from "../pgConfig.js";
+import openAi from "../config/openAiConfig.js";
+
 const getAllLetters = async (req, res) => {
   try {
     const results = await pool.query("SELECT * FROM cover_letters");
@@ -76,4 +78,38 @@ const deleteCoverLetter = async (req, res) => {
   }
 };
 
-export { getAllLetters, saveNewLetter, deleteCoverLetter, getUsersAllLetter };
+const createNewLetter = async (req, res) => {
+  const { company_name, job_title, description } = req.body;
+
+  if (!company_name || !job_title || !description) {
+    return res
+      .status(400)
+      .json({ status: "Error", message: "All fields are required!" });
+  }
+
+  const combinedJobInfo = `${company_name} + ${job_title} + ${description}`;
+
+  try {
+    const techInfo = req.user?.tech_info;
+    const personalInfo = JSON.stringify(req.user?.personal_info); // updated line
+    const personalText = req.user?.personal_text; // fixed typo
+    const combinedUserInfo = `${techInfo} .the following characteristics are rated from 0 to 10, 10 is the highest ${personalInfo}. ${personalText}`;
+
+    const data = await openAi(combinedUserInfo, combinedJobInfo);
+    res.status(200).json({
+      status: "Success",
+      "response from open AI": data,
+    });
+  } catch (error) {
+    console.error("error:", error.message); // log the error message
+    res.status(500).json({ status: "Error", message: "Server error" });
+  }
+};
+
+export {
+  getAllLetters,
+  saveNewLetter,
+  deleteCoverLetter,
+  getUsersAllLetter,
+  createNewLetter,
+};
