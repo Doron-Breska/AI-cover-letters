@@ -23,4 +23,4 @@ app.use("/api/c-l", coverLettersRouter);
 app.listen(port, () => {
   console.log("server running on port:", port);
 });
-// console.log("OpenAI API Key at Server Start:", process.env.OPENAI_API_KEY);
+console.log("OpenAI API Key at Server Start:", process.env.OPENAI_API_KEY);
