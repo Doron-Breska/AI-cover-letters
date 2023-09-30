@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/all", getAllLetters);
 router.get("/user", jwtAuth, getUsersAllLetter); // to get all the cover letters from the active user
-router.put("/new", jwtAuth, createNewLetter);
+router.post("/new", jwtAuth, createNewLetter);
 router.post("/save", jwtAuth, saveNewLetter);
 router.delete("/:id", jwtAuth, deleteCoverLetter);
 
