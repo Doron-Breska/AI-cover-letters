@@ -4,7 +4,6 @@ import OpenAI from "openai";
 dotenv.config();
 
 const openAi = async (userInfo, jobOffer) => {
-  // Create an instance of OpenAI
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
   try {
@@ -19,16 +18,13 @@ const openAi = async (userInfo, jobOffer) => {
     });
 
     if (response.choices && response.choices.length > 0) {
-      console.log(
-        "Message content from open ai",
-        response.choices[0].message.content
-      ); // Log the message content
-      return response.choices[0].message.content; // Return the message content
+      const content = response.choices[0].message.content;
+      console.log("Returning content from openAi:", content); // Log before returning
+      return content;
     } else {
       throw new Error("No choices available in the response from OpenAI");
     }
   } catch (error) {
-    console.error("Entire Error Object:", error);
     console.error("Error creating cover letter", error.message);
     throw error;
   }

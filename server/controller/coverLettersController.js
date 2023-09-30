@@ -90,24 +90,17 @@ const createNewLetter = async (req, res) => {
   const combinedJobInfo = `${company_name} + ${job_title} + ${description}`;
 
   try {
-    const techInfo = req.user?.tech_info;
+    const techInfo = req.user.tech_info;
     const personalInfo = JSON.stringify(req.user?.personal_info);
-    const personalText = req.user?.personal_text;
+    const personalText = req.user?.personal_text || "";
     const combinedUserInfo = `${techInfo} .the following characteristics are rated from 0 to 10, 10 is the highest ${personalInfo}. ${personalText}`;
 
     const data = await openAi(combinedUserInfo, combinedJobInfo);
 
-    console.log("OpenAI Response:", JSON.stringify(data, null, 2)); // Log the entire response from OpenAI
+    console.log("Data received in createNewLetter:", data); // Log the received data
 
-    if (
-      data &&
-      data.choices &&
-      data.choices.length > 0 &&
-      data.choices[0].message &&
-      data.choices[0].message.content
-    ) {
-      const content = data.choices[0].message.content;
-      return res.status(200).json({ status: "Success", message: content });
+    if (data) {
+      return res.status(200).json({ status: "Success", message: data });
     } else {
       console.error("Unexpected response structure from OpenAI:", data);
       return res.status(500).json({
@@ -116,7 +109,7 @@ const createNewLetter = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error("error:", error.message); // Log the error message
+    console.error("error:", error.message);
     return res.status(500).json({ status: "Error", message: "Server error" });
   }
 };
