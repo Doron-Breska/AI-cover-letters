@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { login } from "../slices/userSlice";
+import { useDispatch } from "react-redux";
 
 interface UpdatedUser {
   username?: string;
@@ -30,6 +32,7 @@ interface PersonalInfo {
 const UpdateUser: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
 
   const userId = user?.user_id;
 
@@ -104,6 +107,22 @@ const UpdateUser: React.FC = () => {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         console.log("User updated successfully:", response.data);
+        // the part that should make the new info apear immediately without the need to refresh the page
+        axios
+          .get("http://localhost:5001/api/users/active", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            const data = response.data;
+            if (data.status === "Success") {
+              dispatch(login(data.activeUser));
+            }
+          })
+          .catch((error) => {
+            console.error("There was an error retrieving the data", error);
+          });
       } else {
         console.error("User ID is not available");
       }

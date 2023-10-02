@@ -9,7 +9,19 @@ const UserProfile: React.FC = () => {
   return (
     <>
       <div style={{ color: "orange", border: "3px solid green" }}>
-        {user ? <p>{user.username}</p> : <p>No user logged in</p>}
+        {user ? (
+          <>
+            <p>{user.username}</p>
+            <p>{user.email}</p>
+            <p>{user.last_name}</p>
+            <p>{user.first_name}</p>
+            <p>{user.tech_info}</p>
+            <p>{user.personal_text}</p>
+            <p>{user.personal_info && <p>user.personal_info</p>}</p>
+          </>
+        ) : (
+          <p>No user logged in</p>
+        )}
       </div>
       <div style={{ color: "red", border: "3px solid green" }}>
         {letters.length === 0 ? (
