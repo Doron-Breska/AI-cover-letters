@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "./slices/userSlice";
-
-import LongForms from "./components/LoginForm";
-
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { getLetters } from "./slices/coverLetterSlice";
-import UserProfile from "./components/UserProfile";
-import Token from "./components/Token";
+import Registration from "./pages/Registration";
+import Home from "./pages/Home";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,9 +46,12 @@ const App = () => {
 
   return (
     <div className="App">
-      <LongForms />
-      <UserProfile />
-      <Token />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/registration" element={<Registration />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

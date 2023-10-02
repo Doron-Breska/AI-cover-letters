@@ -29,6 +29,7 @@ const LoginForm: React.FC = () => {
 
       dispatch(login(data.user));
       console.log(data.user);
+      
       const coverLetterResponse = await fetch(
         "http://localhost:5001/api/c-l/user/",
         {
