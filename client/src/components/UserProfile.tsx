@@ -8,10 +8,10 @@ const UserProfile: React.FC = () => {
 
   return (
     <>
-      <div style={{ color: "orange" }}>
+      <div style={{ color: "orange", border: "3px solid green" }}>
         {user ? <p>{user.username}</p> : <p>No user logged in</p>}
       </div>
-      <div style={{ color: "red" }}>
+      <div style={{ color: "red", border: "3px solid green" }}>
         {letters.length === 0 ? (
           <p>no letters</p>
         ) : (

@@ -4,6 +4,7 @@ import { login } from "./slices/userSlice";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { getLetters } from "./slices/coverLetterSlice";
 import Registration from "./pages/Registration";
+import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </div>

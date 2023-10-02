@@ -3,16 +3,15 @@
 
 import LoginForm from "../components/LoginForm";
 import Token from "../components/Token";
-
+import UserProfile from "../components/UserProfile";
 
 // type Props = {}
 
 const Home = () => {
-  
-
   return (
     <div>
       <LoginForm />
+      <UserProfile />
       <Token />
     </div>
   );
