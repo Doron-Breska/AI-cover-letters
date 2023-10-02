@@ -93,7 +93,7 @@ const createNewLetter = async (req, res) => {
     const techInfo = req.user.tech_info;
     const personalInfo = JSON.stringify(req.user?.personal_info);
     const personalText = req.user?.personal_text || "";
-    const combinedUserInfo = `${techInfo} .the following characteristics are rated from 0 to 10, 10 is the highest ${personalInfo}. ${personalText}`;
+    const combinedUserInfo = `${techInfo} .the following characteristics are ranged from 0 to 1, 1 is the highest ${personalInfo}. ${personalText}`;
 
     const data = await openAi(combinedUserInfo, combinedJobInfo);
 
