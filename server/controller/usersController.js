@@ -143,59 +143,52 @@ const getActiveUser = async (req, res) => {
   }
 };
 const updateUser = async (req, res) => {
-  const userIdUpdate = req.params.id; // User ID from request params
-  const {
-    username,
-    email,
-    password,
-    first_name,
-    last_name,
-    tech_info,
-    personal_info,
-    personal_text,
-    img,
-  } = req.body; // Parameters to update
+  const userIdUpdate = req.params.id;
+
+  // If the user isn't authorized, return an error immediately.
+  if (req.user.user_id.toString() !== userIdUpdate.toString()) {
+    return res.status(403).json({
+      error: "You are not authorized to update this user",
+    });
+  }
 
   try {
-    // Check if the requesting user is authorized to update the user
-    if (req.user.user_id.toString() !== userIdUpdate.toString()) {
-      return res.status(403).json({
-        error: "You are not authorized to update this user",
+    const updates = [];
+    const values = [];
+    let valueIndex = 1;
+
+    // Loop over the body object to construct dynamic query and values array
+    for (const key in req.body) {
+      if (key !== "password" && req.body.hasOwnProperty(key)) {
+        updates.push(`${key} = $${valueIndex}`);
+        values.push(req.body[key]);
+        valueIndex++;
+      }
+    }
+
+    // If password is being updated, it needs to be hashed
+    if (req.body.password) {
+      const hashedPassword = await encryptPassword(req.body.password);
+      updates.push(`password = $${valueIndex}`);
+      values.push(hashedPassword);
+      valueIndex++;
+    }
+
+    if (updates.length === 0) {
+      return res.status(400).json({
+        status: "Error",
+        message: "No fields to update",
       });
     }
 
-    // Build the UPDATE query to update specified fields
     const queryUpdate = `
       UPDATE users
-      SET
-        username = $1,
-        email = $2,
-        password = $3,
-        first_name = $4,
-        last_name = $5,
-        tech_info = $6,
-        personal_info = $7,
-        personal_text = $8,
-        img = $9
-      WHERE user_id = $10
+      SET ${updates.join(", ")}
+      WHERE user_id = $${valueIndex}
       RETURNING *`;
 
-    const hashedPassword = await encryptPassword(password); // Hash the new password if provided
+    values.push(userIdUpdate); // user_id added as the last value for WHERE clause
 
-    const values = [
-      username,
-      email,
-      hashedPassword,
-      first_name,
-      last_name,
-      tech_info,
-      personal_info,
-      personal_text,
-      img,
-      userIdUpdate,
-    ];
-
-    // Execute the UPDATE query
     const { rows: updatedUser } = await pool.query(queryUpdate, values);
 
     if (updatedUser.length === 0) {
