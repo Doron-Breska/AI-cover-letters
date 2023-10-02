@@ -15,7 +15,12 @@ const UserProfile: React.FC = () => {
         {letters.length === 0 ? (
           <p>no letters</p>
         ) : (
-          letters.map((letter) => <p key={letter.c_v_id}>{letter.job_title}</p>)
+          letters.map((letter) => (
+            <p key={letter.c_v_id}>
+              {letter.job_title}
+              {letter.content}
+            </p>
+          ))
         )}
       </div>
     </>
