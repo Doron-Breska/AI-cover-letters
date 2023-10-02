@@ -56,6 +56,46 @@ const UpdateUser: React.FC = () => {
   const innovativenessRef = useRef<HTMLInputElement>(null);
   const emotionalIntelligenceRef = useRef<HTMLInputElement>(null);
 
+  const updateUserObjectRedux = () => {
+    axios
+      .get("http://localhost:5001/api/users/active", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.status === "Success") {
+          dispatch(login(data.activeUser));
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error retrieving the data", error);
+      });
+  };
+
+  const resetInputs = () => {
+    if (usernameRef.current) usernameRef.current.value = "";
+    if (emailRef.current) emailRef.current.value = "";
+    if (firstNameRef.current) firstNameRef.current.value = "";
+    if (lastNameRef.current) lastNameRef.current.value = "";
+    if (passwordRef.current) passwordRef.current.value = "";
+    if (techInfoRef.current) techInfoRef.current.value = "";
+    if (personalTextRef.current) personalTextRef.current.value = "";
+    if (imgRef.current) imgRef.current.value = "";
+    // Personal Info Refs
+    if (leadershipRef.current) leadershipRef.current.value = "";
+    if (adaptabilityRef.current) adaptabilityRef.current.value = "";
+    if (proactivityRef.current) proactivityRef.current.value = "";
+    if (attentionToDetailRef.current) attentionToDetailRef.current.value = "";
+    if (spontaneityRef.current) spontaneityRef.current.value = "";
+    if (teamworkRef.current) teamworkRef.current.value = "";
+    if (resilienceRef.current) resilienceRef.current.value = "";
+    if (innovativenessRef.current) innovativenessRef.current.value = "";
+    if (emotionalIntelligenceRef.current)
+      emotionalIntelligenceRef.current.value = "";
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -107,22 +147,8 @@ const UpdateUser: React.FC = () => {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         console.log("User updated successfully:", response.data);
-        // the part that should make the new info apear immediately without the need to refresh the page
-        axios
-          .get("http://localhost:5001/api/users/active", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((response) => {
-            const data = response.data;
-            if (data.status === "Success") {
-              dispatch(login(data.activeUser));
-            }
-          })
-          .catch((error) => {
-            console.error("There was an error retrieving the data", error);
-          });
+        updateUserObjectRedux();
+        resetInputs();
       } else {
         console.error("User ID is not available");
       }
@@ -168,44 +194,44 @@ const UpdateUser: React.FC = () => {
       {/* Personal Info Fields */}
       <div>
         <label>Leadership: </label>
-        <input ref={leadershipRef} type="number" step="0.1" min="0" max="1" />
+        <input ref={leadershipRef} type="number" step="0.2" min="0" max="1" />
       </div>
       <div>
         <label>Adaptability/Flexibility: </label>
-        <input ref={adaptabilityRef} type="number" step="0.1" min="0" max="1" />
+        <input ref={adaptabilityRef} type="number" step="0.2" min="0" max="1" />
       </div>
       <div>
         <label>Proactivity/Initiative: </label>
-        <input ref={proactivityRef} type="number" step="0.1" min="0" max="1" />
+        <input ref={proactivityRef} type="number" step="0.2" min="0" max="1" />
       </div>
       <div>
         <label>Attention to Detail: </label>
         <input
           ref={attentionToDetailRef}
           type="number"
-          step="0.1"
+          step="0.2"
           min="0"
           max="1"
         />
       </div>
       <div>
         <label>Spontaneity: </label>
-        <input ref={spontaneityRef} type="number" step="0.1" min="0" max="1" />
+        <input ref={spontaneityRef} type="number" step="0.2" min="0" max="1" />
       </div>
       <div>
         <label>Teamwork/Collaboration: </label>
-        <input ref={teamworkRef} type="number" step="0.1" min="0" max="1" />
+        <input ref={teamworkRef} type="number" step="0.2" min="0" max="1" />
       </div>
       <div>
         <label>Resilience: </label>
-        <input ref={resilienceRef} type="number" step="0.1" min="0" max="1" />
+        <input ref={resilienceRef} type="number" step="0.2" min="0" max="1" />
       </div>
       <div>
         <label>Innovativeness/Creativity: </label>
         <input
           ref={innovativenessRef}
           type="number"
-          step="0.1"
+          step="0.2"
           min="0"
           max="1"
         />
@@ -215,7 +241,7 @@ const UpdateUser: React.FC = () => {
         <input
           ref={emotionalIntelligenceRef}
           type="number"
-          step="0.1"
+          step="0.2"
           min="0"
           max="1"
         />
