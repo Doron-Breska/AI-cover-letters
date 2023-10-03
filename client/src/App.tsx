@@ -6,6 +6,8 @@ import { getLetters } from "./slices/coverLetterSlice";
 import Registration from "./pages/Registration";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
+import SideBar from "./components/SideBar";
+import Coverletters from "./pages/Coverletters";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,10 +50,12 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
+        <SideBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-letter" element={<Coverletters />} />
         </Routes>
       </BrowserRouter>
     </div>
