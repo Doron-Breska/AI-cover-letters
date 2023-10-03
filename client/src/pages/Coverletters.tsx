@@ -1,5 +1,11 @@
+import CreateCoverLetter from "../components/CreateCoverLetter";
+
 const Coverletters = () => {
-  return <div>Coverletters</div>;
+  return (
+    <div>
+      <CreateCoverLetter />
+    </div>
+  );
 };
 
 export default Coverletters;
