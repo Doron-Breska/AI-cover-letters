@@ -3,7 +3,7 @@ import UserProfile from "../components/UserProfile";
 
 // type Props = {}
 
-const Home = () => {
+const Profile = () => {
   return (
     <div>
       <UserProfile />
@@ -15,4 +15,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Profile;
