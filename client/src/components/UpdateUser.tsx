@@ -103,7 +103,9 @@ const UpdateUser: React.FC = () => {
       formData.append("tech_info", techInfoRef.current?.value);
     if (personalTextRef.current?.value)
       formData.append("personal_text", personalTextRef.current?.value);
-    if (imgRef.current?.files) formData.append("img", imgRef.current?.files[0]);
+    if (imgRef.current?.files && imgRef.current.files.length > 0) {
+      formData.append("img", imgRef.current?.files[0]);
+    }
 
     const personalInfo: PersonalInfo = {};
     if (leadershipRef.current?.value)

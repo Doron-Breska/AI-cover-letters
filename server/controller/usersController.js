@@ -144,6 +144,8 @@ const getActiveUser = async (req, res) => {
 };
 const updateUser = async (req, res) => {
   const userIdUpdate = req.params.id;
+  console.log("Received req.body:", req.body);
+  console.log("Received req.file:", req.file);
 
   // If the user isn't authorized, return an error immediately.
   if (req.user.user_id.toString() !== userIdUpdate.toString()) {
