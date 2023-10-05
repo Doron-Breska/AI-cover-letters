@@ -5,18 +5,6 @@ import { RootState } from "../store/store";
 import { login } from "../slices/userSlice";
 import { useDispatch } from "react-redux";
 
-interface UpdatedUser {
-  username?: string;
-  email?: string;
-  password?: string;
-  first_name?: string;
-  last_name?: string;
-  tech_info?: string;
-  personal_text?: string;
-  img?: string;
-  personal_info?: PersonalInfo;
-}
-
 interface PersonalInfo {
   Leadership?: string;
   Adaptability_Flexibility?: string;
@@ -99,21 +87,23 @@ const UpdateUser: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const updatedUser: UpdatedUser = {};
+    const formData = new FormData();
+
     if (usernameRef.current?.value)
-      updatedUser.username = usernameRef.current?.value;
-    if (emailRef.current?.value) updatedUser.email = emailRef.current?.value;
+      formData.append("username", usernameRef.current?.value);
+    if (emailRef.current?.value)
+      formData.append("email", emailRef.current?.value);
     if (passwordRef.current?.value)
-      updatedUser.password = passwordRef.current?.value;
+      formData.append("password", passwordRef.current?.value);
     if (firstNameRef.current?.value)
-      updatedUser.first_name = firstNameRef.current?.value;
+      formData.append("first_name", firstNameRef.current?.value);
     if (lastNameRef.current?.value)
-      updatedUser.last_name = lastNameRef.current?.value;
+      formData.append("last_name", lastNameRef.current?.value);
     if (techInfoRef.current?.value)
-      updatedUser.tech_info = techInfoRef.current?.value;
+      formData.append("tech_info", techInfoRef.current?.value);
     if (personalTextRef.current?.value)
-      updatedUser.personal_text = personalTextRef.current?.value;
-    if (imgRef.current?.value) updatedUser.img = imgRef.current?.value;
+      formData.append("personal_text", personalTextRef.current?.value);
+    if (imgRef.current?.files) formData.append("img", imgRef.current?.files[0]);
 
     const personalInfo: PersonalInfo = {};
     if (leadershipRef.current?.value)
@@ -137,14 +127,19 @@ const UpdateUser: React.FC = () => {
         emotionalIntelligenceRef.current?.value;
 
     if (Object.keys(personalInfo).length > 0)
-      updatedUser.personal_info = personalInfo;
+      formData.append("personal_info", JSON.stringify(personalInfo));
 
     try {
       if (userId) {
         const response = await axios.put(
           `http://localhost:5001/api/users/update/${userId}`,
-          updatedUser,
-          { headers: { Authorization: `Bearer ${token}` } }
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         console.log("User updated successfully:", response.data);
         updateUserObjectRedux();
@@ -189,7 +184,7 @@ const UpdateUser: React.FC = () => {
       </div>
       <div>
         <label>Image URL: </label>
-        <input ref={imgRef} type="text" />
+        <input ref={imgRef} type="file" name="img" />
       </div>
       {/* Personal Info Fields */}
       <div>

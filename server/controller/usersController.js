@@ -157,9 +157,17 @@ const updateUser = async (req, res) => {
     const values = [];
     let valueIndex = 1;
 
+    // If an image file is provided, upload it
+    if (req.file) {
+      const profilePic = await imageUpload(req.file, "imgs");
+      updates.push(`img = $${valueIndex}`);
+      values.push(profilePic);
+      valueIndex++;
+    }
+
     // Loop over the body object to construct dynamic query and values array
     for (const key in req.body) {
-      if (key !== "password" && req.body.hasOwnProperty(key)) {
+      if (key !== "password" && key in req.body) {
         updates.push(`${key} = $${valueIndex}`);
         values.push(req.body[key]);
         valueIndex++;

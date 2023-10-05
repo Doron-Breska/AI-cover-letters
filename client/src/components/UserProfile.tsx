@@ -18,6 +18,11 @@ const UserProfile: React.FC = () => {
             <p>{user.tech_info}</p>
             <p>{user.personal_text}</p>
             <p>{user.personal_info && <p>user.personal_info</p>}</p>
+            {user.img ? (
+              <img src={user.img} style={{ width: "300px" }}></img>
+            ) : (
+              <p>this user dont have a pic yet</p>
+            )}
           </>
         ) : (
           <p>No user logged in</p>
