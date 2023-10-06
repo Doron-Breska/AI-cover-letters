@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import axios from "axios";
+import "tailwindcss/tailwind.css";
+
 // import { useDispatch, useSelector } from "react-redux";
 // import { login } from "../slices/userSlice";
 // import { RootState } from "../store/store";
@@ -131,150 +133,114 @@ const Register: React.FC = () => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username: </label>
-        <input ref={usernameRef} type="text" required />
-      </div>
-      <div>
-        <label>Email: </label>
-        <input ref={emailRef} type="email" required />
-      </div>
-      <div>
-        <label>First Name: </label>
-        <input ref={firstNameRef} type="text" required />
-      </div>
-      <div>
-        <label>Last Name: </label>
-        <input ref={lastNameRef} type="text" required />
-      </div>
-      <div>
-        <label>Password: </label>
-        <input ref={passwordRef} type="password" required />
-      </div>
-      <div>
-        <label>Tech Info: </label>
-        <textarea ref={techInfoRef} required />
-      </div>
-      <div>
-        <label>Personal Text: </label>
-        <textarea ref={personalTextRef} required />
-      </div>
-      <div>
-        <label>Image URL: </label>
-        <input ref={imgRef} type="file" required />
-      </div>
-      {/* Personal Info Fields */}
-      <div>
-        <label>Leadership: </label>
-        <input
-          ref={leadershipRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Adaptability/Flexibility: </label>
-        <input
-          ref={adaptabilityRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Proactivity/Initiative: </label>
-        <input
-          ref={proactivityRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Attention to Detail: </label>
-        <input
-          ref={attentionToDetailRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Spontaneity: </label>
-        <input
-          ref={spontaneityRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Teamwork/Collaboration: </label>
-        <input
-          ref={teamworkRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Resilience: </label>
-        <input
-          ref={resilienceRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Innovativeness/Creativity: </label>
-        <input
-          ref={innovativenessRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <div>
-        <label>Emotional Intelligence: </label>
-        <input
-          ref={emotionalIntelligenceRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        onClick={() => {
-          handleSubmit;
-        }}
-      >
-        Create user
-      </button>
-    </form>
-  );
+ return (
+   <div className="min-h-screen flex items-center justify-center bg-gray-100">
+     <form
+       onSubmit={handleSubmit}
+       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md"
+     >
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           Username:
+         </label>
+         <input
+           ref={usernameRef}
+           type="text"
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         />
+       </div>
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           Email:
+         </label>
+         <input
+           ref={emailRef}
+           type="email"
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         />
+       </div>
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           First Name:
+         </label>
+         <input
+           ref={firstNameRef}
+           type="text"
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         />
+       </div>
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           Last Name:
+         </label>
+         <input
+           ref={lastNameRef}
+           type="text"
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         />
+       </div>
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           Password:
+         </label>
+         <input
+           ref={passwordRef}
+           type="password"
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         />
+       </div>
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           Tech Info:
+         </label>
+         <textarea
+           ref={techInfoRef}
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         ></textarea>
+       </div>
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           Personal Text:
+         </label>
+         <textarea
+           ref={personalTextRef}
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         ></textarea>
+       </div>
+       <div className="mb-4">
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+           Image URL:
+         </label>
+         <input
+           ref={imgRef}
+           type="file"
+           required
+           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         />
+       </div>
+       {/* Personal Info Fields */}
+       {/* Add styling for personal info fields here */}
+       <div className="mb-4">
+         <button
+           type="submit"
+           onClick={() => {
+             handleSubmit;
+           }}
+           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+         >
+           Create user
+         </button>
+       </div>
+     </form>
+   </div>
+ );
 };
 
 export default Register;

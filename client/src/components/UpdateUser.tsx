@@ -153,7 +153,7 @@ const UpdateUser: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
       <div>
         <label>Username: </label>
         <input ref={usernameRef} type="text" />
@@ -186,7 +186,6 @@ const UpdateUser: React.FC = () => {
         <label>Image URL: </label>
         <input ref={imgRef} type="file" name="img" />
       </div>
-      {/* Personal Info Fields */}
       <div>
         <label>Leadership: </label>
         <input ref={leadershipRef} type="number" step="0.2" min="0" max="1" />
