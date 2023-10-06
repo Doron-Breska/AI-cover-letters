@@ -4,11 +4,14 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { useDispatch } from "react-redux";
+import { logout } from "../slices/userSlice";
 
 const SideBar: React.FC = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -52,15 +55,7 @@ const SideBar: React.FC = () => {
                   Home
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  className={activePath === "/registeration" ? "active" : ""}
-                  to="/registeration"
-                >
-                  Register
-                </NavLink>
-              </li>
-              {user !== null && (
+              {user !== null ? (
                 <>
                   <li>
                     <NavLink
@@ -81,8 +76,26 @@ const SideBar: React.FC = () => {
                     </NavLink>
                   </li>
                 </>
+              ) : (
+                <li>
+                  <NavLink
+                    className={activePath === "/registeration" ? "active" : ""}
+                    to="/registeration"
+                  >
+                    Register
+                  </NavLink>
+                </li>
               )}
             </ul>
+            <button
+              style={{ border: "3px solid green" }}
+              onClick={() => {
+                dispatch(logout());
+                localStorage.removeItem("token");
+              }}
+            >
+              Log Out
+            </button>
           </div>
           <button className="hamburger" onClick={closeSidebar}>
             <AiOutlineMenuUnfold />
