@@ -5,7 +5,7 @@ import UserProfile from "../components/UserProfile";
 
 const Profile = () => {
   return (
-    <div>
+    <div className="profile-page">
       <UserProfile />
       <hr />
       <hr />

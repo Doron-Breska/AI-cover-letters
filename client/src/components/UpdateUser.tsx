@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { login } from "../slices/userSlice";
 import { useDispatch } from "react-redux";
+import { toggleLoading } from "../slices/loaderSlice";
+import "../styles/LoaderProfile.css";
 
 interface PersonalInfo {
   Leadership?: string;
@@ -21,6 +23,7 @@ const UpdateUser: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.loader.loading);
 
   const userId = user?.user_id;
 
@@ -86,6 +89,7 @@ const UpdateUser: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    dispatch(toggleLoading());
 
     const formData = new FormData();
 
@@ -144,6 +148,7 @@ const UpdateUser: React.FC = () => {
           }
         );
         console.log("User updated successfully:", response.data);
+        dispatch(toggleLoading());
         updateUserObjectRedux();
         resetInputs();
       } else {
@@ -155,103 +160,229 @@ const UpdateUser: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username: </label>
-        <input ref={usernameRef} type="text" />
-      </div>
-      <div>
-        <label>Email: </label>
-        <input ref={emailRef} type="email" />
-      </div>
-      <div>
-        <label>First Name: </label>
-        <input ref={firstNameRef} type="text" />
-      </div>
-      <div>
-        <label>Last Name: </label>
-        <input ref={lastNameRef} type="text" />
-      </div>
-      <div>
-        <label>Password: </label>
-        <input ref={passwordRef} type="password" />
-      </div>
-      <div>
-        <label>Tech Info: </label>
-        <textarea ref={techInfoRef} />
-      </div>
-      <div>
-        <label>Personal Text: </label>
-        <textarea ref={personalTextRef} />
-      </div>
-      <div>
-        <label>Image URL: </label>
-        <input ref={imgRef} type="file" name="img" />
-      </div>
-      {/* Personal Info Fields */}
-      <div>
-        <label>Leadership: </label>
-        <input ref={leadershipRef} type="number" step="0.2" min="0" max="1" />
-      </div>
-      <div>
-        <label>Adaptability/Flexibility: </label>
-        <input ref={adaptabilityRef} type="number" step="0.2" min="0" max="1" />
-      </div>
-      <div>
-        <label>Proactivity/Initiative: </label>
-        <input ref={proactivityRef} type="number" step="0.2" min="0" max="1" />
-      </div>
-      <div>
-        <label>Attention to Detail: </label>
-        <input
-          ref={attentionToDetailRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-        />
-      </div>
-      <div>
-        <label>Spontaneity: </label>
-        <input ref={spontaneityRef} type="number" step="0.2" min="0" max="1" />
-      </div>
-      <div>
-        <label>Teamwork/Collaboration: </label>
-        <input ref={teamworkRef} type="number" step="0.2" min="0" max="1" />
-      </div>
-      <div>
-        <label>Resilience: </label>
-        <input ref={resilienceRef} type="number" step="0.2" min="0" max="1" />
-      </div>
-      <div>
-        <label>Innovativeness/Creativity: </label>
-        <input
-          ref={innovativenessRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-        />
-      </div>
-      <div>
-        <label>Emotional Intelligence: </label>
-        <input
-          ref={emotionalIntelligenceRef}
-          type="number"
-          step="0.2"
-          min="0"
-          max="1"
-        />
-      </div>
-      <button
-        type="submit"
-        onClick={() => {
-          handleSubmit;
-        }}
-      >
-        Update
-      </button>
-    </form>
+    <>
+      {loading && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="200px"
+          width="200px"
+          viewBox="0 0 200 200"
+          className="pencil"
+        >
+          <defs>
+            <clipPath id="pencil-eraser">
+              <rect height="30" width="30" ry="5" rx="5"></rect>
+            </clipPath>
+          </defs>
+          <circle
+            transform="rotate(-113,100,100)"
+            stroke-linecap="round"
+            stroke-dashoffset="439.82"
+            stroke-dasharray="439.82 439.82"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            r="70"
+            className="pencil__stroke"
+          ></circle>
+          <g transform="translate(100,100)" className="pencil__rotate">
+            <g fill="none">
+              <circle
+                transform="rotate(-90)"
+                stroke-dashoffset="402"
+                stroke-dasharray="402.12 402.12"
+                stroke-width="30"
+                stroke="hsl(223,90%,50%)"
+                r="64"
+                className="pencil__body1"
+              ></circle>
+              <circle
+                transform="rotate(-90)"
+                stroke-dashoffset="465"
+                stroke-dasharray="464.96 464.96"
+                stroke-width="10"
+                stroke="hsl(223,90%,60%)"
+                r="74"
+                className="pencil__body2"
+              ></circle>
+              <circle
+                transform="rotate(-90)"
+                stroke-dashoffset="339"
+                stroke-dasharray="339.29 339.29"
+                stroke-width="10"
+                stroke="hsl(223,90%,40%)"
+                r="54"
+                className="pencil__body3"
+              ></circle>
+            </g>
+            <g
+              transform="rotate(-90) translate(49,0)"
+              className="pencil__eraser"
+            >
+              <g className="pencil__eraser-skew">
+                <rect
+                  height="30"
+                  width="30"
+                  ry="5"
+                  rx="5"
+                  fill="hsl(223,90%,70%)"
+                ></rect>
+                <rect
+                  clip-path="url(#pencil-eraser)"
+                  height="30"
+                  width="5"
+                  fill="hsl(223,90%,60%)"
+                ></rect>
+                <rect height="20" width="30" fill="hsl(223,10%,90%)"></rect>
+                <rect height="20" width="15" fill="hsl(223,10%,70%)"></rect>
+                <rect height="20" width="5" fill="hsl(223,10%,80%)"></rect>
+                <rect
+                  height="2"
+                  width="30"
+                  y="6"
+                  fill="hsla(223,10%,10%,0.2)"
+                ></rect>
+                <rect
+                  height="2"
+                  width="30"
+                  y="13"
+                  fill="hsla(223,10%,10%,0.2)"
+                ></rect>
+              </g>
+            </g>
+            <g
+              transform="rotate(-90) translate(49,-30)"
+              className="pencil__point"
+            >
+              <polygon
+                points="15 0,30 30,0 30"
+                fill="hsl(33,90%,70%)"
+              ></polygon>
+              <polygon points="15 0,6 30,0 30" fill="hsl(33,90%,50%)"></polygon>
+              <polygon
+                points="15 0,20 10,10 10"
+                fill="hsl(223,10%,10%)"
+              ></polygon>
+            </g>
+          </g>
+        </svg>
+      )}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Username: </label>
+          <input ref={usernameRef} type="text" />
+        </div>
+        <div>
+          <label>Email: </label>
+          <input ref={emailRef} type="email" />
+        </div>
+        <div>
+          <label>First Name: </label>
+          <input ref={firstNameRef} type="text" />
+        </div>
+        <div>
+          <label>Last Name: </label>
+          <input ref={lastNameRef} type="text" />
+        </div>
+        <div>
+          <label>Password: </label>
+          <input ref={passwordRef} type="password" />
+        </div>
+        <div>
+          <label>Tech Info: </label>
+          <textarea ref={techInfoRef} />
+        </div>
+        <div>
+          <label>Personal Text: </label>
+          <textarea ref={personalTextRef} />
+        </div>
+        <div>
+          <label>Image URL: </label>
+          <input ref={imgRef} type="file" name="img" />
+        </div>
+        {/* Personal Info Fields */}
+        <div>
+          <label>Leadership: </label>
+          <input ref={leadershipRef} type="range" step="0.2" min="0" max="1" />
+        </div>
+        <div>
+          <label>Adaptability/Flexibility: </label>
+          <input
+            ref={adaptabilityRef}
+            type="number"
+            step="0.2"
+            min="0"
+            max="1"
+          />
+        </div>
+        <div>
+          <label>Proactivity/Initiative: </label>
+          <input
+            ref={proactivityRef}
+            type="number"
+            step="0.2"
+            min="0"
+            max="1"
+          />
+        </div>
+        <div>
+          <label>Attention to Detail: </label>
+          <input
+            ref={attentionToDetailRef}
+            type="number"
+            step="0.2"
+            min="0"
+            max="1"
+          />
+        </div>
+        <div>
+          <label>Spontaneity: </label>
+          <input
+            ref={spontaneityRef}
+            type="number"
+            step="0.2"
+            min="0"
+            max="1"
+          />
+        </div>
+        <div>
+          <label>Teamwork/Collaboration: </label>
+          <input ref={teamworkRef} type="number" step="0.2" min="0" max="1" />
+        </div>
+        <div>
+          <label>Resilience: </label>
+          <input ref={resilienceRef} type="number" step="0.2" min="0" max="1" />
+        </div>
+        <div>
+          <label>Innovativeness/Creativity: </label>
+          <input
+            ref={innovativenessRef}
+            type="number"
+            step="0.2"
+            min="0"
+            max="1"
+          />
+        </div>
+        <div>
+          <label>Emotional Intelligence: </label>
+          <input
+            ref={emotionalIntelligenceRef}
+            type="number"
+            step="0.2"
+            min="0"
+            max="1"
+          />
+        </div>
+        <button
+          type="submit"
+          onClick={() => {
+            handleSubmit;
+          }}
+        >
+          Update
+        </button>
+      </form>
+    </>
   );
 };
 
