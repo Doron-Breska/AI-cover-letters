@@ -23,11 +23,9 @@ const coverLetterSlice = createSlice({
   reducers: {
     getLetters: (state, action: PayloadAction<Cover[]>) => {
       state.letters = action.payload;
-      // state.isAuthenticated = true;
     },
     removeLetters: (state) => {
       state.letters = [];
-      // state.isAuthenticated = false;
     },
   },
 });
