@@ -46,8 +46,22 @@ const createUser = async (req, res) => {
     personal_info,
     personal_text,
   } = req.body;
-
-  const pfofilePic = await imageUpload(req.file, "imgs");
+  if (
+    !username ||
+    !email ||
+    !first_name ||
+    !last_name ||
+    !password ||
+    !tech_info ||
+    !personal_info
+  ) {
+    return res
+      .status(400)
+      .json({ status: "Error", message: "All fields are required!" });
+  }
+  const profilePic = req.file
+    ? await imageUpload(req.file, "imgs")
+    : req.body.img;
 
   try {
     const hashedPassword = await encryptPassword(password);
@@ -65,7 +79,7 @@ const createUser = async (req, res) => {
       tech_info,
       personal_info,
       personal_text,
-      pfofilePic,
+      profilePic,
     ];
     const { rows } = await pool.query(query, values);
     res
@@ -144,6 +158,8 @@ const getActiveUser = async (req, res) => {
 };
 const updateUser = async (req, res) => {
   const userIdUpdate = req.params.id;
+  console.log("Received req.body:", req.body);
+  console.log("Received req.file:", req.file);
 
   // If the user isn't authorized, return an error immediately.
   if (req.user.user_id.toString() !== userIdUpdate.toString()) {
