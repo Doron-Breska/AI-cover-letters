@@ -71,7 +71,7 @@ const SideBar: React.FC = () => {
                       className={activePath === "/cover-letter" ? "active" : ""}
                       to="/cover-letter"
                     >
-                      Create Letters
+                      Cover-Letters
                     </NavLink>
                   </li>
                 </>

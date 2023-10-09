@@ -153,7 +153,7 @@ const CreateCoverLetter = () => {
           <label>Description: </label>
           <input ref={descriptionRef} type="text" required />
         </div>
-        <button type="submit">Update</button>
+        <button type="submit">Create Cover Letter</button>
       </form>
       <hr />
       <hr />

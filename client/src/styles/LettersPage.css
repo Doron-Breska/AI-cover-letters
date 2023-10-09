@@ -3,4 +3,13 @@
 }
 .single-letter{
     border: 3px solid orange;
+
+    width: 400px;
+}
+
+.letters-container{
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+
 }
