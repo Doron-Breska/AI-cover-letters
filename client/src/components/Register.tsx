@@ -96,15 +96,15 @@ const Register: React.FC = () => {
     const techInfoValue = `Skills:${skillsValue}. Education :${educationValue}.Previous work experience: ${workExperienceValue}`;
 
     const personalInfo: PersonalInfo = {
-      Leadership: leadershipRef.current?.value || "0", // Default value of "0" if no value is set
-      Adaptability_Flexibility: adaptabilityRef.current?.value || "0",
-      Proactivity_Initiative: proactivityRef.current?.value || "0",
-      Attention_to_Detail: attentionToDetailRef.current?.value || "0",
-      Spontaneity: spontaneityRef.current?.value || "0",
-      Teamwork_Collaboration: teamworkRef.current?.value || "0",
-      Resilience: resilienceRef.current?.value || "0",
-      Innovativeness_Creativity: innovativenessRef.current?.value || "0",
-      Emotional_Intelligence: emotionalIntelligenceRef.current?.value || "0",
+      Leadership: leadershipRef.current?.value || "0.1", // Default value of "0.1" if no value is set
+      Adaptability_Flexibility: adaptabilityRef.current?.value || "0.1",
+      Proactivity_Initiative: proactivityRef.current?.value || "0.1",
+      Attention_to_Detail: attentionToDetailRef.current?.value || "0.1",
+      Spontaneity: spontaneityRef.current?.value || "0.1",
+      Teamwork_Collaboration: teamworkRef.current?.value || "0.1",
+      Resilience: resilienceRef.current?.value || "0.1",
+      Innovativeness_Creativity: innovativenessRef.current?.value || "0.1",
+      Emotional_Intelligence: emotionalIntelligenceRef.current?.value || "0.1",
       tech_info: techInfoValue,
     };
 
@@ -285,7 +285,6 @@ const Register: React.FC = () => {
           <div className="mb-4">
             <button
               type="submit"
-      
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             >
               Create user
@@ -300,19 +299,43 @@ const Register: React.FC = () => {
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Leadership:
               </label>
-              <input ref={leadershipRef} type="range" required className="" />
+              <input
+                ref={leadershipRef}
+                type="range"
+                required
+                className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
+              />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Adaptability & Flexibility:
               </label>
-              <input ref={adaptabilityRef} type="range" required className="" />
+              <input
+                ref={adaptabilityRef}
+                type="range"
+                required
+                className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
+              />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Proactivity_Initiative
               </label>
-              <input ref={proactivityRef} type="range" required className="" />
+              <input
+                ref={proactivityRef}
+                type="range"
+                required
+                className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
+              />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -323,25 +346,52 @@ const Register: React.FC = () => {
                 type="range"
                 required
                 className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
               />
             </div>{" "}
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Spontaneity
               </label>
-              <input ref={spontaneityRef} type="range" required className="" />
+              <input
+                ref={spontaneityRef}
+                type="range"
+                required
+                className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
+              />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 teamWork
               </label>
-              <input ref={teamworkRef} type="range" required className="" />
+              <input
+                ref={teamworkRef}
+                type="range"
+                required
+                className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
+              />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Resilience
               </label>
-              <input ref={resilienceRef} type="range" required className="" />
+              <input
+                ref={resilienceRef}
+                type="range"
+                required
+                className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
+              />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -352,6 +402,9 @@ const Register: React.FC = () => {
                 type="range"
                 required
                 className=""
+                min="0.1"
+                max="2.0"
+                step="0.1"
               />
             </div>
             <div className="mb-4">
@@ -363,6 +416,9 @@ const Register: React.FC = () => {
                 type="range"
                 required
                 className=" "
+                min="0.1"
+                max="2.0"
+                step="0.1"
               />
             </div>
           </form>
