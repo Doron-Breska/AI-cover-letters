@@ -6,19 +6,32 @@ import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderLetter.css";
 
+interface LetterToSave {
+  user_id: number;
+  job_title: string;
+  company_name: string;
+  content: string;
+}
+
 interface CreateLetter {
   company_name: string;
   job_title: string;
   description: string;
 }
+
 const CreateCoverLetter = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const token = localStorage.getItem("token");
-  const [newLetter, setNewLetter] = useState<string>("");
   const loading = useSelector((state: RootState) => state.loader.loading);
   const dispatch = useDispatch();
-
   const userId = user?.user_id;
+  const [newLetter, setNewLetter] = useState<string>("");
+  const [hasSaved, setHasSaved] = useState<boolean>(false);
+
+  const [jt, setJt] = useState<string>("");
+  const [cn, setCn] = useState<string>("");
+  const [con, setCon] = useState<string>("");
+
   const companyRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
@@ -32,7 +45,6 @@ const CreateCoverLetter = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(toggleLoading());
-
     const infoForNewLetter: CreateLetter = {
       company_name: "",
       job_title: "",
@@ -54,13 +66,45 @@ const CreateCoverLetter = () => {
         );
         console.log("this is the cover letter:", response.data.message);
         dispatch(toggleLoading());
-        resetInputs();
         setNewLetter(response.data.message);
+        setHasSaved(false);
+        setJt(titleRef.current!.value);
+        setCn(companyRef.current!.value);
+        setCon(response.data.message);
+        resetInputs();
       } else {
         console.error("User ID is not available");
       }
     } catch (error) {
       console.error("Error updating user:", error);
+    }
+  };
+
+  const saveLetter = async () => {
+    const saveLetterData: LetterToSave = {
+      user_id: userId!,
+      job_title: jt,
+      company_name: cn,
+      content: con,
+    };
+
+    try {
+      const response = await axios.post(
+        `http://localhost:5001/api/c-l/save`,
+        saveLetterData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Letter saved successfully!", response.data);
+        setHasSaved(true);
+      } else {
+        console.error("Failed to save the letter.");
+      }
+    } catch (error) {
+      console.error("Error saving letter:", error);
     }
   };
 
@@ -89,14 +133,23 @@ const CreateCoverLetter = () => {
           <label>Description: </label>
           <input ref={descriptionRef} type="text" required />
         </div>
-
         <button type="submit">Update</button>
       </form>
       <hr />
       <hr />
       <hr />
       <hr />
-      {newLetter && <p>{newLetter}</p>}
+      {newLetter && (
+        <>
+          <h3>this is the new cover letter:</h3>
+          <p className="cover-letter-paragraph">{newLetter}</p>
+          {!hasSaved && (
+            <>
+              <button onClick={saveLetter}>SaveLetter</button>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 };
