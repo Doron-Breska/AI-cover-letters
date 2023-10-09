@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useDispatch } from "react-redux";
 import { logout } from "../slices/userSlice";
+import { removeLetters } from "../slices/coverLetterSlice";
 
 const SideBar: React.FC = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -67,12 +68,10 @@ const SideBar: React.FC = () => {
                   </li>
                   <li>
                     <NavLink
-                      className={
-                        activePath === "/create-letter" ? "active" : ""
-                      }
-                      to="/create-letter"
+                      className={activePath === "/cover-letter" ? "active" : ""}
+                      to="/cover-letter"
                     >
-                      Create Cover Letter
+                      Cover-Letters
                     </NavLink>
                   </li>
                 </>
@@ -91,6 +90,7 @@ const SideBar: React.FC = () => {
               style={{ border: "3px solid green" }}
               onClick={() => {
                 dispatch(logout());
+                dispatch(removeLetters());
                 localStorage.removeItem("token");
               }}
             >

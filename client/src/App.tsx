@@ -7,7 +7,7 @@ import Registration from "./pages/Registration";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import SideBar from "./components/SideBar";
-import Coverletters from "./pages/Coverletters";
+import CoverLetter from "./pages/CoverLetter";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/create-letter" element={<Coverletters />} />
+          <Route path="/cover-letter" element={<CoverLetter />} />
         </Routes>
       </BrowserRouter>
     </div>
