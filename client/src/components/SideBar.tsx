@@ -55,7 +55,7 @@ const SideBar: React.FC = () => {
               <li>
                 <NavLink
                   className={activePath === "/registeration" ? "active" : ""}
-                  to="/registeration"
+                  to="/registration"
                 >
                   Register
                 </NavLink>
