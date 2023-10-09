@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderLetter.css";
+import { getLetters } from "../slices/coverLetterSlice";
 
 interface LetterToSave {
   user_id: number;
@@ -40,6 +41,24 @@ const CreateCoverLetter = () => {
     if (companyRef.current) companyRef.current.value = "";
     if (titleRef.current) titleRef.current.value = "";
     if (descriptionRef.current) descriptionRef.current.value = "";
+  };
+
+  const updateLettersAeeatRedux = () => {
+    axios
+      .get("http://localhost:5001/api/c-l/user/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.status === "Success") {
+          dispatch(getLetters(data.data));
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching cover letters:", error);
+      });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -100,6 +119,7 @@ const CreateCoverLetter = () => {
       if (response.status === 200) {
         console.log("Letter saved successfully!", response.data);
         setHasSaved(true);
+        updateLettersAeeatRedux();
       } else {
         console.error("Failed to save the letter.");
       }
