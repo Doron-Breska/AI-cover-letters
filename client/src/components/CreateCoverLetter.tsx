@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderLetter.css";
 import { getLetters } from "../slices/coverLetterSlice";
+import "../styles/CreateCoverLetter.css";
 
 interface LetterToSave {
   user_id: number;
@@ -35,7 +36,9 @@ const CreateCoverLetter = () => {
 
   const companyRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
   const resetInputs = () => {
     if (companyRef.current) companyRef.current.value = "";
@@ -59,6 +62,9 @@ const CreateCoverLetter = () => {
       .catch((error) => {
         console.error("Error fetching cover letters:", error);
       });
+  };
+  const scrollToHeading = () => {
+    headingRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,9 +101,14 @@ const CreateCoverLetter = () => {
         console.error("User ID is not available");
       }
     } catch (error) {
-      console.error("Error updating user:", error);
+      console.error("Error with creating a letter:", error);
     }
   };
+  useEffect(() => {
+    if (newLetter) {
+      scrollToHeading();
+    }
+  }, [newLetter]);
 
   const saveLetter = async () => {
     const saveLetterData: LetterToSave = {
@@ -129,7 +140,7 @@ const CreateCoverLetter = () => {
   };
 
   return (
-    <>
+    <div className="test-width">
       {loading && (
         <div className="typewriter">
           <div className="slide">
@@ -139,38 +150,61 @@ const CreateCoverLetter = () => {
           <div className="keyboard"></div>
         </div>
       )}
-      {user && user.username}
-      <form onSubmit={handleSubmit}>
+
+      <h1 className="text-3xl text-center mt-16">
+        Fill out the form <br /> to create a cover letter
+      </h1>
+      <form className="create-letter-form" onSubmit={handleSubmit}>
         <div>
           <label>Company Name: </label>
-          <input ref={companyRef} type="text" required />
+          <input
+            className="my-2 test create-letter-input"
+            ref={companyRef}
+            type="text"
+            required
+          />
         </div>
         <div>
           <label>Job Title: </label>
-          <input ref={titleRef} type="text" required />
+          <br />
+          <input
+            className="my-2 create-letter-input"
+            ref={titleRef}
+            type="text"
+            required
+          />
         </div>
         <div>
           <label>Description: </label>
-          <input ref={descriptionRef} type="text" required />
+          <br />
+          <textarea
+            className="my-2 create-letter-input"
+            ref={descriptionRef}
+            rows={8}
+            required
+          />
         </div>
-        <button type="submit">Create Cover Letter</button>
+        <button className="my-2 bg-white" type="submit">
+          Create Cover Letter
+        </button>
       </form>
-      <hr />
-      <hr />
-      <hr />
-      <hr />
       {newLetter && (
-        <>
-          <h3>this is the new cover letter:</h3>
-          <p className="cover-letter-paragraph">{newLetter}</p>
-          {!hasSaved && (
-            <>
-              <button onClick={saveLetter}>SaveLetter</button>
-            </>
-          )}
-        </>
+        <div className="text-center">
+          <h3 className="text-2xl text-center mb-10 mt-20" ref={headingRef}>
+            this is the new cover letter:
+          </h3>
+          <div className="cover-letter-paragraph">
+            {newLetter}
+            <br />
+            {!hasSaved && (
+              <div className="text-center my-4">
+                <button onClick={saveLetter}>SaveLetter</button>
+              </div>
+            )}
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

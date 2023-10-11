@@ -1,0 +1,57 @@
+.single-letter {
+    position: relative;
+    border-radius: ;
+    flex-direction: column;
+    background-color: white;
+    width: 400px;
+    border-radius: 16px;
+    background-color: rgb(253, 241, 225);
+    box-shadow: -1rem 0 3rem hwb(32 73% 13%);
+    transition: transform 0.3s ease;
+}
+
+
+.single-letter:focus-within~.single-letter,
+.single-letter:hover~.single-letter {
+    transform: translateX(130px);
+}
+
+.single-letter:hover {
+    transform: translateY(-1rem);
+}
+
+.single-letter:not(:first-child) {
+    margin-left: -130px;
+}
+
+.letter-content{
+font-family: 'Roboto Mono', monospace;
+height: 350px;
+overflow-y: scroll;
+background-color: white;
+border-radius: 6px;
+padding: 0.5rem;
+}
+
+.con-let {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Ensures the container takes the full viewport height */
+}
+
+.upper-part {
+    flex: 1;
+    /* Takes up all available space but no more, allowing it to be centered */
+    display: flex;
+    align-items: center;
+    /* Vertical centering */
+    justify-content: center;
+    /* Horizontal centering */
+}
+
+.lower-part {
+    overflow-x: auto;
+    /* or whatever overflow properties you need */
+    /* No need for a flex property here, it will naturally take up as much space as its content requires */
+}

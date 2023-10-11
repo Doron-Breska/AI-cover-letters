@@ -64,29 +64,32 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
   };
 
   return (
-    <div className="single-letter">
+    <div className="single-letter p-4 pr-4">
       <p>
-        Company name:
+        <span className="underline italic font-medium">Company name:</span>
         <br />
         {company_name}
       </p>
       <p>
-        Job title:
+        <span className="underline italic font-medium">Job title:</span>
+
         <br />
         {job_title}
       </p>
-      <p>
-        Content:
-        <br />
-        {content}
-      </p>
-      <button
-        onClick={() => {
-          deleteLetter();
-        }}
-      >
-        Delete Letter
-      </button>
+
+      <span className="underline italic font-medium">Content:</span>
+
+      <br />
+      <p className="letter-content mt-2"> {content}</p>
+      <div className="text-center mt-4">
+        <button
+          onClick={() => {
+            deleteLetter();
+          }}
+        >
+          Delete Letter
+        </button>
+      </div>
     </div>
   );
 };

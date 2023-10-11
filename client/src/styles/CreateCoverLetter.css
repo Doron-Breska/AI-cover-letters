@@ -1,0 +1,56 @@
+
+
+.create-letter-form{
+    max-width:400px;
+    /* border: 2px solid red; */
+    border-radius: 3px;
+    margin: 0 auto;
+    margin-top:4rem ;
+    text-align: center;
+    padding: 1rem;
+background-color: #f2dfd6;
+}
+
+input , textarea{
+    background-color: white;
+    width: 100%;
+}
+
+
+/* Reset the default outline and styles on focus */
+
+.create-letter-input:focus {
+    outline: none;
+    /* removes the default browser outline */
+    border-color: red;
+    /* border-radius: 3px; */
+    /* sets border color to red */
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+    /* this emulates the Tailwind focus shadow with a red tint */
+}
+
+/* Add any other styles you wish to apply to the input by default */
+.create-letter-input {
+border-radius: 3px;  
+}
+
+::selection,
+::selection {
+    background-color: #fce9e9;
+
+}
+.cover-letter-paragraph{
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    border: 1px solid rgb(245, 225, 214);
+    background-color: white ;
+    padding:1rem 1rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.test-width{
+    width: 100vw;
+
+
+}

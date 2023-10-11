@@ -1,13 +1,29 @@
 .hamburger {
     position: absolute;
-    top: 15px;
-    left:0px;
-    background-color: transparent;
-    border: none;
-    font-size: 3rem;
+    top: 30px;
+    left:30px;
+    background-color: rgb(247, 178, 178);
+    /* border: none; */
+    border-radius: 50%;
+    font-size: 4rem;
+    padding: 0;
     cursor: pointer;
     z-index: 1000;
+    transition: transform 0.3s ease-in-out;
 }
+.hamburger:hover{
+    background-color: transparent;
+    background-color: lightcoral;
+    transform: rotate(180deg);
+}
+.hamburger:focus{
+    transform: rotate(180deg);
+}
+
+.hamburger:focus {
+   outline:darkgreen
+}
+
 
 .sidebar {
     position: fixed;
@@ -16,7 +32,9 @@
     height: 100vh;
     width: 250px;
     background-color: #333;
-    color: white;
+    background-color: rgb(252, 227, 209);
+    /* color: white; */
+    color: black;
     z-index: 999;
     padding: 20px;
     padding-top: 7rem;
@@ -25,5 +43,12 @@
 }
 
 .active{
-    color: red ;
+    color: rgb(255, 110, 57) ;
+}
+
+.sidebar li:hover{
+text-decoration: underline;
+}
+.sidebar li:focus {
+    text-decoration: underline;
 }

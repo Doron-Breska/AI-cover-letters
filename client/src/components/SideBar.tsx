@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/SideBar.css";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
+import { CgMenuRound } from "react-icons/cg";
+
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -43,7 +45,7 @@ const SideBar: React.FC = () => {
     <>
       {!isSidebarVisible && (
         <button className="hamburger" onClick={() => setIsSidebarVisible(true)}>
-          <AiOutlineMenuUnfold />
+          <CgMenuRound />
         </button>
       )}
 
@@ -51,14 +53,14 @@ const SideBar: React.FC = () => {
         <>
           <div ref={sidebarRef} className="sidebar">
             <ul>
-              <li>
+              <li className="font-bold my-3">
                 <NavLink className={activePath === "/" ? "active" : ""} to="/">
                   Home
                 </NavLink>
               </li>
               {user !== null ? (
                 <>
-                  <li>
+                  <li className="font-bold my-3">
                     <NavLink
                       className={activePath === "/profile" ? "active" : ""}
                       to="/profile"
@@ -66,7 +68,7 @@ const SideBar: React.FC = () => {
                       Profile
                     </NavLink>
                   </li>
-                  <li>
+                  <li className="font-bold my-3">
                     <NavLink
                       className={activePath === "/cover-letter" ? "active" : ""}
                       to="/cover-letter"
@@ -76,7 +78,7 @@ const SideBar: React.FC = () => {
                   </li>
                 </>
               ) : (
-                <li>
+                <li className="font-bold my-3">
                   <NavLink
                     className={activePath === "/registeration" ? "active" : ""}
                     to="/registeration"
@@ -87,7 +89,7 @@ const SideBar: React.FC = () => {
               )}
             </ul>
             <button
-              style={{ border: "3px solid green" }}
+              className="my-5"
               onClick={() => {
                 dispatch(logout());
                 dispatch(removeLetters());
@@ -96,10 +98,10 @@ const SideBar: React.FC = () => {
             >
               Log Out
             </button>
+            <button className="hamburger" onClick={closeSidebar}>
+              <CgMenuRound />
+            </button>
           </div>
-          <button className="hamburger" onClick={closeSidebar}>
-            <AiOutlineMenuUnfold />
-          </button>
         </>
       )}
     </>
