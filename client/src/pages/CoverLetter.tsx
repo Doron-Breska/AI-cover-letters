@@ -1,10 +1,9 @@
 import CreateCoverLetter from "../components/CreateCoverLetter";
-import ManageLetters from "../components/ManageLetters";
+// import ManageLetters from "./ManageLetters";
 const CoverLetter = () => {
   return (
     <div>
       <CreateCoverLetter />
-      <ManageLetters />
     </div>
   );
 };

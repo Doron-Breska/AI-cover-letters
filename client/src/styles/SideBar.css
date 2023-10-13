@@ -3,6 +3,7 @@
     top: 30px;
     left:30px;
     background-color: rgb(247, 178, 178);
+    /* color: white; */
     /* border: none; */
     border-radius: 50%;
     font-size: 4rem;
@@ -21,7 +22,7 @@
 }
 
 .hamburger:focus {
-   outline:darkgreen
+   outline:none
 }
 
 

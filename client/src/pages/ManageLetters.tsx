@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import SingleLetter from "./SingleLetter";
+import SingleLetter from "../components/SingleLetter";
 import "../styles/ManageLetters.css";
 
 const ManageLetters = () => {

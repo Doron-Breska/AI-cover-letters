@@ -54,3 +54,27 @@ border-radius: 3px;
 
 
 }
+
+.letter-btn-container {
+    font-size: 3rem;
+    color: brown;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-btn{
+margin: 1.7rem;
+margin-bottom: 0.4rem;
+cursor: pointer;
+padding: 0.2rem;
+
+}
+
+.letter-btn:hover,
+.letter-btn:focus {
+    border-radius: 15%;
+    background-color: rgb(255, 211, 211);
+    transform: translateY(-5px);
+}

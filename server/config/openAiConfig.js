@@ -19,7 +19,7 @@ const openAi = async (userInfo, jobOffer) => {
 
     if (response.choices && response.choices.length > 0) {
       const content = response.choices[0].message.content;
-      console.log("Returning content from openAi:", content); // Log before returning
+      // console.log("Returning content from openAi:", content); to display in the terminal before returning
       return content;
     } else {
       throw new Error("No choices available in the response from OpenAI");

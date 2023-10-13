@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/SideBar.css";
-import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { CgMenuRound } from "react-icons/cg";
 
 import { NavLink, useLocation } from "react-router-dom";
@@ -15,6 +14,7 @@ const SideBar: React.FC = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
+  const letters = useSelector((state: RootState) => state.cover.letters);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -70,12 +70,26 @@ const SideBar: React.FC = () => {
                   </li>
                   <li className="font-bold my-3">
                     <NavLink
-                      className={activePath === "/cover-letter" ? "active" : ""}
-                      to="/cover-letter"
+                      className={
+                        activePath === "/create-letter" ? "active" : ""
+                      }
+                      to="/create-letter"
                     >
-                      Cover-Letters
+                      Create Cover Letter
                     </NavLink>
                   </li>
+                  {letters.length !== 0 && (
+                    <li className="font-bold my-3">
+                      <NavLink
+                        className={
+                          activePath === "/manage-letters" ? "active" : ""
+                        }
+                        to="/manage-letters"
+                      >
+                        Saved Letters
+                      </NavLink>
+                    </li>
+                  )}
                 </>
               ) : (
                 <li className="font-bold my-3">

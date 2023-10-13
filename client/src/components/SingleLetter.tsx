@@ -4,6 +4,8 @@ import React from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getLetters } from "../slices/coverLetterSlice";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import "../styles/CreateCoverLetter.css";
 
 interface SingleLetterProps {
   c_v_id: number;
@@ -81,14 +83,13 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
 
       <br />
       <p className="letter-content mt-2"> {content}</p>
-      <div className="text-center mt-4">
-        <button
+      <div className="text-center  letter-btn-container">
+        <RiDeleteBin2Fill
+          className="letter-btn"
           onClick={() => {
             deleteLetter();
           }}
-        >
-          Delete Letter
-        </button>
+        />
       </div>
     </div>
   );

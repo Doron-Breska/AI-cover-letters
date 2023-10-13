@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import SideBar from "./components/SideBar";
 import CoverLetter from "./pages/CoverLetter";
+import ManageLetters from "./pages/ManageLetters";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/cover-letter" element={<CoverLetter />} />
+          <Route path="/create-letter" element={<CoverLetter />} />
+          <Route path="/manage-letters" element={<ManageLetters />} />
         </Routes>
       </BrowserRouter>
     </div>
