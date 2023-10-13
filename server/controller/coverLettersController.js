@@ -97,7 +97,7 @@ const createNewLetter = async (req, res) => {
 
     const data = await openAi(combinedUserInfo, combinedJobInfo);
 
-    console.log("Data received in createNewLetter:", data); // Log the received data
+    // console.log("Data received in createNewLetter:", data);
 
     if (data) {
       return res.status(200).json({ status: "Success", message: data });
