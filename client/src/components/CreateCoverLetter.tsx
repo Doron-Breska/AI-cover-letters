@@ -196,7 +196,7 @@ const CreateCoverLetter = () => {
           <h3 className="text-2xl text-center mb-10 mt-20" ref={headingRef}>
             this is the new cover letter:
           </h3>
-          <div className="cover-letter-paragraph mb-20">
+          <div className="cover-letter-paragraph">
             {newLetter}
             <br />
 

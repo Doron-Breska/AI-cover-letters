@@ -90,11 +90,15 @@ const createUser = async (req, res) => {
       if (error.constraint === "users_username_key") {
         return res
           .status(400)
-          .json({ status: "error", message: "Username is already taken." });
+          .json({
+            status: "error",
+            message: "This username is already taken.",
+          });
       } else if (error.constraint === "users_email_key") {
-        return res
-          .status(400)
-          .json({ status: "error", message: "Email is already registered." });
+        return res.status(400).json({
+          status: "error",
+          message: "This email is already registered.",
+        });
       }
     }
     console.error("Error:", error);

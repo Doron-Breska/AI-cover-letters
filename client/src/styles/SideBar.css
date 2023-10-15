@@ -1,5 +1,6 @@
 .hamburger {
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     top: 30px;
     left:30px;
     background-color: rgb(247, 178, 178);
@@ -44,7 +45,8 @@
 }
 
 .active{
-    color: rgb(255, 110, 57) ;
+    /* color: rgb(255, 110, 57) ; */
+    color: brown;
 }
 
 .sidebar li:hover{
@@ -52,4 +54,32 @@ text-decoration: underline;
 }
 .sidebar li:focus {
     text-decoration: underline;
+}
+
+.side-btn {
+    font-size: 3rem;
+    color: brown;
+    font-size: 3rem;
+    margin-block: 1.7rem;
+    margin-bottom: 0.4rem;
+    cursor: pointer;
+    padding: 0.2rem;
+
+}
+
+.side-btn:hover,
+.side-btn:focus {
+    border-radius: 15%;
+    background-color: rgb(255, 211, 211);
+    transform: translateY(-5px);
+}
+
+input:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+input {
+    border-radius: 3px;
 }

@@ -1,0 +1,77 @@
+input:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+input ,textarea{
+    border-radius: 3px;
+}
+
+/* Styling the track */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #ddd;
+    height: 8px;
+    border-radius: 3px;
+    /* Matched with your inputs */
+}
+
+input[type="range"]::-moz-range-track {
+    background: #ddd;
+    height: 8px;
+    border-radius: 3px;
+}
+
+/* Styling the thumb */
+input[type="range"]::-webkit-slider-thumb {
+    background: #ddd;
+    /* Default color */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px;
+    transition: background 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+input[type="range"]::-moz-range-thumb {
+    background: #ddd;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Thumb hover and focus styles */
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:focus::-webkit-slider-thumb {
+    background: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+    /* The glow effect */
+}
+
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:focus::-moz-range-thumb {
+    background: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+/* Remove default focus styles in Firefox */
+input[type="range"]::-moz-focus-outer {
+    border: 0;
+}
+
+.reg-form{
+    width: 600px;
+    margin: 0 auto;
+    border: 2px solid green;
+}
