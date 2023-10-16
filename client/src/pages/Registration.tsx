@@ -72,9 +72,9 @@ const Registration: React.FC = () => {
   const emotionalIntelligenceRef = useRef<HTMLInputElement>(null);
   const emotionalIntelligenceLabelRef = useRef<HTMLLabelElement>(null);
 
-  const skillsRef = useRef<HTMLInputElement>(null);
-  const educationRef = useRef<HTMLInputElement>(null);
-  const workExperienceRef = useRef<HTMLInputElement>(null);
+  const skillsRef = useRef<HTMLTextAreaElement>(null);
+  const educationRef = useRef<HTMLTextAreaElement>(null);
+  const workExperienceRef = useRef<HTMLTextAreaElement>(null);
 
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -221,7 +221,7 @@ const Registration: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="reg-container">
       {loading && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -329,180 +329,213 @@ const Registration: React.FC = () => {
         </svg>
       )}
       <form className="reg-form" onSubmit={handleSubmit}>
-        <label>Username:</label>
-        <input ref={usernameRef} type="text" required />
+        <div className="first-questionnaire">
+          <label>Username:</label>
+          <input ref={usernameRef} type="text" required placeholder="John" />
 
-        <label>Email:</label>
-        <input ref={emailRef} type="email" required />
-        <label>First Name:</label>
-        <input ref={firstNameRef} type="text" required />
+          <label>Email:</label>
+          <input
+            ref={emailRef}
+            type="email"
+            required
+            placeholder="john.doe@example.com"
+          />
+          <label>First Name:</label>
+          <input ref={firstNameRef} type="text" required placeholder="John" />
 
-        <label>Last Name:</label>
-        <input ref={lastNameRef} type="text" required />
+          <label>Last Name:</label>
+          <input ref={lastNameRef} type="text" required placeholder="Doe" />
 
-        <label>Password:</label>
-        <input ref={passwordRef} type="password" required />
+          <label>Password:</label>
+          <input
+            ref={passwordRef}
+            type="password"
+            required
+            minLength={6}
+            placeholder="Min 6 characters"
+          />
 
-        <label>Skills:</label>
-        <input ref={skillsRef} type="text" required />
+          <label>Skills:</label>
+          <textarea
+            ref={skillsRef}
+            required
+            placeholder="JavaScript, TypeScript, React, Agile...."
+          />
 
-        <label>Education:</label>
-        <input ref={educationRef} type="text" required />
+          <label>Education:</label>
+          <textarea
+            ref={educationRef}
+            required
+            rows={3}
+            placeholder="BA degree in art from the Berlin University of the Arts"
+          />
 
-        <label>Work Experience:</label>
-        <input ref={workExperienceRef} type="text" required />
+          <label>Work Experience:</label>
+          <textarea
+            ref={workExperienceRef}
+            required
+            rows={3}
+            placeholder="Head of marketring at La Maison Berlin, Januar 2018 - Januar 2020. Senior back-end developer at BMW, April 2020 - October 2023."
+          />
 
-        <label>Personal Text:</label>
-        <textarea ref={personalTextRef}></textarea>
+          <label>Personal Text:</label>
+          <textarea
+            placeholder="This part is optional! Feel free to tell us anything interesting about yourself, whether you like gardening or your favorite volunteering organization."
+            ref={personalTextRef}
+            rows={3}
+          />
 
-        <label>Image URL:</label>
-        <input ref={imgRef} type="file" />
+          <label>Image:</label>
+          <input ref={imgRef} type="file" />
+        </div>
 
-        <label ref={leadershipLabelRef}>Leadership: </label>
-        <input
-          ref={leadershipRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (leadershipLabelRef.current && leadershipRef.current) {
-              leadershipLabelRef.current.textContent = `Leadership: ${leadershipRef.current.value}`;
-            }
-          }}
-        />
+        <div className="second-questionnaire text-center">
+          <label ref={leadershipLabelRef}>Leadership: </label>
+          <input
+            ref={leadershipRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (leadershipLabelRef.current && leadershipRef.current) {
+                leadershipLabelRef.current.textContent = `Leadership: ${leadershipRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={adaptabilityLabelRef}>Adaptability & Flexibility: </label>
-        <input
-          ref={adaptabilityRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (adaptabilityLabelRef.current && adaptabilityRef.current) {
-              adaptabilityLabelRef.current.textContent = `Adaptability & Flexibility:  ${adaptabilityRef.current.value}`;
-            }
-          }}
-        />
+          <label ref={adaptabilityLabelRef}>Adaptability & Flexibility: </label>
+          <input
+            ref={adaptabilityRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (adaptabilityLabelRef.current && adaptabilityRef.current) {
+                adaptabilityLabelRef.current.textContent = `Adaptability & Flexibility:  ${adaptabilityRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={proactivityLabelRef}>Proactivity & Initiative: </label>
-        <input
-          ref={proactivityRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (proactivityLabelRef.current && proactivityRef.current) {
-              proactivityLabelRef.current.textContent = `Proactivity & Initiative: ${proactivityRef.current.value}`;
-            }
-          }}
-        />
+          <label ref={proactivityLabelRef}>Proactivity & Initiative: </label>
+          <input
+            ref={proactivityRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (proactivityLabelRef.current && proactivityRef.current) {
+                proactivityLabelRef.current.textContent = `Proactivity & Initiative: ${proactivityRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={attentionToDetailLabelRef}>Attention to details: </label>
-        <input
-          ref={attentionToDetailRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (
-              attentionToDetailLabelRef.current &&
-              attentionToDetailRef.current
-            ) {
-              attentionToDetailLabelRef.current.textContent = `Attention to details: ${attentionToDetailRef.current.value}`;
-            }
-          }}
-        />
+          <label ref={attentionToDetailLabelRef}>Attention to details: </label>
+          <input
+            ref={attentionToDetailRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (
+                attentionToDetailLabelRef.current &&
+                attentionToDetailRef.current
+              ) {
+                attentionToDetailLabelRef.current.textContent = `Attention to details: ${attentionToDetailRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={spontaneityLabelRef}>Spontaneity: </label>
-        <input
-          ref={spontaneityRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (spontaneityLabelRef.current && spontaneityRef.current) {
-              spontaneityLabelRef.current.textContent = `Spontaneity: ${spontaneityRef.current.value}`;
-            }
-          }}
-        />
+          <label ref={spontaneityLabelRef}>Spontaneity: </label>
+          <input
+            ref={spontaneityRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (spontaneityLabelRef.current && spontaneityRef.current) {
+                spontaneityLabelRef.current.textContent = `Spontaneity: ${spontaneityRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={teamworkLabelRef}>Teamwork & Collaboration: </label>
-        <input
-          ref={teamworkRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (teamworkLabelRef.current && teamworkRef.current) {
-              teamworkLabelRef.current.textContent = `Teamwork & Collaboration: ${teamworkRef.current.value}`;
-            }
-          }}
-        />
+          <label ref={teamworkLabelRef}>Teamwork & Collaboration: </label>
+          <input
+            ref={teamworkRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (teamworkLabelRef.current && teamworkRef.current) {
+                teamworkLabelRef.current.textContent = `Teamwork & Collaboration: ${teamworkRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={resilienceLabelRef}>Resilience: </label>
-        <input
-          ref={resilienceRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (resilienceLabelRef.current && resilienceRef.current) {
-              resilienceLabelRef.current.textContent = `Resilience: ${resilienceRef.current.value}`;
-            }
-          }}
-        />
+          <label ref={resilienceLabelRef}>Resilience: </label>
+          <input
+            ref={resilienceRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (resilienceLabelRef.current && resilienceRef.current) {
+                resilienceLabelRef.current.textContent = `Resilience: ${resilienceRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={innovativenessLabelRef}>
-          Innovativeness & Creativity:{" "}
-        </label>
-        <input
-          ref={innovativenessRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (innovativenessLabelRef.current && innovativenessRef.current) {
-              innovativenessLabelRef.current.textContent = `Innovativeness & Creativity: ${innovativenessRef.current.value}`;
-            }
-          }}
-        />
+          <label ref={innovativenessLabelRef}>
+            Innovativeness & Creativity:{" "}
+          </label>
+          <input
+            ref={innovativenessRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (innovativenessLabelRef.current && innovativenessRef.current) {
+                innovativenessLabelRef.current.textContent = `Innovativeness & Creativity: ${innovativenessRef.current.value}`;
+              }
+            }}
+          />
 
-        <label ref={emotionalIntelligenceLabelRef}>
-          Emotional Intelligence:{" "}
-        </label>
-        <input
-          ref={emotionalIntelligenceRef}
-          type="range"
-          required
-          min="0"
-          max="5"
-          step="1"
-          onChange={() => {
-            if (
-              emotionalIntelligenceLabelRef.current &&
-              emotionalIntelligenceRef.current
-            ) {
-              emotionalIntelligenceLabelRef.current.textContent = `Emotional Intelligence: ${emotionalIntelligenceRef.current.value}`;
-            }
-          }}
-        />
-        <button type="submit">Create user</button>
+          <label ref={emotionalIntelligenceLabelRef}>
+            Emotional Intelligence:{" "}
+          </label>
+          <input
+            ref={emotionalIntelligenceRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (
+                emotionalIntelligenceLabelRef.current &&
+                emotionalIntelligenceRef.current
+              ) {
+                emotionalIntelligenceLabelRef.current.textContent = `Emotional Intelligence: ${emotionalIntelligenceRef.current.value}`;
+              }
+            }}
+          />
+          <button type="submit">Create user</button>
+        </div>
       </form>
       {msg && <div>{msg}</div>}
     </div>

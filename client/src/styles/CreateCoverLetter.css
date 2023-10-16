@@ -1,8 +1,12 @@
 
-
+/* .create-letter-page{
+  
+} */
+.create-letter-form-container{
+    padding-inline:1rem;
+}
 .create-letter-form{
     max-width:400px;
-    /* border: 2px solid red; */
     border-radius: 3px;
     margin: 0 auto;
     margin-top:4rem ;
@@ -49,11 +53,7 @@ border-radius: 3px;
     font-family: 'Roboto Mono', monospace;
 }
 
-.test-width{
-    width: 100vw;
 
-
-}
 
 .letter-btn-container {
     font-size: 3rem;

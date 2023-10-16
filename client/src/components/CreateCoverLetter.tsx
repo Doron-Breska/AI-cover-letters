@@ -143,7 +143,7 @@ const CreateCoverLetter = () => {
   };
 
   return (
-    <div className="test-width">
+    <>
       {loading && (
         <div className="typewriter">
           <div className="slide">
@@ -157,59 +157,61 @@ const CreateCoverLetter = () => {
       <h1 className="text-3xl text-center mt-16">
         Fill out the form <br /> to create a cover letter
       </h1>
-      <form className="create-letter-form" onSubmit={handleSubmit}>
-        <div>
-          <label>Company Name: </label>
-          <input
-            className="my-2 test create-letter-input"
-            ref={companyRef}
-            type="text"
-            required
-          />
-        </div>
-        <div>
-          <label>Job Title: </label>
-          <br />
-          <input
-            className="my-2 create-letter-input"
-            ref={titleRef}
-            type="text"
-            required
-          />
-        </div>
-        <div>
-          <label>Description: </label>
-          <br />
-          <textarea
-            className="my-2 create-letter-input"
-            ref={descriptionRef}
-            rows={8}
-            required
-          />
-        </div>
-        <button className="my-2 bg-white" type="submit">
-          Create Cover Letter
-        </button>
-      </form>
-      {newLetter && (
-        <div className="text-center">
-          <h3 className="text-2xl text-center mb-10 mt-20" ref={headingRef}>
-            this is the new cover letter:
-          </h3>
-          <div className="cover-letter-paragraph">
-            {newLetter}
+      <div className="create-letter-form-container">
+        <form className="create-letter-form" onSubmit={handleSubmit}>
+          <div>
+            <label>Company Name: </label>
+            <input
+              className="my-2 test create-letter-input"
+              ref={companyRef}
+              type="text"
+              required
+            />
+          </div>
+          <div>
+            <label>Job Title: </label>
             <br />
+            <input
+              className="my-2 create-letter-input"
+              ref={titleRef}
+              type="text"
+              required
+            />
+          </div>
+          <div>
+            <label>Description: </label>
+            <br />
+            <textarea
+              className="my-2 create-letter-input"
+              ref={descriptionRef}
+              rows={8}
+              required
+            />
+          </div>
+          <button className="my-2 bg-white" type="submit">
+            Create Cover Letter
+          </button>
+        </form>
+        {newLetter && (
+          <div className="text-center">
+            <h3 className="text-2xl text-center mb-10 mt-20" ref={headingRef}>
+              this is the new cover letter:
+            </h3>
+            <div className="cover-letter-paragraph">
+              {newLetter}
+              <br />
 
-            <div className="letter-btn-container">
-              {!hasSaved && (
-                <FaSave className="letter-btn" onClick={saveLetter} />
-              )}
-              <FaShareAltSquare className="letter-btn" />
+              <div className="letter-btn-container">
+                {!hasSaved && (
+                  <FaSave className="letter-btn" onClick={saveLetter} />
+                )}
+                <FaShareAltSquare className="letter-btn" />
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 

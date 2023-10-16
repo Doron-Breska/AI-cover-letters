@@ -1,3 +1,7 @@
+.reg-container{
+    padding-inline: 1rem;
+
+}
 input:focus {
     outline: none;
     border-color: red;
@@ -71,7 +75,29 @@ input[type="range"]::-moz-focus-outer {
 }
 
 .reg-form{
-    width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     border: 2px solid green;
+    display: flex;
+    column-gap: 30px;
 }
+
+.first-questionnaire{
+flex: 2;
+    border-radius: 3px;
+        padding: 1rem;
+        background-color: #f2dfd6;
+}
+
+.second-questionnaire{
+border: 2px solid yellowgreen;
+flex: 1;
+}
+
+   @media (max-width: 700px) {
+
+       /* You can adjust this value based on your needs */
+        .reg-form {
+           flex-direction: column;
+       }
+   }
