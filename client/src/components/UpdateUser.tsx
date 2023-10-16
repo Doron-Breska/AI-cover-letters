@@ -6,6 +6,7 @@ import { login } from "../slices/userSlice";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderProfile.css";
+import "../styles/UpdateUser.css";
 
 interface PersonalInfo {
   Leadership?: string;
@@ -267,120 +268,132 @@ const UpdateUser: React.FC = () => {
           </g>
         </svg>
       )}
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="update-form my-24" onSubmit={handleSubmit}>
+        <div className="first-questionnaire">
           <label>Username: </label>
           <input ref={usernameRef} type="text" />
-        </div>
-        <div>
+
           <label>Email: </label>
           <input ref={emailRef} type="email" />
-        </div>
-        <div>
+
           <label>First Name: </label>
           <input ref={firstNameRef} type="text" />
-        </div>
-        <div>
+
           <label>Last Name: </label>
           <input ref={lastNameRef} type="text" />
-        </div>
-        <div>
+
           <label>Password: </label>
           <input ref={passwordRef} type="password" />
-        </div>
-        <div>
+
           <label>Tech Info: </label>
           <textarea ref={techInfoRef} />
-        </div>
-        <div>
+
           <label>Personal Text: </label>
           <textarea ref={personalTextRef} />
-        </div>
-        <div>
+
           <label>Image URL: </label>
           <input ref={imgRef} type="file" name="img" />
         </div>
-        {/* Personal Info Fields */}
-        <div>
+        <div className="second-questionnaire">
           <label>Leadership: </label>
-          <input ref={leadershipRef} type="range" step="0.2" min="0" max="1" />
-        </div>
-        <div>
+          <input
+            ref={leadershipRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+          />
+
           <label>Adaptability/Flexibility: </label>
           <input
             ref={adaptabilityRef}
-            type="number"
-            step="0.2"
+            type="range"
+            required
             min="0"
-            max="1"
+            max="5"
+            step="1"
           />
-        </div>
-        <div>
+
           <label>Proactivity/Initiative: </label>
           <input
             ref={proactivityRef}
-            type="number"
-            step="0.2"
+            type="range"
+            required
             min="0"
-            max="1"
+            max="5"
+            step="1"
           />
-        </div>
-        <div>
+
           <label>Attention to Detail: </label>
           <input
             ref={attentionToDetailRef}
-            type="number"
-            step="0.2"
+            type="range"
+            required
             min="0"
-            max="1"
+            max="5"
+            step="1"
           />
-        </div>
-        <div>
+
           <label>Spontaneity: </label>
           <input
             ref={spontaneityRef}
-            type="number"
-            step="0.2"
+            type="range"
+            required
             min="0"
-            max="1"
+            max="5"
+            step="1"
           />
-        </div>
-        <div>
+
           <label>Teamwork/Collaboration: </label>
-          <input ref={teamworkRef} type="number" step="0.2" min="0" max="1" />
-        </div>
-        <div>
+          <input
+            ref={teamworkRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+          />
+
           <label>Resilience: </label>
-          <input ref={resilienceRef} type="number" step="0.2" min="0" max="1" />
-        </div>
-        <div>
+          <input
+            ref={resilienceRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+          />
+
           <label>Innovativeness/Creativity: </label>
           <input
             ref={innovativenessRef}
-            type="number"
-            step="0.2"
+            type="range"
+            required
             min="0"
-            max="1"
+            max="5"
+            step="1"
           />
-        </div>
-        <div>
+
           <label>Emotional Intelligence: </label>
           <input
             ref={emotionalIntelligenceRef}
-            type="number"
-            step="0.2"
+            type="range"
+            required
             min="0"
-            max="1"
+            max="5"
+            step="1"
           />
+
+          <button
+            type="submit"
+            onClick={() => {
+              handleSubmit;
+            }}
+          >
+            Update
+          </button>
         </div>
-        <button
-          type="submit"
-          onClick={() => {
-            handleSubmit;
-          }}
-        >
-          Update
-        </button>
       </form>
     </>
   );

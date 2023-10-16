@@ -1,5 +1,6 @@
 import UpdateUser from "../components/UpdateUser";
 import UserProfile from "../components/UserProfile";
+import React from "react";
 
 // type Props = {}
 

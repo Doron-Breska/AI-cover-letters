@@ -6,6 +6,7 @@ import { RootState } from "../store/store";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderProfile.css";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 type Avatar = string | File;
 
@@ -36,6 +37,10 @@ interface PersonalInfo {
 const Registration: React.FC = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loader.loading);
+  const errorRef = useRef<HTMLDivElement>(null);
+  const scrollToMsg = () => {
+    errorRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -199,6 +204,7 @@ const Registration: React.FC = () => {
         if (data.status === "success") {
           console.log("we created a user:", data);
           setMsg("Registered successfully, please log in from the sidebar.");
+          scrollToMsg();
           resetRefs();
           dispatch(toggleLoading());
         }
@@ -214,8 +220,11 @@ const Registration: React.FC = () => {
         dispatch(toggleLoading());
 
         setMsg(error.response.data.message);
+        scrollToMsg();
       } else {
         console.error("An unknown error occurred:", error);
+        setMsg("Something went wrong, Please try again.");
+        scrollToMsg();
       }
     }
   };
@@ -328,26 +337,47 @@ const Registration: React.FC = () => {
           </g>
         </svg>
       )}
-      <form className="reg-form" onSubmit={handleSubmit}>
+      <form className="reg-form my-24" onSubmit={handleSubmit}>
         <div className="first-questionnaire">
+          <p className="register-header">Part A</p>
           <label>Username:</label>
-          <input ref={usernameRef} type="text" required placeholder="John" />
+          <input
+            className="my-1"
+            ref={usernameRef}
+            type="text"
+            required
+            placeholder="John"
+          />
 
           <label>Email:</label>
           <input
+            className="my-1"
             ref={emailRef}
             type="email"
             required
             placeholder="john.doe@example.com"
           />
           <label>First Name:</label>
-          <input ref={firstNameRef} type="text" required placeholder="John" />
+          <input
+            className="my-1"
+            ref={firstNameRef}
+            type="text"
+            required
+            placeholder="John"
+          />
 
           <label>Last Name:</label>
-          <input ref={lastNameRef} type="text" required placeholder="Doe" />
+          <input
+            className="my-1"
+            ref={lastNameRef}
+            type="text"
+            required
+            placeholder="Doe"
+          />
 
           <label>Password:</label>
           <input
+            className="my-1"
             ref={passwordRef}
             type="password"
             required
@@ -357,6 +387,7 @@ const Registration: React.FC = () => {
 
           <label>Skills:</label>
           <textarea
+            className="mt-1"
             ref={skillsRef}
             required
             placeholder="JavaScript, TypeScript, React, Agile...."
@@ -364,14 +395,16 @@ const Registration: React.FC = () => {
 
           <label>Education:</label>
           <textarea
+            className="mt-1"
             ref={educationRef}
             required
             rows={3}
-            placeholder="BA degree in art from the Berlin University of the Arts"
+            placeholder="BA degree in art from the Berlin University of the Arts."
           />
 
           <label>Work Experience:</label>
           <textarea
+            className="mt-1"
             ref={workExperienceRef}
             required
             rows={3}
@@ -380,18 +413,21 @@ const Registration: React.FC = () => {
 
           <label>Personal Text:</label>
           <textarea
+            className="mt-1"
             placeholder="This part is optional! Feel free to tell us anything interesting about yourself, whether you like gardening or your favorite volunteering organization."
             ref={personalTextRef}
             rows={3}
           />
 
           <label>Image:</label>
-          <input ref={imgRef} type="file" />
+          <input className="my-1" ref={imgRef} type="file" />
         </div>
 
         <div className="second-questionnaire text-center">
+          <p className="register-header">Part B</p>
           <label ref={leadershipLabelRef}>Leadership: </label>
           <input
+            className="my-3"
             ref={leadershipRef}
             type="range"
             required
@@ -407,6 +443,7 @@ const Registration: React.FC = () => {
 
           <label ref={adaptabilityLabelRef}>Adaptability & Flexibility: </label>
           <input
+            className="my-3"
             ref={adaptabilityRef}
             type="range"
             required
@@ -422,6 +459,7 @@ const Registration: React.FC = () => {
 
           <label ref={proactivityLabelRef}>Proactivity & Initiative: </label>
           <input
+            className="my-3"
             ref={proactivityRef}
             type="range"
             required
@@ -437,6 +475,7 @@ const Registration: React.FC = () => {
 
           <label ref={attentionToDetailLabelRef}>Attention to details: </label>
           <input
+            className="my-3"
             ref={attentionToDetailRef}
             type="range"
             required
@@ -455,6 +494,7 @@ const Registration: React.FC = () => {
 
           <label ref={spontaneityLabelRef}>Spontaneity: </label>
           <input
+            className="my-3"
             ref={spontaneityRef}
             type="range"
             required
@@ -470,6 +510,7 @@ const Registration: React.FC = () => {
 
           <label ref={teamworkLabelRef}>Teamwork & Collaboration: </label>
           <input
+            className="my-3"
             ref={teamworkRef}
             type="range"
             required
@@ -485,6 +526,7 @@ const Registration: React.FC = () => {
 
           <label ref={resilienceLabelRef}>Resilience: </label>
           <input
+            className="my-3"
             ref={resilienceRef}
             type="range"
             required
@@ -502,6 +544,7 @@ const Registration: React.FC = () => {
             Innovativeness & Creativity:{" "}
           </label>
           <input
+            className="my-3"
             ref={innovativenessRef}
             type="range"
             required
@@ -519,6 +562,7 @@ const Registration: React.FC = () => {
             Emotional Intelligence:{" "}
           </label>
           <input
+            className="my-3"
             ref={emotionalIntelligenceRef}
             type="range"
             required
@@ -534,10 +578,22 @@ const Registration: React.FC = () => {
               }
             }}
           />
-          <button type="submit">Create user</button>
+          <button className="my-6 bg-slate-50" type="submit">
+            Register
+          </button>
+          {msg && (
+            <div className="reg-error-div" ref={errorRef}>
+              <h2 className="font-extrabold	">{msg}</h2>
+              <AiOutlineCloseCircle
+                className="close-error-reg mt-2"
+                onClick={() => {
+                  setMsg("");
+                }}
+              />
+            </div>
+          )}
         </div>
       </form>
-      {msg && <div>{msg}</div>}
     </div>
   );
 };
