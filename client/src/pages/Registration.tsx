@@ -210,6 +210,7 @@ const Registration = () => {
           dispatch(toggleLoading());
         }
       }
+      //eslint-disable-next-line
     } catch (error: any) {
       if (
         error.response &&
@@ -217,9 +218,7 @@ const Registration = () => {
         error.response.data.message
       ) {
         console.error("Registration Error:", error.response.data.message);
-        // alert(error.response.data.message);
         dispatch(toggleLoading());
-
         setMsg(error.response.data.message);
         scrollToMsg();
       } else {

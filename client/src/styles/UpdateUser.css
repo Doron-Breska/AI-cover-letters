@@ -1,7 +1,7 @@
 .update-form{
     max-width: 800px;
+    padding-inline: 1rem;
         margin: 0 auto;
-        /* border: 2px solid green; */
         display: flex;
         column-gap: 40px;
 }

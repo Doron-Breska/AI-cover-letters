@@ -182,6 +182,7 @@ const UpdateUser: React.FC = () => {
         resetInputs();
         scrollToMsg();
       }
+      //eslint-disable-next-line
     } catch (error: any) {
       if (
         error.response &&
@@ -389,7 +390,6 @@ const UpdateUser: React.FC = () => {
           </g>
         </svg>
       )}
-      {/* <form className="update-form my-24" onSubmit={handleSubmit}> */}
       <div className="update-form my-24">
         <form className="first-questionnaire-update" onSubmit={handleSubmit}>
           <p className="register-header">Part A</p>
@@ -661,7 +661,6 @@ const UpdateUser: React.FC = () => {
           )}
         </form>
       </div>
-      {/* </form> */}
     </>
   );
 };

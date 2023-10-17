@@ -154,7 +154,7 @@ const CreateCoverLetter = () => {
         </div>
       )}
 
-      <h1 className="text-3xl text-center mt-16">
+      <h1 className="text-3xl text-center mt-24 font-bold">
         Fill out the form <br /> to create a cover letter
       </h1>
       <div className="create-letter-form-container">
@@ -194,7 +194,10 @@ const CreateCoverLetter = () => {
         </form>
         {newLetter && (
           <div className="text-center">
-            <h3 className="text-2xl text-center mb-10 mt-20" ref={headingRef}>
+            <h3
+              className="text-2xl text-center mb-10 mt-20 font-bold"
+              ref={headingRef}
+            >
               this is the new cover letter:
             </h3>
             <div className="cover-letter-paragraph">
@@ -205,7 +208,15 @@ const CreateCoverLetter = () => {
                 {!hasSaved && (
                   <FaSave className="letter-btn" onClick={saveLetter} />
                 )}
-                <FaShareAltSquare className="letter-btn" />
+                <FaShareAltSquare
+                  className="letter-btn"
+                  onClick={() => {
+                    const mailtoLink = `mailto:?body=${encodeURIComponent(
+                      newLetter
+                    )}`;
+                    window.location.href = mailtoLink;
+                  }}
+                />
               </div>
             </div>
           </div>
