@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { getLetters } from "../slices/coverLetterSlice";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import "../styles/CreateCoverLetter.css";
+import { FaShareAltSquare } from "react-icons/fa";
 
 interface SingleLetterProps {
   c_v_id: number;
@@ -88,6 +89,13 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
           className="letter-btn"
           onClick={() => {
             deleteLetter();
+          }}
+        />
+        <FaShareAltSquare
+          className="letter-btn"
+          onClick={() => {
+            const mailtoLink = `mailto:?body=${encodeURIComponent(content)}`;
+            window.location.href = mailtoLink;
           }}
         />
       </div>

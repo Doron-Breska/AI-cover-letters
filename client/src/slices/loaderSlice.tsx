@@ -14,7 +14,7 @@ const loaderSlice = createSlice({
   reducers: {
     toggleLoading: (state) => {
       state.loading = !state.loading;
-      console.log(state.loading);
+      // console.log(state.loading);
     },
   },
 });

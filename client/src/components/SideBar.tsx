@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { login, logout } from "../slices/userSlice";
 import { getLetters, removeLetters } from "../slices/coverLetterSlice";
 import axios from "axios";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const SideBar: React.FC = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -20,6 +21,9 @@ const SideBar: React.FC = () => {
   const letters = useSelector((state: RootState) => state.cover.letters);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const [msg, setMsg] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -62,7 +66,8 @@ const SideBar: React.FC = () => {
 
       localStorage.setItem("token", token);
       dispatch(login(user));
-      console.log(user);
+      // console.log(user);
+      setMsg("");
 
       const coverLetterResponse = await axios.get(
         "http://localhost:5001/api/c-l/user/",
@@ -74,8 +79,16 @@ const SideBar: React.FC = () => {
       );
 
       dispatch(getLetters(coverLetterResponse.data.data));
-    } catch (error) {
-      console.error("Login Error:", error);
+      //eslint-disable-next-line
+    } catch (error: any) {
+      // Check if the error response from the server exists
+      if (error.response && error.response.data && error.response.data.msg) {
+        setMsg(error.response.data.msg);
+        console.error("Login Error:", error.response.data.msg);
+      } else {
+        console.error("General Login Error:", error);
+        setMsg("Something went wrong with the srevr, Please try again.");
+      }
     }
   };
 
@@ -91,14 +104,14 @@ const SideBar: React.FC = () => {
         <>
           <div ref={sidebarRef} className="sidebar">
             <ul>
-              <li className="font-bold my-3">
+              <li className="font-bold my-5">
                 <NavLink className={activePath === "/" ? "active" : ""} to="/">
                   Home
                 </NavLink>
               </li>
               {user !== null ? (
                 <>
-                  <li className="font-bold my-3">
+                  <li className="font-bold my-5">
                     <NavLink
                       className={activePath === "/profile" ? "active" : ""}
                       to="/profile"
@@ -106,7 +119,7 @@ const SideBar: React.FC = () => {
                       Profile
                     </NavLink>
                   </li>
-                  <li className="font-bold my-3">
+                  <li className="font-bold my-5">
                     <NavLink
                       className={
                         activePath === "/create-letter" ? "active" : ""
@@ -117,7 +130,7 @@ const SideBar: React.FC = () => {
                     </NavLink>
                   </li>
                   {letters.length !== 0 && (
-                    <li className="font-bold my-3">
+                    <li className="font-bold my-5">
                       <NavLink
                         className={
                           activePath === "/manage-letters" ? "active" : ""
@@ -130,7 +143,7 @@ const SideBar: React.FC = () => {
                   )}
                 </>
               ) : (
-                <li className="font-bold my-3">
+                <li className="font-bold my-5">
                   <NavLink
                     className={activePath === "/registration" ? "active" : ""}
                     to="/registration"
@@ -165,6 +178,17 @@ const SideBar: React.FC = () => {
                   onClick={handleLogin}
                   style={{ display: "none" }}
                 />
+                {msg && (
+                  <div className="reg-error-div" ref={errorRef}>
+                    <h2 className="font-extrabold	">{msg}</h2>
+                    <AiOutlineCloseCircle
+                      className="close-error-reg mt-2"
+                      onClick={() => {
+                        setMsg("");
+                      }}
+                    />
+                  </div>
+                )}
               </form>
             )}
 

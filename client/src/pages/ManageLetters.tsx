@@ -11,13 +11,13 @@ const ManageLetters = () => {
   return (
     <>
       {sortedLetters.length === 0 ? (
-        <h1 className="text-3xl text-center mt-32">
+        <h1 className="text-3xl text-center mt-32 font-bold">
           There are no saved letters
         </h1>
       ) : (
-        <h1 className="text-3xl text-center mt-32">Saved letters</h1>
+        <h1 className="text-3xl text-center mt-32 font-bold">Saved letters</h1>
       )}
-      <div className="flex my-32  pl-32 pr-32">
+      <div className="flex my-24  pl-32 pr-32">
         {sortedLetters.length !== 0 &&
           sortedLetters.map((letter) => (
             <SingleLetter

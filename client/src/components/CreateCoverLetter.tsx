@@ -92,7 +92,7 @@ const CreateCoverLetter = () => {
           infoForNewLetter,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log("this is the cover letter:", response.data.message);
+        // console.log("this is the cover letter:", response.data.message);
         dispatch(toggleLoading());
         setNewLetter(response.data.message);
         setHasSaved(false);
@@ -131,7 +131,7 @@ const CreateCoverLetter = () => {
       );
 
       if (response.status === 200) {
-        console.log("Letter saved successfully!", response.data);
+        // console.log("Letter saved successfully!", response.data);
         setHasSaved(true);
         updateLettersAeeatRedux();
       } else {

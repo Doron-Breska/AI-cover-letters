@@ -171,7 +171,7 @@ const UpdateUser: React.FC = () => {
       );
 
       if (response.data.status === "Success") {
-        console.log("User updated successfully:", response.data);
+        // console.log("User updated successfully:", response.data);
         updateUserObjectRedux();
         resetInputs();
         setMsg("User has been updated successfully!");
@@ -189,7 +189,7 @@ const UpdateUser: React.FC = () => {
         error.response.data &&
         error.response.data.message
       ) {
-        console.error("Server Errorrrrrr:", error.response.data.message);
+        console.error("Server Error:", error.response.data.message);
         setMsg(error.response.data.message);
         scrollToMsg();
         resetInputs();
@@ -260,7 +260,7 @@ const UpdateUser: React.FC = () => {
           }
         );
         if (response.status === 200) {
-          console.log("User updated successfully:", response.data);
+          // console.log("User updated successfully:", response.data);
           dispatch(toggleLoading());
           updateUserObjectRedux();
           setMsg2("User has been updated successfully!");
@@ -439,12 +439,14 @@ const UpdateUser: React.FC = () => {
           <textarea
             className="mt-1"
             ref={techInfoRef}
+            rows={10}
             placeholder={user! && user.tech_info}
           />
 
           <label>Personal Text: </label>
           <textarea
             className="mt-1"
+            rows={4}
             ref={personalTextRef}
             placeholder={
               user && user.personal_text
