@@ -6,6 +6,18 @@ const UserProfile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const letters = useSelector((state: RootState) => state.cover.letters); // cover represents the name of the slice inside the "createSlice"
 
+  // interface PersonalInfo {
+  //   Leadership: number;
+  //   "Adaptability & Flexibility": number;
+  //   "Proactivity & Initiative": number;
+  //   "Attention to details": number;
+  //   Spontaneity: number;
+  //   "Teamwork & Collaboration": number;
+  //   Resilience: number;
+  //   "Innovativeness & Creativity": number;
+  //   "Emotional intelligence": number;
+  // }
+
   return (
     <>
       <div style={{ color: "orange", border: "3px solid green" }}>
@@ -13,11 +25,16 @@ const UserProfile: React.FC = () => {
           <>
             <p>{user.username}</p>
             <p>{user.email}</p>
-            <p>{user.last_name}</p>
             <p>{user.first_name}</p>
+            <p>{user.last_name}</p>
             <p>{user.tech_info}</p>
             <p>{user.personal_text}</p>
-            <p>{user.personal_info && <p>user.personal_info</p>}</p>
+            {user.personal_info && (
+              <p>{(user.personal_info as PersonalInfo).Leadership}</p>
+            )}
+            {user.personal_info && (
+              <pre>{JSON.stringify(user.personal_info, null, 2)}</pre>
+            )}
             {user.img ? (
               <img src={user.img} style={{ width: "300px" }}></img>
             ) : (

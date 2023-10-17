@@ -6,7 +6,7 @@
         column-gap: 40px;
 }
 
-.first-questionnaire {
+.first-questionnaire-update {
     flex: 2;
     border-radius: 3px;
     padding: 1rem;
@@ -14,7 +14,7 @@
     border: 1.5px solid rgb(244, 239, 239);
 }
 
-.second-questionnaire {
+.second-questionnaire-update {
     flex: 1;
     border-radius: 3px;
     padding: 1rem;

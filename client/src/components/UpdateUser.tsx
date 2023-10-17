@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -7,17 +7,18 @@ import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderProfile.css";
 import "../styles/UpdateUser.css";
+import React from "react";
 
 interface PersonalInfo {
-  Leadership?: string;
-  Adaptability_Flexibility?: string;
-  Proactivity_Initiative?: string;
-  Attention_to_Detail?: string;
-  Spontaneity?: string;
-  Teamwork_Collaboration?: string;
-  Resilience?: string;
-  Innovativeness_Creativity?: string;
-  Emotional_Intelligence?: string;
+  Leadership: string;
+  "Adaptability & Flexibility": string;
+  "Proactivity & Initiative": string;
+  "Attention to details": string;
+  Spontaneity: string;
+  "Teamwork & Collaboration": string;
+  Resilience: string;
+  "Innovativeness & Creativity": string;
+  "Emotional intelligence": string;
 }
 
 const UpdateUser: React.FC = () => {
@@ -112,25 +113,105 @@ const UpdateUser: React.FC = () => {
       formData.append("img", imgRef.current?.files[0]);
     }
 
-    const personalInfo: PersonalInfo = {};
+    const personalInfo: PersonalInfo = {
+      Leadership: "",
+      "Adaptability & Flexibility": "",
+      "Proactivity & Initiative": "",
+      "Attention to details": "",
+      Spontaneity: "",
+      "Teamwork & Collaboration": "",
+      Resilience: "",
+      "Innovativeness & Creativity": "",
+      "Emotional intelligence": "",
+    };
     if (leadershipRef.current?.value)
       personalInfo.Leadership = leadershipRef.current?.value;
     if (adaptabilityRef.current?.value)
-      personalInfo.Adaptability_Flexibility = adaptabilityRef.current?.value;
+      personalInfo["Adaptability & Flexibility"] =
+        adaptabilityRef.current?.value;
     if (proactivityRef.current?.value)
-      personalInfo.Proactivity_Initiative = proactivityRef.current?.value;
+      personalInfo["Proactivity & Initiative"] = proactivityRef.current?.value;
     if (attentionToDetailRef.current?.value)
-      personalInfo.Attention_to_Detail = attentionToDetailRef.current?.value;
+      personalInfo["Attention to details"] =
+        attentionToDetailRef.current?.value;
     if (spontaneityRef.current?.value)
       personalInfo.Spontaneity = spontaneityRef.current?.value;
     if (teamworkRef.current?.value)
-      personalInfo.Teamwork_Collaboration = teamworkRef.current?.value;
+      personalInfo["Teamwork & Collaboration"] = teamworkRef.current?.value;
     if (resilienceRef.current?.value)
       personalInfo.Resilience = resilienceRef.current?.value;
     if (innovativenessRef.current?.value)
-      personalInfo.Innovativeness_Creativity = innovativenessRef.current?.value;
+      personalInfo["Innovativeness & Creativity"] =
+        innovativenessRef.current?.value;
     if (emotionalIntelligenceRef.current?.value)
-      personalInfo.Emotional_Intelligence =
+      personalInfo["Emotional intelligence"] =
+        emotionalIntelligenceRef.current?.value;
+
+    if (Object.keys(personalInfo).length > 0)
+      formData.append("personal_info", JSON.stringify(personalInfo));
+
+    try {
+      if (userId) {
+        const response = await axios.put(
+          `http://localhost:5001/api/users/update/${userId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log("User updated successfully:", response.data);
+        dispatch(toggleLoading());
+        updateUserObjectRedux();
+        resetInputs();
+      } else {
+        console.error("User ID is not available");
+      }
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+
+  const handleSubmit2 = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(toggleLoading());
+
+    const formData = new FormData();
+
+    const personalInfo: PersonalInfo = {
+      Leadership: "",
+      "Adaptability & Flexibility": "",
+      "Proactivity & Initiative": "",
+      "Attention to details": "",
+      Spontaneity: "",
+      "Teamwork & Collaboration": "",
+      Resilience: "",
+      "Innovativeness & Creativity": "",
+      "Emotional intelligence": "",
+    };
+    if (leadershipRef.current?.value)
+      personalInfo.Leadership = leadershipRef.current?.value;
+    if (adaptabilityRef.current?.value)
+      personalInfo["Adaptability & Flexibility"] =
+        adaptabilityRef.current?.value;
+    if (proactivityRef.current?.value)
+      personalInfo["Proactivity & Initiative"] = proactivityRef.current?.value;
+    if (attentionToDetailRef.current?.value)
+      personalInfo["Attention to details"] =
+        attentionToDetailRef.current?.value;
+    if (spontaneityRef.current?.value)
+      personalInfo.Spontaneity = spontaneityRef.current?.value;
+    if (teamworkRef.current?.value)
+      personalInfo["Teamwork & Collaboration"] = teamworkRef.current?.value;
+    if (resilienceRef.current?.value)
+      personalInfo.Resilience = resilienceRef.current?.value;
+    if (innovativenessRef.current?.value)
+      personalInfo["Innovativeness & Creativity"] =
+        innovativenessRef.current?.value;
+    if (emotionalIntelligenceRef.current?.value)
+      personalInfo["Emotional intelligence"] =
         emotionalIntelligenceRef.current?.value;
 
     if (Object.keys(personalInfo).length > 0)
@@ -268,33 +349,70 @@ const UpdateUser: React.FC = () => {
           </g>
         </svg>
       )}
-      <form className="update-form my-24" onSubmit={handleSubmit}>
-        <div className="first-questionnaire">
+      {/* <form className="update-form my-24" onSubmit={handleSubmit}> */}
+      <div className="update-form my-24">
+        <form className="first-questionnaire-update" onSubmit={handleSubmit2}>
           <label>Username: </label>
-          <input ref={usernameRef} type="text" />
+          <input
+            ref={usernameRef}
+            type="text"
+            placeholder={user! && user.username}
+          />
 
           <label>Email: </label>
-          <input ref={emailRef} type="email" />
+          <input
+            ref={emailRef}
+            type="email"
+            placeholder={user! && user.email}
+          />
 
           <label>First Name: </label>
-          <input ref={firstNameRef} type="text" />
+          <input
+            ref={firstNameRef}
+            type="text"
+            placeholder={user! && user.first_name}
+          />
 
           <label>Last Name: </label>
-          <input ref={lastNameRef} type="text" />
+          <input
+            ref={lastNameRef}
+            type="text"
+            placeholder={user! && user.last_name}
+          />
 
           <label>Password: </label>
-          <input ref={passwordRef} type="password" />
+          <input
+            ref={passwordRef}
+            type="password"
+            placeholder="Min 6 characters"
+          />
 
           <label>Tech Info: </label>
-          <textarea ref={techInfoRef} />
+          <textarea ref={techInfoRef} placeholder={user! && user.tech_info} />
 
           <label>Personal Text: </label>
-          <textarea ref={personalTextRef} />
+          <textarea
+            ref={personalTextRef}
+            placeholder={
+              user && user.personal_text
+                ? user.personal_text
+                : "This part is optional! Feel free to tell us anything interesting about yourself, whether you like gardening or your favorite volunteering organization."
+            }
+          />
 
           <label>Image URL: </label>
           <input ref={imgRef} type="file" name="img" />
-        </div>
-        <div className="second-questionnaire">
+          <button
+            type="submit"
+            // onClick={() => {
+            //   handleSubmit;
+            // }}
+          >
+            Update
+          </button>
+        </form>
+
+        <form className="second-questionnaire-update" onSubmit={handleSubmit}>
           <label>Leadership: </label>
           <input
             ref={leadershipRef}
@@ -387,14 +505,15 @@ const UpdateUser: React.FC = () => {
 
           <button
             type="submit"
-            onClick={() => {
-              handleSubmit;
-            }}
+            // onClick={() => {
+            //   handleSubmit;
+            // }}
           >
             Update
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
+      {/* </form> */}
     </>
   );
 };

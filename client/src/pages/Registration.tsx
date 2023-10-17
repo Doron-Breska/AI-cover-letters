@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import "../styles/Registration.css";
 import { useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderProfile.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import React from "react";
 
 type Avatar = string | File;
 
