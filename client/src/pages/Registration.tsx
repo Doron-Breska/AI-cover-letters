@@ -35,7 +35,7 @@ interface PersonalInfo {
   "Emotional intelligence": string;
 }
 
-const Registration: React.FC = () => {
+const Registration = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loader.loading);
   const errorRef = useRef<HTMLDivElement>(null);
@@ -210,7 +210,7 @@ const Registration: React.FC = () => {
           dispatch(toggleLoading());
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       if (
         error.response &&
         error.response.data &&
@@ -426,6 +426,9 @@ const Registration: React.FC = () => {
 
         <div className="second-questionnaire text-center">
           <p className="register-header">Part B</p>
+          <p className="mb-2 italic">
+            *Make sure you can see value after each headre!
+          </p>
           <label ref={leadershipLabelRef}>Leadership: </label>
           <input
             className="my-3"
@@ -579,9 +582,11 @@ const Registration: React.FC = () => {
               }
             }}
           />
+
           <button className="my-6 bg-slate-50" type="submit">
             Register
           </button>
+
           {msg && (
             <div className="reg-error-div" ref={errorRef}>
               <h2 className="font-extrabold	">{msg}</h2>

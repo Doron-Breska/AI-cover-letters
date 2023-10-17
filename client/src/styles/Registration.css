@@ -91,12 +91,14 @@ input[type="range"]::-moz-focus-outer {
 }
 
 .second-questionnaire{
-flex: 1;
-    border-radius: 3px;
+        flex: 1;
+        border-radius: 3px;
         padding: 1rem;
         background-color: #f2dfd6;
         background-color: #fce5e1;
         border: 1.5px solid rgb(244, 239, 239);
+        align-self: flex-start;
+      
 }
 
 .reg-error-div{
@@ -116,6 +118,7 @@ align-items: center;
 }
 
 
+
 /* .letter-btn {
     margin: 1.7rem;
     margin-bottom: 0.4rem;
@@ -124,6 +127,8 @@ align-items: center;
     color: brown;
 
 } */
+
+
 
 .close-error-reg:hover,
 .close-error-reg:focus {
@@ -153,6 +158,7 @@ align-items: center;
        }
       .second-questionnaire{
         max-width: 450px;
+        align-self: center;
       }
 
    }

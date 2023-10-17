@@ -6,21 +6,24 @@ const UserProfile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const letters = useSelector((state: RootState) => state.cover.letters); // cover represents the name of the slice inside the "createSlice"
 
-  // interface PersonalInfo {
-  //   Leadership: number;
-  //   "Adaptability & Flexibility": number;
-  //   "Proactivity & Initiative": number;
-  //   "Attention to details": number;
-  //   Spontaneity: number;
-  //   "Teamwork & Collaboration": number;
-  //   Resilience: number;
-  //   "Innovativeness & Creativity": number;
-  //   "Emotional intelligence": number;
-  // }
+  interface PersonalInfo {
+    Leadership: number;
+    "Adaptability & Flexibility": number;
+    "Proactivity & Initiative": number;
+    "Attention to details": number;
+    Spontaneity: number;
+    "Teamwork & Collaboration": number;
+    Resilience: number;
+    "Innovativeness & Creativity": number;
+    "Emotional intelligence": number;
+  }
 
   return (
     <>
-      <div style={{ color: "orange", border: "3px solid green" }}>
+      <div
+        className="mt-24"
+        style={{ color: "orange", border: "3px solid green" }}
+      >
         {user ? (
           <>
             <p>{user.username}</p>
