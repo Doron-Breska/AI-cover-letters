@@ -22,7 +22,7 @@ const Home = () => {
           ></path>
         </svg>
       </div>
-      <div>
+      <div className="home-page-con">
         <p className="home-header">
           Use my AI cover letter creator to get your writing to flow, not just
           impress, but steal the show!

@@ -14,7 +14,7 @@ section{
 
 .bottom-stripe {
     background: #F89595;
-    height: 30px;
+    height: 60px;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -22,14 +22,19 @@ section{
 }
 .custom-shape-divider-bottom-1697624270 {
     position: absolute;
-    bottom: 30px;
+    bottom: 60px;
     left: 0;
     width: 100%;
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
 }
+.home-page-con{
+    display: flex;
+    flex-direction: column;
+    /* border: 3px solid green; */
 
+}
 .home-header{
        text-align: center;
         max-width: 600px;
@@ -39,7 +44,7 @@ section{
         /* line-height: 4rem; */
         margin: 1rem auto;
         padding-inline: 2rem;
-        margin-top: 0rem;
+        margin-top: 2rem;
         color: brown;
 }
 .contact-header{
@@ -92,3 +97,28 @@ font-weight: bolder;
 .con-link:focus .faIcon {
     transform: translateY(-10px) !important;
 }
+
+ @media (max-width: 850px) {
+
+     /* You can adjust this value based on your needs */
+    .bottom-stripe {
+        height: 90px;
+    }
+        .custom-shape-divider-bottom-1697624270{
+            bottom: 90px;
+        }
+        .home-header{
+            margin-top: 3rem;
+        }
+
+ }
+
+  @media (max-width: 500px) {
+
+      /* You can adjust this value based on your needs */
+
+      .home-header {
+          margin-top: 6rem;
+      }
+
+  }
