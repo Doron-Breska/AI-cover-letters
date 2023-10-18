@@ -10,6 +10,7 @@ import "../styles/CreateCoverLetter.css";
 // import { BsSave2Fill } from "react-icons/bs";
 import { FaShareAltSquare } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
+import { serverURL } from "../utils/serverURL";
 
 interface LetterToSave {
   user_id: number;
@@ -51,7 +52,7 @@ const CreateCoverLetter = () => {
 
   const updateLettersAeeatRedux = () => {
     axios
-      .get("http://localhost:5001/api/c-l/user/", {
+      .get(`${serverURL}/api/c-l/user/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -88,7 +89,7 @@ const CreateCoverLetter = () => {
     try {
       if (userId) {
         const response = await axios.post(
-          `http://localhost:5001/api/c-l/new/`,
+          `${serverURL}/api/c-l/new/`,
           infoForNewLetter,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -123,7 +124,7 @@ const CreateCoverLetter = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/c-l/save`,
+        `${serverURL}/api/c-l/save`,
         saveLetterData,
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import SideBar from "./components/SideBar";
 import CoverLetter from "./pages/CoverLetter";
 import ManageLetters from "./pages/ManageLetters";
+import { serverURL } from "./utils/serverURL";
 // import React from "react";
 
 const App = () => {
@@ -18,7 +19,7 @@ const App = () => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      fetch("http://localhost:5001/api/users/active", {
+      fetch(`${serverURL}/api/users/active`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,7 +30,7 @@ const App = () => {
             dispatch(login(data.activeUser)); // Here you are logging in the user and updating the user state.
 
             // Now, perform another fetch to get the cover letters related to this user.
-            fetch("http://localhost:5001/api/c-l/user/", {
+            fetch(`${serverURL}/api/c-l/user/`, {
               headers: {
                 Authorization: `Bearer ${token}`, // Assuming that your server expects the token for authentication.
               },

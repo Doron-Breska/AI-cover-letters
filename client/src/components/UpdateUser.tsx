@@ -9,6 +9,7 @@ import "../styles/LoaderProfile.css";
 import "../styles/UpdateUser.css";
 import React from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { serverURL } from "../utils/serverURL";
 
 interface PersonalInfo {
   Leadership: string;
@@ -82,7 +83,7 @@ const UpdateUser: React.FC = () => {
 
   const updateUserObjectRedux = () => {
     axios
-      .get("http://localhost:5001/api/users/active", {
+      .get(`${serverURL}/api/users/active`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -160,7 +161,7 @@ const UpdateUser: React.FC = () => {
       }
 
       const response = await axios.put(
-        `http://localhost:5001/api/users/update/${userId}`,
+        `${serverURL}/api/users/update/${userId}`,
         formData,
         {
           headers: {
@@ -250,7 +251,7 @@ const UpdateUser: React.FC = () => {
     try {
       if (userId) {
         const response = await axios.put(
-          `http://localhost:5001/api/users/update/${userId}`,
+          `${serverURL}/api/users/update/${userId}`,
           formData,
           {
             headers: {

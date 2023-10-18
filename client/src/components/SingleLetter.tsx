@@ -7,6 +7,7 @@ import { getLetters } from "../slices/coverLetterSlice";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import "../styles/CreateCoverLetter.css";
 import { FaShareAltSquare } from "react-icons/fa";
+import { serverURL } from "../utils/serverURL";
 
 interface SingleLetterProps {
   c_v_id: number;
@@ -27,7 +28,7 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
 
   const updateLettersAeeatRedux = () => {
     axios
-      .get("http://localhost:5001/api/c-l/user/", {
+      .get(`${serverURL}/api/c-l/user/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,14 +46,11 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
 
   const deleteLetter = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5001/api/c-l/${c_v_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.delete(`${serverURL}/api/c-l/${c_v_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = response.data;
 

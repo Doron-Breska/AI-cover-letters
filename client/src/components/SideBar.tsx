@@ -12,6 +12,7 @@ import { login, logout } from "../slices/userSlice";
 import { getLetters, removeLetters } from "../slices/coverLetterSlice";
 import axios from "axios";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { serverURL } from "../utils/serverURL";
 
 const SideBar: React.FC = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -54,13 +55,10 @@ const SideBar: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/users/login",
-        {
-          username: usernameRef.current?.value,
-          password: passwordRef.current?.value,
-        }
-      );
+      const response = await axios.post(`${serverURL}/api/users/login`, {
+        username: usernameRef.current?.value,
+        password: passwordRef.current?.value,
+      });
 
       const { token, user } = response.data;
 
@@ -70,7 +68,7 @@ const SideBar: React.FC = () => {
       setMsg("");
 
       const coverLetterResponse = await axios.get(
-        "http://localhost:5001/api/c-l/user/",
+        `${serverURL}/api/c-l/user/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

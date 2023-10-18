@@ -8,6 +8,7 @@ import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderProfile.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import React from "react";
+import { serverURL } from "../utils/serverURL";
 
 type Avatar = string | File;
 
@@ -196,7 +197,9 @@ const Registration = () => {
         );
       }
       const response = await axios.post(
-        "http://localhost:5001/api/users/new",
+        // "http://localhost:5001/api/users/new",
+        `${serverURL}/api/users/new`,
+
         formData
       );
 
