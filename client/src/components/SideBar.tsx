@@ -68,7 +68,7 @@ const SideBar: React.FC = () => {
       setMsg("");
 
       const coverLetterResponse = await axios.get(
-        `https://ai-cover-letters-server.vercel.app/api/c-l/user/`,
+        `${serverURL}/api/c-l/user/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
