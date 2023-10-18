@@ -1,0 +1,63 @@
+
+section{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+ .top-stripe{
+    background:#F89595;
+    height: 100px;
+ }
+
+.bottom-stripe {
+    background: #F89595;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.custom-shape-divider-bottom-1697624270 {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.home-header{
+       text-align: center;
+        max-width: 600px;
+        font-weight:bolder;
+        font-size: 2rem;
+        /* line-height: 4rem; */
+        margin: 1rem auto;
+        margin-top: 4rem;
+        color: brown;
+}
+
+.custom-shape-divider-bottom-1697624270 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 56px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1697624270 .wave {
+    fill: #F89595;
+}
+.wave{
+    fill: #F89595;
+}
+
+
+.home-bg{
+    background-color: rgb(250, 216, 202);
+    height: 100vh;
+}
