@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import SingleLetter from "../components/SingleLetter";
 import "../styles/ManageLetters.css";
-import React from "react";
 
 const ManageLetters = () => {
   const letters = useSelector((state: RootState) => state.cover.letters);
