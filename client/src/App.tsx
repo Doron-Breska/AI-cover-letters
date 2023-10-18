@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 import SideBar from "./components/SideBar";
 import CoverLetter from "./pages/CoverLetter";
 import ManageLetters from "./pages/ManageLetters";
-import React from "react";
+// import React from "react";
 
 const App = () => {
   const dispatch = useDispatch();

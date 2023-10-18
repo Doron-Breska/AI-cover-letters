@@ -1,5 +1,5 @@
 import CreateCoverLetter from "../components/CreateCoverLetter";
-import React from "react";
+// import React from "react";
 const CoverLetter = () => {
   return (
     <div className="pb-20">
