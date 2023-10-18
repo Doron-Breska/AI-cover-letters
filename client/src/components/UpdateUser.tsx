@@ -488,7 +488,7 @@ const UpdateUser: React.FC = () => {
         >
           <p className="register-header">Part B</p>
           <p className="mb-2 italic">
-            *Make sure you can see value after each headre!
+            *Make sure you can see value after each header!
           </p>
 
           <label ref={leadershipLabelRef}>Leadership: </label>
