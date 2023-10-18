@@ -1,12 +1,14 @@
 import PG from "pg";
 const Pool = PG.Pool;
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const pool = new Pool({
-  user: "doron",
-  host: "database-letters.cd3cu8asae7s.eu-central-1.rds.amazonaws.com",
-  database: "letters_db",
-  password: "Dbrd-11223344",
-  port: 5455,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
   ssl: {
     rejectUnauthorized: false,
   },
