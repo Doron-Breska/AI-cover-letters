@@ -10,6 +10,7 @@ import SideBar from "./components/SideBar";
 import CoverLetter from "./pages/CoverLetter";
 import ManageLetters from "./pages/ManageLetters";
 import { serverURL } from "./utils/serverURL";
+import ProtectedRoute from "./components/ProtectedRoute";
 // import React from "react";
 
 const App = () => {
@@ -57,9 +58,30 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/create-letter" element={<CoverLetter />} />
-          <Route path="/manage-letters" element={<ManageLetters />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create-letter"
+            element={
+              <ProtectedRoute>
+                <CoverLetter />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manage-letters"
+            element={
+              <ProtectedRoute>
+                <ManageLetters />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

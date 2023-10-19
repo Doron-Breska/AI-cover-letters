@@ -457,7 +457,7 @@ const UpdateUser: React.FC = () => {
           />
           <div className="img-update-con">
             <div className="img-el1">
-              <label>Image URL: </label>
+              <label>Image: </label>
               <input className="my-1" ref={imgRef} type="file" name="img" />
             </div>
             <div className="img-el2">
