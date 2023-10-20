@@ -9,10 +9,12 @@ section{
 
  .top-stripe{
     background:#F89595;
+    /* background: #f9e2c1; */
     height: 100px;
  }
 
 .bottom-stripe {
+    background: #F89595;
     background: #F89595;
     height: 60px;
     position: absolute;
@@ -29,12 +31,10 @@ section{
     line-height: 0;
     transform: rotate(180deg);
 }
-.home-page-con{
+/* .home-page-con{
     display: flex;
     flex-direction: column;
-    /* border: 3px solid green; */
-
-}
+} */
 .home-header{
        text-align: center;
         max-width: 600px;
@@ -69,12 +69,15 @@ font-weight: bolder;
 }
 .wave{
     fill: #F89595;
+    /* fill: #f9e2c1; */
 }
 
 
 .home-bg{
-    background-color: rgb(250, 216, 202);
+    /* background-color: rgb(250, 216, 202); */
+    background-color: rgb(254, 245, 237);
     height: 100vh;
+    overflow:hidden;
 }
 
 .con-link {
@@ -105,7 +108,7 @@ font-weight: bolder;
         height: 90px;
     }
         .custom-shape-divider-bottom-1697624270{
-            bottom: 90px;
+            bottom: 89px;
         }
         .home-header{
             margin-top: 3rem;

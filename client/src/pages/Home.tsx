@@ -22,36 +22,32 @@ const Home = () => {
           ></path>
         </svg>
       </div>
-      <div className="home-page-con">
-        <p className="home-header">
-          Use my AI cover letter creator to get your writing to flow, not just
-          impress, but steal the show!
-        </p>
-        <p className="text-center contact-header">
-          Doron Breska
-          <br />
-          Contact
-        </p>
-        <p className="text-center">
-          <a className="con-link" href="mailto:doronbreska@gmail.com">
-            <FontAwesomeIcon
-              className="faIcon"
-              href="mailto:doronbreska@gmail.com"
-              icon={faEnvelope}
-              size="2xl"
-            />
-          </a>
-          <a
-            className="con-link"
-            href="https://www.linkedin.com/in/doron-breska"
-          >
-            <FontAwesomeIcon className="faIcon" icon={faLinkedin} size="2xl" />
-          </a>
-          <a className="con-link" href="https://github.com/Doron-Breska">
-            <FontAwesomeIcon className="faIcon" icon={faGithub} size="2xl" />
-          </a>
-        </p>
-      </div>
+      <p className="home-header">
+        Use my AI cover letter creator to get your writing to flow, not just
+        impress, but steal the show!
+      </p>
+      <p className="text-center contact-header">
+        Doron Breska
+        <br />
+        Contact
+      </p>
+      <p className="text-center">
+        <a className="con-link" href="mailto:doronbreska@gmail.com">
+          <FontAwesomeIcon
+            className="faIcon"
+            href="mailto:doronbreska@gmail.com"
+            icon={faEnvelope}
+            size="2xl"
+          />
+        </a>
+        <a className="con-link" href="https://www.linkedin.com/in/doron-breska">
+          <FontAwesomeIcon className="faIcon" icon={faLinkedin} size="2xl" />
+        </a>
+        <a className="con-link" href="https://github.com/Doron-Breska">
+          <FontAwesomeIcon className="faIcon" icon={faGithub} size="2xl" />
+        </a>
+      </p>
+
       <div className="custom-shape-divider-bottom-1697624270">
         <svg
           data-name="Layer 1"
