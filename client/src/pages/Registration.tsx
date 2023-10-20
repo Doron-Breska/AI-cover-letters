@@ -85,6 +85,13 @@ const Registration = () => {
 
   const [msg, setMsg] = useState<string | null>(null);
 
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+
+  const handleFileChange = () => {
+    const file = imgRef.current?.files?.[0];
+    setSelectedFileName(file ? file.name : null);
+  };
+
   const resetRefs = () => {
     usernameRef.current!.value = "";
     emailRef.current!.value = "";
@@ -416,14 +423,30 @@ const Registration = () => {
 
           <label>Personal Text:</label>
           <textarea
-            className="mt-1"
+            className="mt-1 mb-1"
             placeholder="This part is optional! Feel free to tell us anything interesting about yourself, whether you like gardening or your favorite volunteering organization."
             ref={personalTextRef}
             rows={3}
           />
 
-          <label>Image:</label>
-          <input className="my-1" ref={imgRef} type="file" />
+          {/* <label>Image:</label>
+          <input className="my-1" ref={imgRef} type="file" /> */}
+          <div className="file-input-container my-1">
+            <label>Img:</label>
+            <input
+              type="file"
+              id="fileInput"
+              className="hidden-file-input"
+              ref={imgRef}
+              onChange={handleFileChange}
+            />
+            <label htmlFor="fileInput" className="custom-file-button">
+              Choose a file
+            </label>
+            <span className="file-name">
+              {selectedFileName || "No file chosen"}
+            </span>
+          </div>
         </div>
 
         <div className="second-questionnaire text-center">

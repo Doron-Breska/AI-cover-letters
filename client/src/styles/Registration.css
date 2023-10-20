@@ -2,19 +2,27 @@
     padding-inline: 1rem;
 
 }
-input:focus {
-    outline: none;
-    border-color: red;
-    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
-}
 
 textarea:focus {
     outline: none;
     border-color: red;
     box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
 }
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="range"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
 
-input ,textarea{
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="range"],
+textarea {
     border-radius: 3px;
 }
 
@@ -119,14 +127,6 @@ align-items: center;
 
 
 
-/* .letter-btn {
-    margin: 1.7rem;
-    margin-bottom: 0.4rem;
-    cursor: pointer;
-    padding: 0.2rem;
-    color: brown;
-
-} */
 
 
 
@@ -144,6 +144,51 @@ align-items: center;
     margin-bottom: 1rem;
  
 }
+
+
+
+
+
+
+
+.hidden-file-input {
+    display: none;
+}
+
+.custom-file-button {
+    padding: 2px 5px;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 10px;
+    /* margin-top: 0.2rem; */
+    /* space between the Image label and button */
+}
+
+.custom-file-button:hover,
+.custom-file-button:focus {
+/* border-color: red; */
+  
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+.file-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.file-name {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #555;
+    white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+        display: inline-block;
+}
+
 
    @media (max-width: 700px) {
 

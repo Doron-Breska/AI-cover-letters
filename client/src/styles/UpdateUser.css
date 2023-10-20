@@ -56,7 +56,31 @@ flex:2;
     transform: scale(1.05);
 }
 
+/* ///////////////test */
+input[type="file"]{
+    /* background-color: white; */
+    width: 100%;
+}
 
+
+/* Reset the default outline and styles on focus */
+
+input[type="file"]:focus {
+    outline: none;
+    /* removes the default browser outline */
+    border-color: red;
+    /* border-radius: 3px; */
+    /* sets border color to red */
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+    /* this emulates the Tailwind focus shadow with a red tint */
+}
+
+/* Add any other styles you wish to apply to the input by default */
+input[type="file"] {
+    border-radius: 3px;
+}
+
+/* ////////////////////test */
  @media (max-width: 700px) {
 
      /* You can adjust this value based on your needs */

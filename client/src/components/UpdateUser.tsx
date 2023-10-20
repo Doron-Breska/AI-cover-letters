@@ -81,6 +81,13 @@ const UpdateUser: React.FC = () => {
   const emotionalIntelligenceRef = useRef<HTMLInputElement>(null);
   const emotionalIntelligenceLabelRef = useRef<HTMLLabelElement>(null);
 
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+
+  const handleFileChange = () => {
+    const file = imgRef.current?.files?.[0];
+    setSelectedFileName(file ? file.name : null);
+  };
+
   const updateUserObjectRedux = () => {
     axios
       .get(`${serverURL}/api/users/active`, {
@@ -446,7 +453,7 @@ const UpdateUser: React.FC = () => {
 
           <label>Personal Text: </label>
           <textarea
-            className="mt-1"
+            className="my-1"
             rows={4}
             ref={personalTextRef}
             placeholder={
@@ -457,8 +464,24 @@ const UpdateUser: React.FC = () => {
           />
           <div className="img-update-con">
             <div className="img-el1">
-              <label>Image: </label>
-              <input className="my-1" ref={imgRef} type="file" name="img" />
+              {/* <label>Image: </label>
+              <input className="my-1" ref={imgRef} type="file" name="img" /> */}
+              <div className="file-input-container my-1">
+                <label>Img:</label>
+                <input
+                  type="file"
+                  id="fileInput"
+                  className="hidden-file-input"
+                  ref={imgRef}
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="fileInput" className="custom-file-button">
+                  Choose
+                </label>
+                <span className="file-name">
+                  {selectedFileName || "No file chosen"}
+                </span>
+              </div>
             </div>
             <div className="img-el2">
               <img src={user?.img}></img>
