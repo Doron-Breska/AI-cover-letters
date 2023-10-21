@@ -73,8 +73,7 @@ font-weight: bolder;
 .home-bg{
     /* background-color: rgb(250, 216, 202); */
     background-color: rgb(254, 245, 237);
-    height: 100vh;
-    overflow:hidden;
+     height: 100dvh;
 }
 
 .con-link {
