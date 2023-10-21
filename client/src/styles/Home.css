@@ -15,17 +15,13 @@ section {
 .bottom-stripe {
     background: #F89595;
     background: #F89595;
-    height: 60px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    height: 75px;
 }
 
 .custom-shape-divider-bottom-1697624270 {
-    position: absolute;
-    bottom: 60px;
-    left: 0;
+    /* position: absolute;
+    bottom: 75px;
+    left: 0; */
     width: 100%;
     overflow: hidden;
     line-height: 0;
@@ -75,9 +71,10 @@ section {
 .home-bg {
     /* background-color: rgb(250, 216, 202); */
     background-color: rgb(254, 245, 237);
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
 }
 
 .con-link {
@@ -106,7 +103,7 @@ section {
 
     /* You can adjust this value based on your needs */
     .bottom-stripe {
-        height: 90px;
+        height: 91px;
     }
 
     .custom-shape-divider-bottom-1697624270 {
