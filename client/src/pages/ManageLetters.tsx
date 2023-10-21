@@ -16,7 +16,7 @@ const ManageLetters = () => {
       ) : (
         <h1 className="text-3xl text-center mt-32 font-bold">Saved letters</h1>
       )}
-      <div className="flex my-24  pl-32 pr-32">
+      <div className="m-24 letters-con">
         {sortedLetters.length !== 0 &&
           sortedLetters.map((letter) => (
             <SingleLetter

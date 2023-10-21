@@ -5,9 +5,10 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getLetters } from "../slices/coverLetterSlice";
 import { RiDeleteBin2Fill } from "react-icons/ri";
-import "../styles/CreateCoverLetter.css";
+// import "../styles/CreateCoverLetter.css";
 import { FaShareAltSquare } from "react-icons/fa";
 import { serverURL } from "../utils/serverURL";
+import "../styles/ManageLetters.css";
 
 interface SingleLetterProps {
   c_v_id: number;
