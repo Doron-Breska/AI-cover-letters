@@ -1,17 +1,16 @@
-
-section{
+section {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-   
+
 }
 
- .top-stripe{
-    background:#F89595;
+.top-stripe {
+    background: #F89595;
     /* background: #f9e2c1; */
     height: 100px;
- }
+}
 
 .bottom-stripe {
     background: #F89595;
@@ -22,15 +21,7 @@ section{
     left: 0;
     right: 0;
 }
-.bottom-stripe-test {
-    background: #F89595;
-    background: #F89595;
-    height: 60px;
-    position: absolute;
-    bottom: -60px;
-    left: 0;
-    right: 0;
-}
+
 .custom-shape-divider-bottom-1697624270 {
     position: absolute;
     bottom: 60px;
@@ -41,25 +32,26 @@ section{
     transform: rotate(180deg);
 }
 
-.home-header{
-       text-align: center;
-        max-width: 600px;
-        font-weight:bolder;
-        /* font-size: 2rem; */
-        font-size: clamp(1rem, 4vw, 2rem);
-        /* line-height: 4rem; */
-        margin: 1rem auto;
-        padding-inline: 2rem;
-        margin-top: 2rem;
-        color: brown;
+.home-header {
+    text-align: center;
+    max-width: 600px;
+    font-weight: bolder;
+    /* font-size: 2rem; */
+    font-size: clamp(1rem, 4vw, 2rem);
+    /* line-height: 4rem; */
+    margin: 1rem auto;
+    padding-inline: 2rem;
+    margin-top: 2rem;
+    color: brown;
 }
-.contact-header{
-font-weight: bolder;
+
+.contact-header {
+    font-weight: bolder;
     font-size: clamp(1rem, 4vw, 1.5rem);
-        color: brown;
+    color: brown;
     color: gray;
-        margin-top: 3rem;
-        margin-bottom: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
 }
 
 .custom-shape-divider-bottom-1697624270 svg {
@@ -73,16 +65,18 @@ font-weight: bolder;
 .custom-shape-divider-bottom-1697624270 .wave {
     fill: #F89595;
 }
-.wave{
+
+.wave {
     fill: #F89595;
     /* fill: #f9e2c1; */
 }
 
 
-.home-bg{
+.home-bg {
     /* background-color: rgb(250, 216, 202); */
     background-color: rgb(254, 245, 237);
-     height: 100dvh;
+    height: 100dvh;
+    overflow-y: hidden;
 }
 
 .con-link {
@@ -94,39 +88,42 @@ font-weight: bolder;
     margin-inline: 1.5rem;
 }
 
-.con-link:hover ,
-.con-link:focus{
-    color:rgb(140, 35, 8) ;
+.con-link:hover,
+.con-link:focus {
+    color: rgb(140, 35, 8);
 }
 
 .con-link:hover .faIcon {
     transform: translateY(-10px) !important;
 }
+
 .con-link:focus .faIcon {
     transform: translateY(-10px) !important;
 }
 
- @media (max-width: 850px) {
+@media (max-width: 850px) {
 
-     /* You can adjust this value based on your needs */
+    /* You can adjust this value based on your needs */
     .bottom-stripe {
         height: 90px;
     }
-        .custom-shape-divider-bottom-1697624270{
-            bottom: 89px;
-        }
-        .home-header{
-            margin-top: 3rem;
-        }
 
- }
+    .custom-shape-divider-bottom-1697624270 {
+        bottom: 89px;
+    }
 
-  @media (max-width: 500px) {
+    .home-header {
+        margin-top: 3rem;
+    }
 
-      /* You can adjust this value based on your needs */
+}
 
-      .home-header {
-          margin-top: 6rem;
-      }
+@media (max-width: 500px) {
 
-  }
+    /* You can adjust this value based on your needs */
+
+    .home-header {
+        margin-top: 6rem;
+    }
+
+}

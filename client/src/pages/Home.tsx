@@ -61,7 +61,6 @@ const Home = () => {
         </svg>
       </div>
       <section className="bottom-stripe"></section>
-      <section className="bottom-stripe-test"></section>
     </div>
   );
 };
