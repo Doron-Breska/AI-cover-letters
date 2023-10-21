@@ -75,8 +75,9 @@ section {
 .home-bg {
     /* background-color: rgb(250, 216, 202); */
     background-color: rgb(254, 245, 237);
-    height: 100dvh;
-    overflow-y: hidden;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
 }
 
 .con-link {
