@@ -22,6 +22,15 @@ section{
     left: 0;
     right: 0;
 }
+.bottom-stripe-test {
+    background: #F89595;
+    background: #F89595;
+    height: 60px;
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    right: 0;
+}
 .custom-shape-divider-bottom-1697624270 {
     position: absolute;
     bottom: 60px;
