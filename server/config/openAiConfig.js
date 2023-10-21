@@ -3,7 +3,7 @@ import OpenAI from "openai";
 
 dotenv.config();
 
-const openAi = async (userInfo, jobOffer) => {
+const openAi = async (userInfo, questionnaire, jobOffer) => {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
   try {
@@ -11,7 +11,12 @@ const openAi = async (userInfo, jobOffer) => {
       model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: `User Information: ${userInfo}` },
+        {
+          role: "user",
+          content: `The user has shared their professional and personal details as follows: ${userInfo}. The user also shared personality questionnaire results:"${questionnaire}". Use this information to tailor a cover letter for the user.Do NOT mention the ${questionnaire} results in the letter.`,
+        },
+
+        // { role: "user", content: `User Information: ${userInfo}` },
         { role: "user", content: `Job Offer: ${jobOffer}` },
         { role: "assistant", content: "Dear Hiring Manager," },
       ],

@@ -93,9 +93,10 @@ const createNewLetter = async (req, res) => {
     const techInfo = req.user.tech_info;
     const personalInfo = JSON.stringify(req.user?.personal_info);
     const personalText = req.user?.personal_text || "";
-    const combinedUserInfo = `${techInfo} .the following characteristics are ranged from 0 to 5, 5 is the highest (the user ansered about himself): ${personalInfo}. ${personalText}`;
+    // const combinedUserInfo = `${techInfo} .the following characteristics are ranged from 0 to 5, 5 is the highest (the user ansered about himself): ${personalInfo}. ${personalText}`;
+    const combinedUserInfo = `${techInfo}. ${personalText}`;
 
-    const data = await openAi(combinedUserInfo, combinedJobInfo);
+    const data = await openAi(combinedUserInfo, personalInfo, combinedJobInfo);
 
     // console.log("Data received in createNewLetter:", data);
 
