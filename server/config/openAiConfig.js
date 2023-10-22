@@ -10,7 +10,10 @@ const openAi = async (userInfo, jobOffer) => {
       model: "gpt-3.5-turbo	",
       messages: [
         { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: `User Information: ${userInfo}` },
+        {
+          role: "user",
+          content: `User Information: ${userInfo}. Use the information to create a tailored cover letter.`,
+        },
         { role: "user", content: `Job Offer: ${jobOffer}` },
         { role: "assistant", content: "Dear Hiring Manager," },
       ],
