@@ -97,7 +97,7 @@ const createNewLetter = async (req, res) => {
     const combinedUserInfo = `${techInfo}. ${personalText}`;
 
     // const data = await openAi(combinedUserInfo, personalInfo, combinedJobInfo);
-    console.log("these are the variables :", combinedUserInfo, combinedJobInfo);
+    // console.log("these are the variables :", combinedUserInfo, combinedJobInfo);
     const data = await openAi(combinedUserInfo, combinedJobInfo);
     // console.log("Data received in createNewLetter:", data);
 
