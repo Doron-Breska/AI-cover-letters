@@ -13,10 +13,11 @@ const port = process.env.PORT || 5001;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://ai-cover-letters-db.vercel.app",
+  "https://ai-cover-letters-server-lstv9hcge-doron-breska.vercel.app",
 ];
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log("Request coming from:", origin);
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
