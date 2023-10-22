@@ -91,7 +91,7 @@ const createNewLetter = async (req, res) => {
 
   try {
     const techInfo = req.user.tech_info;
-    // const personalInfo = JSON.stringify(req.user?.personal_info);
+    const personalInfo = JSON.stringify(req.user?.personal_info);
     const personalText = req.user?.personal_text || "";
     const combinedUserInfo = `${techInfo} .the following characteristics are ranged from 0 to 5, 5 is the highest (the user ansered about himself): ${personalInfo}. ${personalText}`;
     // const combinedUserInfo = `${techInfo}. ${personalText}`;
