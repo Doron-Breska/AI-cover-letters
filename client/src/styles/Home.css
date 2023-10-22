@@ -35,9 +35,8 @@ section {
     /* font-size: 2rem; */
     font-size: clamp(1rem, 4vw, 2rem);
     /* line-height: 4rem; */
-    margin: 1rem auto;
+    margin: 0 auto;
     padding-inline: 2rem;
-    margin-top: 2rem;
     color: brown;
 }
 
@@ -86,6 +85,7 @@ section {
     margin-inline: 1.5rem;
 }
 
+
 .con-link:hover,
 .con-link:focus {
     color: rgb(140, 35, 8);
@@ -121,7 +121,7 @@ section {
     /* You can adjust this value based on your needs */
 
     .home-header {
-        margin-top: 6rem;
+        margin-top: 4rem;
     }
 
 }

@@ -108,6 +108,7 @@ const CreateCoverLetter = () => {
       console.error("Error with creating a letter:", error);
     }
   };
+
   useEffect(() => {
     if (newLetter) {
       scrollToHeading();
