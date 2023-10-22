@@ -5,7 +5,7 @@ dotenv.config();
 
 const openAi = async (userInfo, jobOffer) => {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  console.log("these are the variables:", userInfo, jobOffer);
+  // console.log("these are the variables: ", userInfo, jobOffer);
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
