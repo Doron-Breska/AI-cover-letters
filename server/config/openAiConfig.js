@@ -1,11 +1,16 @@
-import dotenv from "dotenv";
 import OpenAI from "openai";
-
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const openAi = async (userInfo, jobOffer) => {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  // console.log("these are the variables: ", userInfo, jobOffer);
+  console.log(
+    "these are the variables from openAi function: ",
+    userInfo,
+    jobOffer
+  );
+  console.log("this is the key : ", process.env.OPENAI_API_KEY);
+
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
