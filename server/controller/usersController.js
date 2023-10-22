@@ -88,13 +88,15 @@ const createUser = async (req, res) => {
   } catch (error) {
     if (error.code === "23505") {
       if (error.constraint === "users_username_key") {
-        return res
-          .status(400)
-          .json({ status: "error", message: "Username is already taken." });
+        return res.status(400).json({
+          status: "error",
+          message: "This username is already taken.",
+        });
       } else if (error.constraint === "users_email_key") {
-        return res
-          .status(400)
-          .json({ status: "error", message: "Email is already registered." });
+        return res.status(400).json({
+          status: "error",
+          message: "This email is already registered.",
+        });
       }
     }
     console.error("Error:", error);
@@ -228,9 +230,20 @@ const updateUser = async (req, res) => {
       updateUser: updatedUser[0],
     });
   } catch (error) {
+    if (error.code === "23505") {
+      if (error.constraint === "users_username_key") {
+        return res
+          .status(400)
+          .json({ status: "error", message: "Username is already taken." });
+      } else if (error.constraint === "users_email_key") {
+        return res
+          .status(400)
+          .json({ status: "error", message: "Email is already registered." });
+      }
+    }
     console.error("Error:", error);
     res.status(500).json({
-      status: "Error",
+      status: "error",
       message: "Something went wrong with updating the user",
     });
   }

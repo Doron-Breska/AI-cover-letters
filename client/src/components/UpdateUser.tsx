@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -6,17 +6,21 @@ import { login } from "../slices/userSlice";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderProfile.css";
+import "../styles/UpdateUser.css";
+import React from "react";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { serverURL } from "../utils/serverURL";
 
 interface PersonalInfo {
-  Leadership?: string;
-  Adaptability_Flexibility?: string;
-  Proactivity_Initiative?: string;
-  Attention_to_Detail?: string;
-  Spontaneity?: string;
-  Teamwork_Collaboration?: string;
-  Resilience?: string;
-  Innovativeness_Creativity?: string;
-  Emotional_Intelligence?: string;
+  Leadership: string;
+  "Adaptability & Flexibility": string;
+  "Proactivity & Initiative": string;
+  "Attention to details": string;
+  Spontaneity: string;
+  "Teamwork & Collaboration": string;
+  Resilience: string;
+  "Innovativeness & Creativity": string;
+  "Emotional intelligence": string;
 }
 
 const UpdateUser: React.FC = () => {
@@ -24,6 +28,19 @@ const UpdateUser: React.FC = () => {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loader.loading);
+
+  const [msg, setMsg] = useState<string | null>(null);
+  const errorRef1 = useRef<HTMLDivElement>(null);
+
+  const scrollToMsg = () => {
+    errorRef1.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const [msg2, setMsg2] = useState<string | null>(null);
+  const errorRef2 = useRef<HTMLDivElement>(null);
+
+  const scrollToMsg2 = () => {
+    errorRef2.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const userId = user?.user_id;
 
@@ -38,18 +55,42 @@ const UpdateUser: React.FC = () => {
 
   // Personal Info Refs
   const leadershipRef = useRef<HTMLInputElement>(null);
+  const leadershipLabelRef = useRef<HTMLLabelElement>(null);
+
   const adaptabilityRef = useRef<HTMLInputElement>(null);
+  const adaptabilityLabelRef = useRef<HTMLLabelElement>(null);
+
   const proactivityRef = useRef<HTMLInputElement>(null);
+  const proactivityLabelRef = useRef<HTMLLabelElement>(null);
+
   const attentionToDetailRef = useRef<HTMLInputElement>(null);
+  const attentionToDetailLabelRef = useRef<HTMLLabelElement>(null);
+
   const spontaneityRef = useRef<HTMLInputElement>(null);
+  const spontaneityLabelRef = useRef<HTMLLabelElement>(null);
+
   const teamworkRef = useRef<HTMLInputElement>(null);
+  const teamworkLabelRef = useRef<HTMLLabelElement>(null);
+
   const resilienceRef = useRef<HTMLInputElement>(null);
+  const resilienceLabelRef = useRef<HTMLLabelElement>(null);
+
   const innovativenessRef = useRef<HTMLInputElement>(null);
+  const innovativenessLabelRef = useRef<HTMLLabelElement>(null);
+
   const emotionalIntelligenceRef = useRef<HTMLInputElement>(null);
+  const emotionalIntelligenceLabelRef = useRef<HTMLLabelElement>(null);
+
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+
+  const handleFileChange = () => {
+    const file = imgRef.current?.files?.[0];
+    setSelectedFileName(file ? file.name : null);
+  };
 
   const updateUserObjectRedux = () => {
     axios
-      .get("http://localhost:5001/api/users/active", {
+      .get(`${serverURL}/api/users/active`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -85,6 +126,16 @@ const UpdateUser: React.FC = () => {
     if (innovativenessRef.current) innovativenessRef.current.value = "";
     if (emotionalIntelligenceRef.current)
       emotionalIntelligenceRef.current.value = "";
+    emotionalIntelligenceLabelRef.current!.textContent =
+      "Emotional Intelligence: ";
+    innovativenessLabelRef.current!.textContent = `Innovativeness & Creativity: `;
+    resilienceLabelRef.current!.textContent = `Resilience: `;
+    teamworkLabelRef.current!.textContent = `Teamwork & Collaboration: `;
+    spontaneityLabelRef.current!.textContent = `Spontaneity: `;
+    attentionToDetailLabelRef.current!.textContent = `Attention to details: `;
+    proactivityLabelRef.current!.textContent = `Proactivity & Initiative: `;
+    adaptabilityLabelRef.current!.textContent = `Adaptability & Flexibility: `;
+    leadershipLabelRef.current!.textContent = `Leadership: `;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -111,25 +162,94 @@ const UpdateUser: React.FC = () => {
       formData.append("img", imgRef.current?.files[0]);
     }
 
-    const personalInfo: PersonalInfo = {};
+    try {
+      if (!userId) {
+        throw new Error("User ID is not available");
+      }
+
+      const response = await axios.put(
+        `${serverURL}/api/users/update/${userId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.status === "Success") {
+        // console.log("User updated successfully:", response.data);
+        updateUserObjectRedux();
+        resetInputs();
+        setMsg("User has been updated successfully!");
+        scrollToMsg();
+      } else {
+        console.error("Error from server ", response.data.message);
+        setMsg(response.data.message);
+        resetInputs();
+        scrollToMsg();
+      }
+      //eslint-disable-next-line
+    } catch (error: any) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.error("Server Error:", error.response.data.message);
+        setMsg(error.response.data.message);
+        scrollToMsg();
+        resetInputs();
+      } else {
+        console.error("General Error updating user:", error);
+        setMsg("Something went wrong, pls try again.");
+        resetInputs();
+        scrollToMsg();
+      }
+    } finally {
+      dispatch(toggleLoading());
+    }
+  };
+
+  const handleSubmit2 = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(toggleLoading());
+
+    const formData = new FormData();
+
+    const personalInfo: PersonalInfo = {
+      Leadership: "",
+      "Adaptability & Flexibility": "",
+      "Proactivity & Initiative": "",
+      "Attention to details": "",
+      Spontaneity: "",
+      "Teamwork & Collaboration": "",
+      Resilience: "",
+      "Innovativeness & Creativity": "",
+      "Emotional intelligence": "",
+    };
     if (leadershipRef.current?.value)
       personalInfo.Leadership = leadershipRef.current?.value;
     if (adaptabilityRef.current?.value)
-      personalInfo.Adaptability_Flexibility = adaptabilityRef.current?.value;
+      personalInfo["Adaptability & Flexibility"] =
+        adaptabilityRef.current?.value;
     if (proactivityRef.current?.value)
-      personalInfo.Proactivity_Initiative = proactivityRef.current?.value;
+      personalInfo["Proactivity & Initiative"] = proactivityRef.current?.value;
     if (attentionToDetailRef.current?.value)
-      personalInfo.Attention_to_Detail = attentionToDetailRef.current?.value;
+      personalInfo["Attention to details"] =
+        attentionToDetailRef.current?.value;
     if (spontaneityRef.current?.value)
       personalInfo.Spontaneity = spontaneityRef.current?.value;
     if (teamworkRef.current?.value)
-      personalInfo.Teamwork_Collaboration = teamworkRef.current?.value;
+      personalInfo["Teamwork & Collaboration"] = teamworkRef.current?.value;
     if (resilienceRef.current?.value)
       personalInfo.Resilience = resilienceRef.current?.value;
     if (innovativenessRef.current?.value)
-      personalInfo.Innovativeness_Creativity = innovativenessRef.current?.value;
+      personalInfo["Innovativeness & Creativity"] =
+        innovativenessRef.current?.value;
     if (emotionalIntelligenceRef.current?.value)
-      personalInfo.Emotional_Intelligence =
+      personalInfo["Emotional intelligence"] =
         emotionalIntelligenceRef.current?.value;
 
     if (Object.keys(personalInfo).length > 0)
@@ -138,7 +258,7 @@ const UpdateUser: React.FC = () => {
     try {
       if (userId) {
         const response = await axios.put(
-          `http://localhost:5001/api/users/update/${userId}`,
+          `${serverURL}/api/users/update/${userId}`,
           formData,
           {
             headers: {
@@ -147,15 +267,26 @@ const UpdateUser: React.FC = () => {
             },
           }
         );
-        console.log("User updated successfully:", response.data);
-        dispatch(toggleLoading());
-        updateUserObjectRedux();
-        resetInputs();
-      } else {
-        console.error("User ID is not available");
+        if (response.status === 200) {
+          // console.log("User updated successfully:", response.data);
+          dispatch(toggleLoading());
+          updateUserObjectRedux();
+          setMsg2("User has been updated successfully!");
+          scrollToMsg2();
+          resetInputs();
+        } else {
+          console.log("error-msg:", response.data.message);
+          setMsg2(response.data.message);
+          scrollToMsg2();
+          resetInputs();
+          dispatch(toggleLoading());
+        }
       }
     } catch (error) {
       console.error("Error updating user:", error);
+      setMsg("Something went wrong, pls try again.");
+      dispatch(toggleLoading());
+      scrollToMsg2();
     }
   };
 
@@ -267,121 +398,295 @@ const UpdateUser: React.FC = () => {
           </g>
         </svg>
       )}
-      <form onSubmit={handleSubmit}>
-        <div>
+      <div className="update-form my-24">
+        <form className="first-questionnaire-update" onSubmit={handleSubmit}>
+          <p className="register-header">Part A</p>
+
           <label>Username: </label>
-          <input ref={usernameRef} type="text" />
-        </div>
-        <div>
+          <input
+            className="my-1"
+            ref={usernameRef}
+            type="text"
+            placeholder={user! && user.username}
+          />
+
           <label>Email: </label>
-          <input ref={emailRef} type="email" />
-        </div>
-        <div>
+          <input
+            className="my-1"
+            ref={emailRef}
+            type="email"
+            placeholder={user! && user.email}
+          />
+
           <label>First Name: </label>
-          <input ref={firstNameRef} type="text" />
-        </div>
-        <div>
+          <input
+            className="my-1"
+            ref={firstNameRef}
+            type="text"
+            placeholder={user! && user.first_name}
+          />
+
           <label>Last Name: </label>
-          <input ref={lastNameRef} type="text" />
-        </div>
-        <div>
+          <input
+            className="my-1"
+            ref={lastNameRef}
+            type="text"
+            placeholder={user! && user.last_name}
+          />
+
           <label>Password: </label>
-          <input ref={passwordRef} type="password" />
-        </div>
-        <div>
+          <input
+            className="my-1"
+            ref={passwordRef}
+            type="password"
+            placeholder="Min 6 characters"
+          />
+
           <label>Tech Info: </label>
-          <textarea ref={techInfoRef} />
-        </div>
-        <div>
+
+          <textarea
+            className="mt-1"
+            ref={techInfoRef}
+            rows={10}
+            placeholder={user! && user.tech_info}
+          />
+
           <label>Personal Text: </label>
-          <textarea ref={personalTextRef} />
-        </div>
-        <div>
-          <label>Image URL: </label>
-          <input ref={imgRef} type="file" name="img" />
-        </div>
-        {/* Personal Info Fields */}
-        <div>
-          <label>Leadership: </label>
-          <input ref={leadershipRef} type="range" step="0.2" min="0" max="1" />
-        </div>
-        <div>
-          <label>Adaptability/Flexibility: </label>
-          <input
-            ref={adaptabilityRef}
-            type="number"
-            step="0.2"
-            min="0"
-            max="1"
+          <textarea
+            className="my-1"
+            rows={4}
+            ref={personalTextRef}
+            placeholder={
+              user && user.personal_text
+                ? user.personal_text
+                : "This part is optional! Feel free to tell us anything interesting about yourself, whether you like gardening or your favorite volunteering organization."
+            }
           />
-        </div>
-        <div>
-          <label>Proactivity/Initiative: </label>
-          <input
-            ref={proactivityRef}
-            type="number"
-            step="0.2"
-            min="0"
-            max="1"
-          />
-        </div>
-        <div>
-          <label>Attention to Detail: </label>
-          <input
-            ref={attentionToDetailRef}
-            type="number"
-            step="0.2"
-            min="0"
-            max="1"
-          />
-        </div>
-        <div>
-          <label>Spontaneity: </label>
-          <input
-            ref={spontaneityRef}
-            type="number"
-            step="0.2"
-            min="0"
-            max="1"
-          />
-        </div>
-        <div>
-          <label>Teamwork/Collaboration: </label>
-          <input ref={teamworkRef} type="number" step="0.2" min="0" max="1" />
-        </div>
-        <div>
-          <label>Resilience: </label>
-          <input ref={resilienceRef} type="number" step="0.2" min="0" max="1" />
-        </div>
-        <div>
-          <label>Innovativeness/Creativity: </label>
-          <input
-            ref={innovativenessRef}
-            type="number"
-            step="0.2"
-            min="0"
-            max="1"
-          />
-        </div>
-        <div>
-          <label>Emotional Intelligence: </label>
-          <input
-            ref={emotionalIntelligenceRef}
-            type="number"
-            step="0.2"
-            min="0"
-            max="1"
-          />
-        </div>
-        <button
-          type="submit"
-          onClick={() => {
-            handleSubmit;
-          }}
+          <div className="img-update-con">
+            <div className="img-el1">
+              {/* <label>Image: </label>
+              <input className="my-1" ref={imgRef} type="file" name="img" /> */}
+              <div className="file-input-container my-1">
+                <label>Img:</label>
+                <input
+                  type="file"
+                  id="fileInput"
+                  className="hidden-file-input"
+                  ref={imgRef}
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="fileInput" className="custom-file-button">
+                  Choose
+                </label>
+                <span className="file-name">
+                  {selectedFileName || "No file chosen"}
+                </span>
+              </div>
+            </div>
+            <div className="img-el2">
+              <img src={user?.img}></img>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <button className=" bg-slate-50 my-6" type="submit">
+              Update
+            </button>
+          </div>
+          {msg && (
+            <div className="reg-error-div" ref={errorRef1}>
+              <h2 className="font-extrabold	">{msg}</h2>
+              <AiOutlineCloseCircle
+                className="close-error-reg mt-2"
+                onClick={() => {
+                  setMsg("");
+                }}
+              />
+            </div>
+          )}
+        </form>
+
+        <form
+          className="second-questionnaire-update text-center"
+          onSubmit={handleSubmit2}
         >
-          Update
-        </button>
-      </form>
+          <p className="register-header">Part B</p>
+          <p className="mb-2 italic">
+            *Make sure you can see value after each header!
+          </p>
+
+          <label ref={leadershipLabelRef}>Leadership: </label>
+          <input
+            className="my-3"
+            ref={leadershipRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (leadershipLabelRef.current && leadershipRef.current) {
+                leadershipLabelRef.current.textContent = `Leadership: ${leadershipRef.current.value}`;
+              }
+            }}
+          />
+
+          <label ref={adaptabilityLabelRef}>Adaptability & Flexibility: </label>
+          <input
+            className="my-3"
+            ref={adaptabilityRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (adaptabilityLabelRef.current && adaptabilityRef.current) {
+                adaptabilityLabelRef.current.textContent = `Adaptability & Flexibility:  ${adaptabilityRef.current.value}`;
+              }
+            }}
+          />
+
+          <label ref={proactivityLabelRef}>Proactivity & Initiative: </label>
+
+          <input
+            className="my-3"
+            ref={proactivityRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (proactivityLabelRef.current && proactivityRef.current) {
+                proactivityLabelRef.current.textContent = `Proactivity & Initiative: ${proactivityRef.current.value}`;
+              }
+            }}
+          />
+
+          <label ref={attentionToDetailLabelRef}>Attention to details: </label>
+
+          <input
+            className="my-3"
+            ref={attentionToDetailRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (
+                attentionToDetailLabelRef.current &&
+                attentionToDetailRef.current
+              ) {
+                attentionToDetailLabelRef.current.textContent = `Attention to details: ${attentionToDetailRef.current.value}`;
+              }
+            }}
+          />
+
+          <label ref={spontaneityLabelRef}>Spontaneity: </label>
+
+          <input
+            className="my-3"
+            ref={spontaneityRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (spontaneityLabelRef.current && spontaneityRef.current) {
+                spontaneityLabelRef.current.textContent = `Spontaneity: ${spontaneityRef.current.value}`;
+              }
+            }}
+          />
+
+          <label ref={teamworkLabelRef}>Teamwork & Collaboration: </label>
+          <input
+            className="my-3"
+            ref={teamworkRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (teamworkLabelRef.current && teamworkRef.current) {
+                teamworkLabelRef.current.textContent = `Teamwork & Collaboration: ${teamworkRef.current.value}`;
+              }
+            }}
+          />
+
+          <label ref={resilienceLabelRef}>Resilience: </label>
+
+          <input
+            className="my-3"
+            ref={resilienceRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (resilienceLabelRef.current && resilienceRef.current) {
+                resilienceLabelRef.current.textContent = `Resilience: ${resilienceRef.current.value}`;
+              }
+            }}
+          />
+
+          <label ref={innovativenessLabelRef}>
+            Innovativeness & Creativity:{" "}
+          </label>
+          <input
+            className="my-3"
+            ref={innovativenessRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (innovativenessLabelRef.current && innovativenessRef.current) {
+                innovativenessLabelRef.current.textContent = `Innovativeness & Creativity: ${innovativenessRef.current.value}`;
+              }
+            }}
+          />
+          <label ref={emotionalIntelligenceLabelRef}>
+            Emotional Intelligence:{" "}
+          </label>
+          <input
+            className="my-3"
+            ref={emotionalIntelligenceRef}
+            type="range"
+            required
+            min="0"
+            max="5"
+            step="1"
+            onChange={() => {
+              if (
+                emotionalIntelligenceLabelRef.current &&
+                emotionalIntelligenceRef.current
+              ) {
+                emotionalIntelligenceLabelRef.current.textContent = `Emotional Intelligence: ${emotionalIntelligenceRef.current.value}`;
+              }
+            }}
+          />
+          <button className="my-6 bg-slate-50" type="submit">
+            Update
+          </button>
+          {msg2 && (
+            <div className="reg-error-div" ref={errorRef2}>
+              <h2 className="font-extrabold	">{msg2}</h2>
+              <AiOutlineCloseCircle
+                className="close-error-reg mt-2"
+                onClick={() => {
+                  setMsg2("");
+                }}
+              />
+            </div>
+          )}
+        </form>
+      </div>
     </>
   );
 };

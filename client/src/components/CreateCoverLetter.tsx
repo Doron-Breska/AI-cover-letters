@@ -1,11 +1,16 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderLetter.css";
 import { getLetters } from "../slices/coverLetterSlice";
+import "../styles/CreateCoverLetter.css";
+// import { BsSave2Fill } from "react-icons/bs";
+import { FaShareAltSquare } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
+import { serverURL } from "../utils/serverURL";
 
 interface LetterToSave {
   user_id: number;
@@ -35,7 +40,9 @@ const CreateCoverLetter = () => {
 
   const companyRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
   const resetInputs = () => {
     if (companyRef.current) companyRef.current.value = "";
@@ -45,7 +52,7 @@ const CreateCoverLetter = () => {
 
   const updateLettersAeeatRedux = () => {
     axios
-      .get("http://localhost:5001/api/c-l/user/", {
+      .get(`${serverURL}/api/c-l/user/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,6 +66,9 @@ const CreateCoverLetter = () => {
       .catch((error) => {
         console.error("Error fetching cover letters:", error);
       });
+  };
+  const scrollToHeading = () => {
+    headingRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -79,11 +89,11 @@ const CreateCoverLetter = () => {
     try {
       if (userId) {
         const response = await axios.post(
-          `http://localhost:5001/api/c-l/new/`,
+          `${serverURL}/api/c-l/new/`,
           infoForNewLetter,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log("this is the cover letter:", response.data.message);
+        // console.log("this is the cover letter:", response.data.message);
         dispatch(toggleLoading());
         setNewLetter(response.data.message);
         setHasSaved(false);
@@ -95,9 +105,15 @@ const CreateCoverLetter = () => {
         console.error("User ID is not available");
       }
     } catch (error) {
-      console.error("Error updating user:", error);
+      console.error("Error with creating a letter:", error);
     }
   };
+
+  useEffect(() => {
+    if (newLetter) {
+      scrollToHeading();
+    }
+  }, [newLetter]);
 
   const saveLetter = async () => {
     const saveLetterData: LetterToSave = {
@@ -109,7 +125,7 @@ const CreateCoverLetter = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/c-l/save`,
+        `${serverURL}/api/c-l/save`,
         saveLetterData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -117,7 +133,7 @@ const CreateCoverLetter = () => {
       );
 
       if (response.status === 200) {
-        console.log("Letter saved successfully!", response.data);
+        // console.log("Letter saved successfully!", response.data);
         setHasSaved(true);
         updateLettersAeeatRedux();
       } else {
@@ -139,37 +155,75 @@ const CreateCoverLetter = () => {
           <div className="keyboard"></div>
         </div>
       )}
-      {user && user.username}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Company Name: </label>
-          <input ref={companyRef} type="text" required />
-        </div>
-        <div>
-          <label>Job Title: </label>
-          <input ref={titleRef} type="text" required />
-        </div>
-        <div>
-          <label>Description: </label>
-          <input ref={descriptionRef} type="text" required />
-        </div>
-        <button type="submit">Create Cover Letter</button>
-      </form>
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-      {newLetter && (
-        <>
-          <h3>this is the new cover letter:</h3>
-          <p className="cover-letter-paragraph">{newLetter}</p>
-          {!hasSaved && (
-            <>
-              <button onClick={saveLetter}>SaveLetter</button>
-            </>
-          )}
-        </>
-      )}
+
+      <h1 className="text-3xl text-center mt-24 font-bold">
+        Fill out the form <br /> to create a cover letter
+      </h1>
+      <div className="create-letter-form-container">
+        <form className="create-letter-form" onSubmit={handleSubmit}>
+          <div>
+            <label>Company Name: </label>
+            <input
+              className="my-2 test create-letter-input"
+              ref={companyRef}
+              type="text"
+              required
+            />
+          </div>
+          <div>
+            <label>Job Title: </label>
+            <br />
+            <input
+              className="my-2 create-letter-input"
+              ref={titleRef}
+              type="text"
+              required
+            />
+          </div>
+          <div>
+            <label>Description: </label>
+            <br />
+            <textarea
+              className="my-2 create-letter-input"
+              ref={descriptionRef}
+              rows={8}
+              required
+            />
+          </div>
+          <button className="my-2 bg-white" type="submit">
+            Create Cover Letter
+          </button>
+        </form>
+        {newLetter && (
+          <div className="text-center">
+            <h3
+              className="text-2xl text-center mb-10 mt-20 font-bold"
+              ref={headingRef}
+            >
+              this is the new cover letter:
+            </h3>
+            <div className="cover-letter-paragraph">
+              {newLetter}
+              <br />
+
+              <div className="letter-btn-container">
+                {!hasSaved && (
+                  <FaSave className="letter-btn" onClick={saveLetter} />
+                )}
+                <FaShareAltSquare
+                  className="letter-btn"
+                  onClick={() => {
+                    const mailtoLink = `mailto:?body=${encodeURIComponent(
+                      newLetter
+                    )}`;
+                    window.location.href = mailtoLink;
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 };

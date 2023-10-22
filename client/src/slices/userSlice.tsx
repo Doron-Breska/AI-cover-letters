@@ -9,7 +9,7 @@ interface User {
   tech_info: string;
   personal_info: object;
   personal_text: string | null;
-  img: string | null;
+  img: string;
 }
 
 interface UserState {

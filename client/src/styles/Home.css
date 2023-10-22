@@ -1,0 +1,127 @@
+section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.top-stripe {
+    background: #F89595;
+    /* background: #f9e2c1; */
+    height: 100px;
+}
+
+.bottom-stripe {
+    background: #F89595;
+    background: #F89595;
+    height: 75px;
+}
+
+.custom-shape-divider-bottom-1697624270 {
+    /* position: absolute;
+    bottom: 75px;
+    left: 0; */
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.home-header {
+    text-align: center;
+    max-width: 600px;
+    font-weight: bolder;
+    /* font-size: 2rem; */
+    font-size: clamp(1rem, 4vw, 2rem);
+    /* line-height: 4rem; */
+    margin: 0 auto;
+    padding-inline: 2rem;
+    color: brown;
+}
+
+.contact-header {
+    font-weight: bolder;
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    color: brown;
+    color: gray;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.custom-shape-divider-bottom-1697624270 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 56px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1697624270 .wave {
+    fill: #F89595;
+}
+
+.wave {
+    fill: #F89595;
+    /* fill: #f9e2c1; */
+}
+
+
+.home-bg {
+    /* background-color: rgb(250, 216, 202); */
+    background-color: rgb(254, 245, 237);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+.con-link {
+    color: gray;
+    font-size: 2rem;
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    transition: all 0.2s linear;
+    transform: translateY(0);
+    margin-inline: 1.5rem;
+}
+
+
+.con-link:hover,
+.con-link:focus {
+    color: rgb(140, 35, 8);
+}
+
+.con-link:hover .faIcon {
+    transform: translateY(-10px) !important;
+}
+
+.con-link:focus .faIcon {
+    transform: translateY(-10px) !important;
+}
+
+@media (max-width: 850px) {
+
+    /* You can adjust this value based on your needs */
+    .bottom-stripe {
+        height: 91px;
+    }
+
+    .custom-shape-divider-bottom-1697624270 {
+        bottom: 90px;
+    }
+
+    .home-header {
+        margin-top: 3rem;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    /* You can adjust this value based on your needs */
+
+    .home-header {
+        margin-top: 4rem;
+    }
+
+}

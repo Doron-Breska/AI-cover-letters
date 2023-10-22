@@ -1,0 +1,42 @@
+
+.letters-con{
+    display: flex;
+}
+.single-letter {
+    position: relative;
+    flex-direction: column;
+    background-color: white;
+    width: 400px;
+    border-radius: 16px;
+    background-color: rgb(253, 241, 225);
+    /* background-color: rgb(181, 112, 22); */
+    box-shadow: -1rem 0 3rem hwb(32 73% 13%);
+    transition: transform 0.3s ease;
+}
+
+
+.single-letter:focus-within~.single-letter,
+.single-letter:hover~.single-letter {
+    transform: translateX(260px);
+}
+
+.single-letter:hover {
+    transform: translateY(-1rem);
+}
+
+.single-letter:not(:first-child) {
+    margin-left: -130px;
+}
+.single-letter:not(:last-child) {
+    margin-right:-130px;
+}
+
+.letter-content{
+font-family: 'Roboto Mono', monospace;
+height: 350px;
+overflow-y: scroll;
+background-color: white;
+border-radius: 6px;
+padding: 0.5rem;
+}
+

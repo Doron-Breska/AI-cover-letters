@@ -1,0 +1,209 @@
+.reg-container{
+    padding-inline: 1rem;
+
+}
+
+textarea:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="range"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="range"],
+textarea {
+    border-radius: 3px;
+}
+
+/* Styling the track */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #ddd;
+    height: 8px;
+    border-radius: 3px;
+    /* Matched with your inputs */
+}
+
+input[type="range"]::-moz-range-track {
+    background: #ddd;
+    height: 8px;
+    border-radius: 3px;
+}
+
+/* Styling the thumb */
+input[type="range"]::-webkit-slider-thumb {
+    background: #ddd;
+    /* Default color */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px;
+    transition: background 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+input[type="range"]::-moz-range-thumb {
+    background: #ddd;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Thumb hover and focus styles */
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:focus::-webkit-slider-thumb {
+    background: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+    /* The glow effect */
+}
+
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:focus::-moz-range-thumb {
+    background: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+/* Remove default focus styles in Firefox */
+input[type="range"]::-moz-focus-outer {
+    border: 0;
+}
+
+.reg-form{
+    max-width: 800px;
+    margin: 0 auto;
+    /* border: 2px solid green; */
+    display: flex;
+    column-gap: 40px;
+}
+
+.first-questionnaire{
+    flex: 2;
+    border-radius: 3px;
+    padding: 1rem;
+    background-color: #f2dfd6;
+    border: 1.5px solid rgb(244, 239, 239);
+}
+
+.second-questionnaire{
+        flex: 1;
+        border-radius: 3px;
+        padding: 1rem;
+        background-color: #f2dfd6;
+        background-color: #fce5e1;
+        border: 1.5px solid rgb(244, 239, 239);
+        align-self: flex-start;
+      
+}
+
+.reg-error-div{
+border: 3px solid rgb(228, 114, 114);
+border-radius: 8px;
+background-color: white;
+/* background-color: rgb(179, 57, 57); */
+padding: 1rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.close-error-reg{
+    font-size: 2rem;
+    color: brown;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.close-error-reg:hover,
+.close-error-reg:focus {
+    border-radius: 50%;
+    background-color: rgb(255, 211, 211);
+    transform: translateY(-5px);
+}
+
+.register-header{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+ 
+}
+
+
+
+
+
+
+
+.hidden-file-input {
+    display: none;
+}
+
+.custom-file-button {
+    padding: 2px 5px;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 10px;
+  
+    /* space between the Image label and button */
+}
+
+.custom-file-button:hover,
+.custom-file-button:focus {
+/* border-color: red; */
+  
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+.file-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.file-name {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #555;
+    white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+        display: inline-block;
+}
+
+
+   @media (max-width: 700px) {
+
+       /* You can adjust this value based on your needs */
+        .reg-form {
+           flex-direction: column;
+           align-items: center;
+           row-gap: 40px;
+       }
+       .first-questionnaire{
+        max-width: 450px;
+       }
+      .second-questionnaire{
+        max-width: 450px;
+        align-self: center;
+      }
+
+   }

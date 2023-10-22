@@ -1,12 +1,10 @@
 import CreateCoverLetter from "../components/CreateCoverLetter";
-import ManageLetters from "../components/ManageLetters";
-import "../styles/LettersPage.css";
+// import React from "react";
 const CoverLetter = () => {
   return (
-    <>
+    <div className="pb-20">
       <CreateCoverLetter />
-      <ManageLetters />
-    </>
+    </div>
   );
 };
 export default CoverLetter;

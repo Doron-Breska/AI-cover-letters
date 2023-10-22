@@ -7,8 +7,6 @@ const Token: React.FC = () => {
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setText(value);
-
-    // Rough estimation of token count
     const count = value.split(/\s+/).length;
     setTokenCount(count);
   };

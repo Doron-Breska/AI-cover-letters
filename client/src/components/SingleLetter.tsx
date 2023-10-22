@@ -4,6 +4,11 @@ import React from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getLetters } from "../slices/coverLetterSlice";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+// import "../styles/CreateCoverLetter.css";
+import { FaShareAltSquare } from "react-icons/fa";
+import { serverURL } from "../utils/serverURL";
+import "../styles/ManageLetters.css";
 
 interface SingleLetterProps {
   c_v_id: number;
@@ -24,7 +29,7 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
 
   const updateLettersAeeatRedux = () => {
     axios
-      .get("http://localhost:5001/api/c-l/user/", {
+      .get(`${serverURL}/api/c-l/user/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -42,14 +47,11 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
 
   const deleteLetter = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5001/api/c-l/${c_v_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.delete(`${serverURL}/api/c-l/${c_v_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = response.data;
 
@@ -64,29 +66,38 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
   };
 
   return (
-    <div className="single-letter">
+    <div className="single-letter p-4 pr-4">
       <p>
-        Company name:
+        <span className="underline italic font-medium">Company name:</span>
         <br />
         {company_name}
       </p>
       <p>
-        Job title:
+        <span className="underline italic font-medium">Job title:</span>
+
         <br />
         {job_title}
       </p>
-      <p>
-        Content:
-        <br />
-        {content}
-      </p>
-      <button
-        onClick={() => {
-          deleteLetter();
-        }}
-      >
-        Delete Letter
-      </button>
+
+      <span className="underline italic font-medium">Content:</span>
+
+      <br />
+      <p className="letter-content mt-2"> {content}</p>
+      <div className="text-center  letter-btn-container">
+        <RiDeleteBin2Fill
+          className="letter-btn"
+          onClick={() => {
+            deleteLetter();
+          }}
+        />
+        <FaShareAltSquare
+          className="letter-btn"
+          onClick={() => {
+            const mailtoLink = `mailto:?body=${encodeURIComponent(content)}`;
+            window.location.href = mailtoLink;
+          }}
+        />
+      </div>
     </div>
   );
 };
