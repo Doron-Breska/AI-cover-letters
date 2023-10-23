@@ -7,7 +7,7 @@ const openAi = async (userInfo, jobOffer) => {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo	",
+      model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: "You are a helpful assistant." },
         {
