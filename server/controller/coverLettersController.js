@@ -87,31 +87,33 @@ const createNewLetter = async (req, res) => {
       .json({ status: "Error", message: "All fields are required!" });
   }
 
-  const combinedJobInfo = `${company_name} + ${job_title} + ${description}`;
+  const formattedJobDescription = `${company_name} + ${job_title} + ${description}`;
+
+  if (!req.user) {
+    return res
+      .status(400)
+      .json({ status: "Error", message: "User data is missing!" });
+  }
+
+  const techInfo = req.user.tech_info;
+  const personalText = req.user?.personal_text || "";
+  const formattedUserInfo = `${techInfo}. ${personalText}`;
 
   try {
-    const techInfo = req.user.tech_info;
-    // const personalInfo = JSON.stringify(req.user?.personal_info);
-    const personalText = req.user?.personal_text || "";
-    // const combinedUserInfo = `${techInfo} .the following characteristics are ranged from 0 to 5, 5 is the highest (the user ansered about himself): ${personalInfo}. ${personalText}`;
-    const combinedUserInfo = `${techInfo}. ${personalText}`;
-
-    // const data = await openAi(combinedUserInfo, personalInfo, combinedJobInfo);
-
-    const data = await openAi(combinedUserInfo, combinedJobInfo);
-    console.log("Data received in createNewLetter:", data);
-
+    const data = await openAi(formattedUserInfo, formattedJobDescription);
     if (data) {
       return res.status(200).json({ status: "Success", message: data });
     } else {
-      console.error("Unexpected response structure from OpenAI:", data);
+      console.error(
+        "No content received from OpenAI. Please check the input or OpenAI service."
+      );
       return res.status(500).json({
         status: "Error",
-        message: "Unexpected response structure from OpenAI",
+        message: "Failed to generate content from OpenAI.",
       });
     }
   } catch (error) {
-    console.error("error:", error.message);
+    console.error("Server error:", error);
     return res.status(500).json({ status: "Error", message: "Server error" });
   }
 };
