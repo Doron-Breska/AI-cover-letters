@@ -7,10 +7,10 @@ import { toggleLoading } from "../slices/loaderSlice";
 import "../styles/LoaderLetter.css";
 import { getLetters } from "../slices/coverLetterSlice";
 import "../styles/CreateCoverLetter.css";
-// import { BsSave2Fill } from "react-icons/bs";
 import { FaShareAltSquare } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
 import { serverURL } from "../utils/serverURL";
+import OpenAI from "openai";
 
 interface LetterToSave {
   user_id: number;
@@ -19,11 +19,11 @@ interface LetterToSave {
   content: string;
 }
 
-interface CreateLetter {
-  company_name: string;
-  job_title: string;
-  description: string;
-}
+// interface CreateLetter {
+//   company_name: string;
+//   job_title: string;
+//   description: string;
+// }
 
 const CreateCoverLetter = () => {
   const user = useSelector((state: RootState) => state.user.user);
@@ -70,44 +70,99 @@ const CreateCoverLetter = () => {
   const scrollToHeading = () => {
     headingRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const openAi = async (userInfo: string, jobOffer: string) => {
+    const openai = new OpenAI({
+      apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+      dangerouslyAllowBrowser: true,
+    });
+
+    try {
+      const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "You are a helpful assistant." },
+          {
+            role: "user",
+            content: `The user has shared their professional and personal details: ${userInfo}. Use the information to create a cover letter.`,
+          },
+          { role: "user", content: `Job Offer: ${jobOffer}` },
+          { role: "assistant", content: "Dear Hiring Manager," },
+        ],
+      });
+
+      if (response.choices && response.choices.length > 0) {
+        const content = response.choices[0].message.content;
+        return content;
+      } else {
+        throw new Error("No choices available in the response from OpenAI");
+      }
+      //eslint-disable-next-line
+    } catch (error: any) {
+      console.error("Error creating cover letter", error.message);
+      throw error;
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(toggleLoading());
-    const infoForNewLetter: CreateLetter = {
-      company_name: "",
-      job_title: "",
-      description: "",
-    };
-    if (companyRef.current?.value)
-      infoForNewLetter.company_name = companyRef.current?.value;
-    if (titleRef.current?.value)
-      infoForNewLetter.job_title = titleRef.current?.value;
-    if (descriptionRef.current?.value)
-      infoForNewLetter.description = descriptionRef.current?.value;
+
+    const userInfo = user!.tech_info;
+    const jobOffer = `company name: ${companyRef.current!.value}.job title: ${
+      titleRef.current!.value
+    } description: ${descriptionRef.current!.value}`;
 
     try {
-      if (userId) {
-        const response = await axios.post(
-          `${serverURL}/api/c-l/new/`,
-          infoForNewLetter,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        // console.log("this is the cover letter:", response.data.message);
-        dispatch(toggleLoading());
-        setNewLetter(response.data.message);
-        setHasSaved(false);
-        setJt(titleRef.current!.value);
-        setCn(companyRef.current!.value);
-        setCon(response.data.message);
-        resetInputs();
-      } else {
-        console.error("User ID is not available");
-      }
+      const newLetterContent = await openAi(userInfo, jobOffer);
+      setNewLetter(newLetterContent!);
+      setJt(titleRef.current!.value);
+      setCn(companyRef.current!.value);
+      setCon(newLetterContent!);
+      dispatch(toggleLoading());
+      setHasSaved(false);
+      resetInputs();
     } catch (error) {
-      console.error("Error with creating a letter:", error);
+      console.error("Error creating a letter:", error);
     }
   };
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   dispatch(toggleLoading());
+  //   const infoForNewLetter: CreateLetter = {
+  //     company_name: "",
+  //     job_title: "",
+  //     description: "",
+  //   };
+  //   if (companyRef.current?.value)
+  //     infoForNewLetter.company_name = companyRef.current?.value;
+  //   if (titleRef.current?.value)
+  //     infoForNewLetter.job_title = titleRef.current?.value;
+  //   if (descriptionRef.current?.value)
+  //     infoForNewLetter.description = descriptionRef.current?.value;
+
+  //   try {
+  //     if (userId) {
+  //       const response = await axios.post(
+  //         `${serverURL}/api/c-l/new/`,
+  //         infoForNewLetter,
+  //         { headers: { Authorization: `Bearer ${token}` } }
+  //       );
+  //       // console.log("this is the cover letter:", response.data.message);
+  //       dispatch(toggleLoading());
+  //       setNewLetter(response.data.message);
+  //       setHasSaved(false);
+  //       setJt(titleRef.current!.value);
+  //       setCn(companyRef.current!.value);
+  //       setCon(response.data.message);
+  //       resetInputs();
+  //     } else {
+  //       console.error("User ID is not available");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error with creating a letter:", error);
+  //   }
+  // };
 
   useEffect(() => {
     if (newLetter) {
