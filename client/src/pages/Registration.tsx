@@ -263,9 +263,9 @@ const Registration = () => {
             stroke="currentColor"
             fill="none"
             r="70"
-            className="pencil__stroke"
+            className="pencilStroke"
           ></circle>
-          <g transform="translate(100,100)" className="pencil__rotate">
+          <g transform="translate(100,100)" className="pencilRotate">
             <g fill="none">
               <circle
                 transform="rotate(-90)"
@@ -274,7 +274,7 @@ const Registration = () => {
                 strokeWidth="30"
                 stroke="hsl(223,90%,50%)"
                 r="64"
-                className="pencil__body1"
+                className="pencilBody1"
               ></circle>
               <circle
                 transform="rotate(-90)"
@@ -283,7 +283,7 @@ const Registration = () => {
                 strokeWidth="10"
                 stroke="hsl(223,90%,60%)"
                 r="74"
-                className="pencil__body2"
+                className="pencilBody2"
               ></circle>
               <circle
                 transform="rotate(-90)"
@@ -292,14 +292,11 @@ const Registration = () => {
                 strokeWidth="10"
                 stroke="hsl(223,90%,40%)"
                 r="54"
-                className="pencil__body3"
+                className="pencilBody3"
               ></circle>
             </g>
-            <g
-              transform="rotate(-90) translate(49,0)"
-              className="pencil__eraser"
-            >
-              <g className="pencil__eraser-skew">
+            <g transform="rotate(-90) translate(49,0)" className="pencilEraser">
+              <g className="pencilEraserSkew">
                 <rect
                   height="30"
                   width="30"
@@ -332,7 +329,7 @@ const Registration = () => {
             </g>
             <g
               transform="rotate(-90) translate(49,-30)"
-              className="pencil__point"
+              className="pencilPoint"
             >
               <polygon
                 points="15 0,30 30,0 30"
