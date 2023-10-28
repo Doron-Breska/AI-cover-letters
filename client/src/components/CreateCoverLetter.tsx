@@ -38,6 +38,7 @@ const CreateCoverLetter = () => {
   const userId = user?.user_id;
   const [newLetter, setNewLetter] = useState<string>("");
   const [hasSaved, setHasSaved] = useState<boolean>(false);
+  const [creatingLetter, setCreatingLetter] = useState<boolean>(false);
 
   const [jt, setJt] = useState<string>("");
   const [cn, setCn] = useState<string>("");
@@ -115,6 +116,7 @@ const CreateCoverLetter = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setCreatingLetter(true);
     dispatch(toggleLoading());
 
     const userInfo = user!.tech_info;
@@ -136,8 +138,10 @@ const CreateCoverLetter = () => {
       dispatch(toggleLoading());
       setHasSaved(false);
       resetInputs();
+      setCreatingLetter(false);
     } catch (error) {
       console.error("Error creating a letter:", error);
+      setCreatingLetter(false);
     }
   };
 
@@ -220,7 +224,11 @@ const CreateCoverLetter = () => {
               required
             />
           </div>
-          <button className="my-2 bg-white" type="submit">
+          <button
+            className="my-2 bg-white"
+            type="submit"
+            disabled={creatingLetter}
+          >
             Create Cover Letter
           </button>
         </form>
