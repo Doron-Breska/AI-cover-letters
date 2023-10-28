@@ -11,6 +11,7 @@ import { FaShareAltSquare } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
 import { serverURL } from "../utils/serverURL";
 import OpenAI from "openai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 interface LetterToSave {
   user_id: number;
@@ -39,6 +40,9 @@ const CreateCoverLetter = () => {
   const [newLetter, setNewLetter] = useState<string>("");
   const [hasSaved, setHasSaved] = useState<boolean>(false);
   const [creatingLetter, setCreatingLetter] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const errorRef = useRef<HTMLDivElement>(null);
 
   const [jt, setJt] = useState<string>("");
   const [cn, setCn] = useState<string>("");
@@ -108,9 +112,13 @@ const CreateCoverLetter = () => {
       } else {
         throw new Error("No choices available in the response from OpenAI");
       }
-    } catch (error) {
-      console.error("Error creating cover letter", error);
-      throw error;
+      //eslint-disable-next-line
+    } catch (error: any) {
+      if (error.response && error.response.status === 429) {
+        throw new Error("Exceeded OpenAI budget limit.");
+      } else {
+        throw new Error("Error creating cover letter");
+      }
     }
   };
 
@@ -139,9 +147,19 @@ const CreateCoverLetter = () => {
       setHasSaved(false);
       resetInputs();
       setCreatingLetter(false);
-    } catch (error) {
-      console.error("Error creating a letter:", error);
-      setCreatingLetter(false);
+      //eslint-disable-next-line
+    } catch (error: any) {
+      if (error.message === "Exceeded OpenAI budget limit.") {
+        setErrorMsg("My OpenAI budget exceeded, Try again in few days.");
+        dispatch(toggleLoading());
+        setCreatingLetter(false);
+      } else {
+        setErrorMsg(
+          "Something went wrong with creating the letter, Please try again."
+        );
+        dispatch(toggleLoading());
+        setCreatingLetter(false);
+      }
     }
   };
 
@@ -231,6 +249,17 @@ const CreateCoverLetter = () => {
           >
             Create Cover Letter
           </button>
+          {errorMsg && (
+            <div className="reg-error-div" ref={errorRef}>
+              <h2 className="font-extrabold	">{errorMsg}</h2>
+              <AiOutlineCloseCircle
+                className="close-error-reg mt-2"
+                onClick={() => {
+                  setErrorMsg("");
+                }}
+              />
+            </div>
+          )}
         </form>
         {newLetter && (
           <div className="text-center">
