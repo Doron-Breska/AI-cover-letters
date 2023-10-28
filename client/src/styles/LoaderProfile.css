@@ -70,12 +70,12 @@
 
     from,
     to {
-        stroke-dashoffset: 351.86;
+        strokeDashoffset: 351.86;
         transform: rotate(-90deg);
     }
 
     50% {
-        stroke-dashoffset: 150.8;
+        strokeDashoffset: 150.8;
         /* 3/8 of diameter */
         transform: rotate(-225deg);
     }
@@ -85,12 +85,12 @@
 
     from,
     to {
-        stroke-dashoffset: 406.84;
+        strokeDashoffset: 406.84;
         transform: rotate(-90deg);
     }
 
     50% {
-        stroke-dashoffset: 174.36;
+        strokeDashoffset: 174.36;
         transform: rotate(-225deg);
     }
 }
@@ -99,12 +99,12 @@
 
     from,
     to {
-        stroke-dashoffset: 296.88;
+        strokeDashoffset: 296.88;
         transform: rotate(-90deg);
     }
 
     50% {
-        stroke-dashoffset: 127.23;
+        strokeDashoffset: 127.23;
         transform: rotate(-225deg);
     }
 }
@@ -180,18 +180,18 @@
 
 @keyframes pencilStroke {
     from {
-        stroke-dashoffset: 439.82;
+        strokeDashoffset: 439.82;
         transform: translate(100px, 100px) rotate(-113deg);
     }
 
     50% {
-        stroke-dashoffset: 164.93;
+        strokeDashoffset: 164.93;
         transform: translate(100px, 100px) rotate(-113deg);
     }
 
     75%,
     to {
-        stroke-dashoffset: 439.82;
+        strokeDashoffset: 439.82;
         transform: translate(100px, 100px) rotate(112deg);
     }
 }
