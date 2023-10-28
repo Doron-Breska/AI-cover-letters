@@ -1,10 +1,8 @@
-
 .pencil {
     display: block;
     width: 10em;
     height: 10em;
     position: fixed;
-    /* <-- change this line */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -70,12 +68,12 @@
 
     from,
     to {
-        strokeDashoffset: 351.86;
+        stroke-dashoffset: 351.86;
         transform: rotate(-90deg);
     }
 
     50% {
-        strokeDashoffset: 150.8;
+        stroke-dashoffset: 150.8;
         /* 3/8 of diameter */
         transform: rotate(-225deg);
     }
@@ -85,12 +83,12 @@
 
     from,
     to {
-        strokeDashoffset: 406.84;
+        stroke-dashoffset: 406.84;
         transform: rotate(-90deg);
     }
 
     50% {
-        strokeDashoffset: 174.36;
+        stroke-dashoffset: 174.36;
         transform: rotate(-225deg);
     }
 }
@@ -99,12 +97,12 @@
 
     from,
     to {
-        strokeDashoffset: 296.88;
+        stroke-dashoffset: 296.88;
         transform: rotate(-90deg);
     }
 
     50% {
-        strokeDashoffset: 127.23;
+        stroke-dashoffset: 127.23;
         transform: rotate(-225deg);
     }
 }
@@ -180,18 +178,18 @@
 
 @keyframes pencilStroke {
     from {
-        strokeDashoffset: 439.82;
+        stroke-dashoffset: 439.82;
         transform: translate(100px, 100px) rotate(-113deg);
     }
 
     50% {
-        strokeDashoffset: 164.93;
+        stroke-dashoffset: 164.93;
         transform: translate(100px, 100px) rotate(-113deg);
     }
 
     75%,
     to {
-        strokeDashoffset: 439.82;
+        stroke-dashoffset: 439.82;
         transform: translate(100px, 100px) rotate(112deg);
     }
 }
