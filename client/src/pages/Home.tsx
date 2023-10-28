@@ -24,26 +24,17 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="el2">
-        <p
-          className="home-header"
-          // style={{ display: "none" }}
-        >
+      <div className="el2 fadeIn">
+        <p className="home-header header-text">
           Use my AI cover letter creator to get your writing to flow, not just
           impress, but steal the show!
         </p>
-        <p
-          className="text-center contact-header"
-          // style={{ display: "none" }}
-        >
+        <p className="text-center contact-header">
           Doron Breska
           <br />
           Contact
         </p>
-        <p
-          className="text-center"
-          // style={{ display: "none" }}
-        >
+        <p className="text-center">
           <a className="con-link" href="mailto:doronbreska@gmail.com">
             <FontAwesomeIcon
               className="faIcon"
