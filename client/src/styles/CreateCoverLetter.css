@@ -1,7 +1,7 @@
 
-/* .create-letter-page{
-  
-} */
+.disappear{
+    display: none;
+}
 .create-letter-form-container{
     padding-inline:1rem;
 }

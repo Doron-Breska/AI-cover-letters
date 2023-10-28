@@ -61,7 +61,7 @@ const CreateCoverLetter = () => {
     if (descriptionRef.current) descriptionRef.current.value = "";
   };
 
-  const updateLettersAeeatRedux = () => {
+  const updateLettersRedux = () => {
     axios
       .get(`${serverURL}/api/c-l/user/`, {
         headers: {
@@ -78,9 +78,11 @@ const CreateCoverLetter = () => {
         console.error("Error fetching cover letters:", error);
       });
   };
+
   const scrollToHeading = () => {
     headingRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   const openAi = async (
     userInfo: string,
     jobOffer: string,
@@ -111,9 +113,8 @@ const CreateCoverLetter = () => {
       } else {
         throw new Error("No choices available in the response from OpenAI");
       }
-      //eslint-disable-next-line
-    } catch (error: any) {
-      console.error("Error creating cover letter", error.message);
+    } catch (error) {
+      console.error("Error creating cover letter", error);
       throw error;
     }
   };
@@ -170,9 +171,7 @@ const CreateCoverLetter = () => {
       );
 
       if (response.status === 200) {
-        // console.log("Letter saved successfully!", response.data);
-        setHasSaved(true);
-        updateLettersAeeatRedux();
+        updateLettersRedux();
       } else {
         console.error("Failed to save the letter.");
       }
@@ -244,9 +243,13 @@ const CreateCoverLetter = () => {
               <br />
 
               <div className="letter-btn-container">
-                {!hasSaved && (
-                  <FaSave className="letter-btn" onClick={saveLetter} />
-                )}
+                <FaSave
+                  className={hasSaved ? "letter-btn disappear" : "letter-btn"}
+                  onClick={() => {
+                    setHasSaved(true);
+                    saveLetter();
+                  }}
+                />
                 <FaShareAltSquare
                   className="letter-btn"
                   onClick={() => {
