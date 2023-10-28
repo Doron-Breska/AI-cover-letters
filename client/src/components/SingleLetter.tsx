@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../store/store";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getLetters } from "../slices/coverLetterSlice";
 import { RiDeleteBin2Fill } from "react-icons/ri";
-// import "../styles/CreateCoverLetter.css";
 import { FaShareAltSquare } from "react-icons/fa";
 import { serverURL } from "../utils/serverURL";
 import "../styles/ManageLetters.css";
@@ -23,9 +22,9 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
   company_name,
   job_title,
 }) => {
-  //   const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+  const [deleted, setDeleted] = useState<boolean>(false);
 
   const updateLettersAeeatRedux = () => {
     axios
@@ -66,7 +65,11 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
   };
 
   return (
-    <div className="single-letter p-4 pr-4">
+    <div
+      className={
+        deleted ? "single-letter p-4 pr-4 disappear" : "single-letter p-4 pr-4"
+      }
+    >
       <p>
         <span className="underline italic font-medium">Company name:</span>
         <br />
@@ -87,11 +90,12 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
         <RiDeleteBin2Fill
           className="letter-btn"
           onClick={() => {
+            setDeleted(true);
             deleteLetter();
           }}
         />
         <FaShareAltSquare
-          className="letter-btn"
+          className="letter-btn share-btn"
           onClick={() => {
             const mailtoLink = `mailto:?body=${encodeURIComponent(content)}`;
             window.location.href = mailtoLink;

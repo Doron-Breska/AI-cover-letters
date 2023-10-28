@@ -40,3 +40,13 @@ border-radius: 6px;
 padding: 0.5rem;
 }
 
+
+.share-btn {
+    font-size: 3rem;
+    padding: 0.5rem;
+    padding-bottom: 0.2rem;
+}
+
+.disappear {
+    display: none;
+}

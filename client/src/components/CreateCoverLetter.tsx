@@ -30,12 +30,6 @@ type Evaluation = {
   "Emotional intelligence": string;
 };
 
-// interface CreateLetter {
-//   company_name: string;
-//   job_title: string;
-//   description: string;
-// }
-
 const CreateCoverLetter = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const token = localStorage.getItem("token");
