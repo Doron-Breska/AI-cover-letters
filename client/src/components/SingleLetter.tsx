@@ -65,11 +65,7 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
   };
 
   return (
-    <div
-      className={
-        deleted ? "single-letter p-4 pr-4 disappear" : "single-letter p-4 pr-4"
-      }
-    >
+    <div className="single-letter p-4 pr-4">
       <p>
         <span className="underline italic font-medium">Company name:</span>
         <br />
@@ -88,7 +84,8 @@ const SingleLetter: React.FC<SingleLetterProps> = ({
       <p className="letter-content mt-2"> {content}</p>
       <div className="text-center  letter-btn-container">
         <RiDeleteBin2Fill
-          className="letter-btn"
+          // className="letter-btn"
+          className={deleted ? "letter-btn disappear" : "letter-btn"}
           onClick={() => {
             setDeleted(true);
             deleteLetter();
