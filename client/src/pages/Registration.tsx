@@ -213,7 +213,7 @@ const Registration = () => {
       if (response.status === 200) {
         const data = response.data;
         if (data.status === "success") {
-          console.log("we created a user:", data);
+          // console.log("we created a user:", data);
           setMsg("Registered successfully, please log in from the sidebar.");
           scrollToMsg();
           resetRefs();

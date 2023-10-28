@@ -82,9 +82,9 @@ const SideBar: React.FC = () => {
       // Check if the error response from the server exists
       if (error.response && error.response.data && error.response.data.msg) {
         setMsg(error.response.data.msg);
-        console.error("Login Error:", error.response.data.msg);
+        // console.error("Login Error:", error.response.data.msg);
       } else {
-        console.error("General Login Error:", error);
+        // console.error("General Login Error:", error);
         setMsg("Something went wrong with the srevr, Please try again.");
       }
     }
