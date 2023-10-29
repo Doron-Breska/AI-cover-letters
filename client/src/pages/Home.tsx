@@ -3,8 +3,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+// import { useTypewriter, Cursor } from "react-simple-typewriter";
+import { Typewriter } from "react-simple-typewriter";
 
+// type XXX  {
+//   words: string[]
+//   loop : boolean | number
+// }
 const Home = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const [text] = useTypewriter({
+  //   words: [
+  //     "Use my AI cover letter creator to get your writing to flow, not just impress, but steal the show!",
+  //   ],
+  //   loop: 1,
+  // });
+  // <Typewriter
+  //   words={[
+  //     "Use my AI cover letter creator to get your writing to flow, not just impress, but steal the show!",
+  //   ]}
+  //   cursor={false}
+  //   loop={1}
+  // />;
+
   return (
     <div className="home-bg">
       <div className="el1">
@@ -26,8 +47,15 @@ const Home = () => {
 
       <div className="el2 fadeIn">
         <p className="home-header header-text">
-          Use my AI cover letter creator to get your writing to flow, not just
-          impress, but steal the show!
+          <Typewriter
+            words={[
+              "Use my AI cover letter creator to get your writing to flow, not just impress, but steal the show!",
+            ]}
+            cursor={true}
+            cursorBlinking={false}
+            loop={1}
+            typeSpeed={120}
+          />
         </p>
         <p className="text-center contact-header">
           Doron Breska
