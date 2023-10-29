@@ -471,6 +471,7 @@ const UpdateUser: React.FC = () => {
                   className="hidden-file-input"
                   ref={imgRef}
                   onChange={handleFileChange}
+                  accept=".png, .jpg, .jpeg"
                 />
                 <label htmlFor="fileInput" className="custom-file-button">
                   Choose

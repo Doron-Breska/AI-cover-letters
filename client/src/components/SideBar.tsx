@@ -22,6 +22,7 @@ const SideBar: React.FC = () => {
   const letters = useSelector((state: RootState) => state.cover.letters);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [thinking, setThinking] = useState<boolean>(false);
 
   const [msg, setMsg] = useState<string | null>(null);
   const errorRef = useRef<HTMLDivElement>(null);
@@ -53,6 +54,8 @@ const SideBar: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setMsg(null);
+    setThinking(true);
 
     try {
       const response = await axios.post(`${serverURL}/api/users/login`, {
@@ -77,15 +80,20 @@ const SideBar: React.FC = () => {
       );
 
       dispatch(getLetters(coverLetterResponse.data.data));
+      setThinking(false);
+
       //eslint-disable-next-line
     } catch (error: any) {
       // Check if the error response from the server exists
       if (error.response && error.response.data && error.response.data.msg) {
         setMsg(error.response.data.msg);
+        setThinking(false);
+
         // console.error("Login Error:", error.response.data.msg);
       } else {
         // console.error("General Login Error:", error);
         setMsg("Something went wrong with the srevr, Please try again.");
+        setThinking(false);
       }
     }
   };
@@ -162,11 +170,28 @@ const SideBar: React.FC = () => {
               />
             ) : (
               <form className="mt-8">
-                <label>Username: </label>
-                <input type="text" ref={usernameRef} className="my-1" />
+                {thinking ? (
+                  <span className="loader"></span>
+                ) : (
+                  <>
+                    <label>Username: </label>
+                    <input
+                      type="text"
+                      ref={usernameRef}
+                      className="my-1"
+                      required
+                    />
 
-                <label>Password: </label>
-                <input type="password" ref={passwordRef} className="my-1" />
+                    <label>Password: </label>
+                    <input
+                      type="password"
+                      ref={passwordRef}
+                      className="my-1"
+                      required
+                    />
+                  </>
+                )}
+
                 <RiLoginBoxLine
                   onClick={handleLogin}
                   className="my-5 side-btn"
