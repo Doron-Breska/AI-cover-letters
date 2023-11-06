@@ -111,7 +111,13 @@ const SideBar: React.FC = () => {
           <div ref={sidebarRef} className="sidebar">
             <ul>
               <li className="font-bold my-5">
-                <NavLink className={activePath === "/" ? "active" : ""} to="/">
+                <NavLink
+                  className={activePath === "/" ? "active" : ""}
+                  to="/"
+                  onClick={() => {
+                    setIsSidebarVisible(false);
+                  }}
+                >
                   Home
                 </NavLink>
               </li>
@@ -121,6 +127,9 @@ const SideBar: React.FC = () => {
                     <NavLink
                       className={activePath === "/profile" ? "active" : ""}
                       to="/profile"
+                      onClick={() => {
+                        setIsSidebarVisible(false);
+                      }}
                     >
                       Profile
                     </NavLink>
@@ -131,6 +140,9 @@ const SideBar: React.FC = () => {
                         activePath === "/create-letter" ? "active" : ""
                       }
                       to="/create-letter"
+                      onClick={() => {
+                        setIsSidebarVisible(false);
+                      }}
                     >
                       Create Cover Letter
                     </NavLink>
@@ -142,6 +154,9 @@ const SideBar: React.FC = () => {
                           activePath === "/manage-letters" ? "active" : ""
                         }
                         to="/manage-letters"
+                        onClick={() => {
+                          setIsSidebarVisible(false);
+                        }}
                       >
                         Saved Letters
                       </NavLink>
@@ -153,6 +168,9 @@ const SideBar: React.FC = () => {
                   <NavLink
                     className={activePath === "/registration" ? "active" : ""}
                     to="/registration"
+                    onClick={() => {
+                      setIsSidebarVisible(false);
+                    }}
                   >
                     Register
                   </NavLink>

@@ -78,6 +78,9 @@ const deleteCoverLetter = async (req, res) => {
   }
 };
 
+// Originally, I implemented the following functionality as a controller/endpoint.
+// However, I encountered issues because sometimes the requests would fail due to response times exceeding 10 seconds.
+// To avoid this, I moved the functionality to the frontend.
 const createNewLetter = async (req, res) => {
   const { company_name, job_title, description } = req.body;
 
