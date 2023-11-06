@@ -415,7 +415,7 @@ const Registration = () => {
             ref={workExperienceRef}
             required
             rows={3}
-            placeholder="Head of marketring at La Maison Berlin, Januar 2018 - Januar 2020. Senior back-end developer at BMW, April 2020 - October 2023."
+            placeholder="Head of marketing at La Maison Berlin, Januar 2018 - Januar 2020. Senior back-end developer at BMW, April 2020 - October 2023."
           />
 
           <label>Personal Text:</label>
