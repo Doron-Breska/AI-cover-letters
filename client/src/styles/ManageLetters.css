@@ -50,3 +50,42 @@ padding: 0.5rem;
 .disappear {
     display: none;
 }
+
+@media (max-width: 768px) {
+
+    /* or whatever max-width you decide for mobile */
+    .letters-con {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .single-letter {
+        width: 80vw;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+        .single-letter:not(:first-child) {
+            margin-left: 0;
+        }
+    
+        .single-letter:not(:last-child) {
+            margin-right: 0;
+        }
+
+    .single-letter:hover {
+        transform: none;
+        /* Disable hover effect that moves card */
+    }
+        .single-letter:focus-within~.single-letter,
+        .single-letter:hover~.single-letter {
+        transform: none;
+        }
+}
+
+@media (max-width: 650px) {
+    .single-letter {
+        width: 90vw;
+    }
+}
