@@ -116,6 +116,7 @@ const SideBar: React.FC = () => {
                   to="/"
                   onClick={() => {
                     setIsSidebarVisible(false);
+                    setMsg("");
                   }}
                 >
                   Home
@@ -129,6 +130,7 @@ const SideBar: React.FC = () => {
                       to="/profile"
                       onClick={() => {
                         setIsSidebarVisible(false);
+                        setMsg("");
                       }}
                     >
                       Profile
@@ -142,6 +144,7 @@ const SideBar: React.FC = () => {
                       to="/create-letter"
                       onClick={() => {
                         setIsSidebarVisible(false);
+                        setMsg("");
                       }}
                     >
                       Create Cover Letter
@@ -156,6 +159,7 @@ const SideBar: React.FC = () => {
                         to="/manage-letters"
                         onClick={() => {
                           setIsSidebarVisible(false);
+                          setMsg("");
                         }}
                       >
                         Saved Letters
@@ -170,6 +174,7 @@ const SideBar: React.FC = () => {
                     to="/registration"
                     onClick={() => {
                       setIsSidebarVisible(false);
+                      setMsg("");
                     }}
                   >
                     Register
