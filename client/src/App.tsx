@@ -11,6 +11,7 @@ import CoverLetter from "./pages/CoverLetter";
 import ManageLetters from "./pages/ManageLetters";
 import { serverURL } from "./utils/serverURL";
 import ProtectedRoute from "./components/ProtectedRoute";
+
 // import React from "react";
 
 const App = () => {

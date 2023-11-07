@@ -9,6 +9,8 @@ import "../styles/LoaderProfile.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import React from "react";
 import { serverURL } from "../utils/serverURL";
+import { login } from "../slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 type Avatar = string | File;
 
@@ -43,6 +45,7 @@ const Registration = () => {
   const scrollToMsg = () => {
     errorRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const navigate = useNavigate();
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -214,10 +217,20 @@ const Registration = () => {
         const data = response.data;
         if (data.status === "success") {
           // console.log("we created a user:", data);
-          setMsg("Registered successfully, please log in from the sidebar.");
-          scrollToMsg();
-          resetRefs();
+          const response = await axios.post(`${serverURL}/api/users/login`, {
+            username: usernameRef.current?.value,
+            password: passwordRef.current?.value,
+          });
+
+          const { token, user } = response.data;
+
+          localStorage.setItem("token", token);
+          dispatch(login(user));
+          // setMsg("Registered successfully, please log in from the sidebar.");
+          // scrollToMsg();
           dispatch(toggleLoading());
+          navigate("/create-letter");
+          resetRefs();
         }
       }
       //eslint-disable-next-line
