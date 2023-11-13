@@ -8,3 +8,9 @@ describe("App", () => {
     expect(screen.getByText("Vite")).toBeInTheDocument();
   });
 });
+
+test("renders 'vite' in the component", () => {
+  render(<Text />);
+  const textShouldBeIn = screen.getByText(/Vite/i);
+  expect(textShouldBeIn).toBeInTheDocument();
+});

@@ -203,6 +203,7 @@ const SideBar: React.FC = () => {
                       ref={usernameRef}
                       className="my-1"
                       required
+                      data-testid="username-input"
                     />
 
                     <label>Password: </label>
@@ -211,6 +212,7 @@ const SideBar: React.FC = () => {
                       ref={passwordRef}
                       className="my-1"
                       required
+                      data-testid="password-input"
                     />
                   </>
                 )}
@@ -218,6 +220,7 @@ const SideBar: React.FC = () => {
                 <RiLoginBoxLine
                   onClick={handleLogin}
                   className="my-5 side-btn"
+                  data-testid="login-btn"
                 />
                 <input
                   type="submit"
