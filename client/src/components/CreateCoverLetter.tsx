@@ -220,6 +220,7 @@ const CreateCoverLetter = () => {
               ref={companyRef}
               type="text"
               required
+              data-testid="companyNameInput"
             />
           </div>
           <div>
@@ -230,6 +231,7 @@ const CreateCoverLetter = () => {
               ref={titleRef}
               type="text"
               required
+              data-testid="jobTitleInput"
             />
           </div>
           <div>
@@ -240,6 +242,7 @@ const CreateCoverLetter = () => {
               ref={descriptionRef}
               rows={8}
               required
+              data-testid="descriptionTextarea"
             />
           </div>
           <button
@@ -262,7 +265,11 @@ const CreateCoverLetter = () => {
           )}
         </form>
         {newLetter && (
-          <div className="text-center">
+          <div
+            className="text-center"
+            id="letterContainer"
+            data-testid="letterContainer"
+          >
             <h3
               className="text-2xl text-center mb-10 mt-20 font-bold"
               ref={headingRef}

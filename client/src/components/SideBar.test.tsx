@@ -17,8 +17,8 @@ const mockStore = configureStore({
     loader: loaderReducer,
   },
 });
-
-test("only one hamburger button is visible at any given time", () => {
+// first test -  option A with document:
+test("only one hamburger button is visible at any given time (syntax A)", () => {
   render(
     <Provider store={mockStore}>
       <MemoryRouter>
@@ -28,6 +28,20 @@ test("only one hamburger button is visible at any given time", () => {
   );
 
   const hamburgerButtons = document.querySelectorAll(".hamburger");
+  expect(hamburgerButtons).toHaveLength(1);
+});
+
+// first test -  option B with screen:
+test("only one hamburger button is visible at any given time (syntax B)", () => {
+  const { container } = render(
+    <Provider store={mockStore}>
+      <MemoryRouter>
+        <SideBar />
+      </MemoryRouter>
+    </Provider>
+  );
+
+  const hamburgerButtons = container.querySelectorAll(".hamburger");
   expect(hamburgerButtons).toHaveLength(1);
 });
 
